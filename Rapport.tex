@@ -1,0 +1,54 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{hyperref}
+
+\pagestyle{headings}
+
+\title{Rapport intermédiaire de Développement Web 2}
+\author{Lucas Jouvet, Francis Kempenaers et Tao Grolleau}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  Nous détaillons dans ce rapport les principales fonctionnalités de notre application. Le chef de projet désigné est Tao Grolleau.
+\end{abstract}
+
+\newpage
+
+\section{Description de l'application}
+
+Le type de documents traités est des fichiers de code source, pouvant être traités par des groupes d'utilisateurs ou un seul utilisateur. Les documents peuvent être soit publics, soit privés. 
+
+Dans le cas des documents privés, seul un nombre fixé d'utilisateurs peuvent modifier le document, et toute modification est définitive. 
+
+Pour les documents publics, n'importe quel utilisateur peut les voir, et proposer une modification. Seul le propriétaire du document est en mesure d'accepter ces modifications ou de les supprimer. Les modifications peuvent être vues par n'importe quel utilisateur.
+
+Un utilsateur sans compte peut créer une page d'édition temporaire, et il peut partager le lien. Le document peut être exporté en un fichier local. Le document est détruit lorque le créateur quitte la page.
+
+\subsection{Principales fonctionnalités}
+
+La communication se fait par chat, et celui-ci n'est présent que sur les pages d'édition où l'on peut modifier les documents. Chaque utilisateur a une messagerie, et tous les autres utilisateurs peuvent lui laisser un message.
+
+Chaque utilisateur a la possibilité de créer un groupe, il en devient alors l'administrateur. Il peut ainsi inviter de nouvelles personnes ou en supprimer du groupe. Chaque groupe a une page unique, qui contiendra le nom des membres, les logs de modification (sans possiblité de revenir en arrière), et les noms des différents fichiers.
+
+Chaque fichier a des commentaires qui lui sont associés, ceux-ci ne peuvent être supprimés.
+
+\subsection{Différents diagrammes}
+
+\section{Technologies utilisées}
+
+\section{Rôles des membres du groupe}
+
+Cela sera sûrement détaillé plus tard, et sujet à changement.
+Mais pour commencer, Lucas Jouvet va s'occuper du client léger, Francis Kempenaers va s'occuper du client lourd et Tao Grolleau va s'occuper de la base de données et de son implémentation dans les deux clients.
+
+\end{document}
