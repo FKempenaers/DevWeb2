@@ -6,9 +6,11 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
-
+\usepackage{float}
 \usepackage{hyperref}
+\usepackage{geometry}
 
+\geometry{hmargin=1.5cm,vmargin=4cm}
 \pagestyle{headings}
 
 \title{Rapport intermédiaire de Développement Web 2}
@@ -44,14 +46,39 @@ Chaque utilisateur a la possibilité de créer un groupe, il en devient alors l'
 Chaque fichier a des commentaires qui lui sont associés, ceux-ci ne peuvent être supprimés.
 
 \subsection{Différents diagrammes}
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.4]{sequence.pdf}
-\end{center}
-\caption{Diagramme de séquence}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.4]{sequence.pdf}
+  \end{center}
+  \caption{Diagramme de séquence}
 \end{figure}
-\section{Technologies utilisées}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.7]{EntiteAssociationBDD.png}
+  \end{center}
+  \caption{Diagramme entitée association}
+\end{figure}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.7]{Diagramme_classe.png}
+  \end{center}
+  \caption{Diagramme de classes}
+\end{figure}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.3]{edition.png}
+  \end{center}
+  \caption{Page d'édition}
+\end{figure}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.3]{profil.png}
+  \end{center}
+  \caption{Page du profil}
+\end{figure}
 
+\section{Technologies utilisées}
+Nous allons utiliser Swing pour le client lourd, des jsp et servlets pour le client léger. Conformément à l'architecture MVC : Les servlets seront utilisés pour traiter les requêtes, et les jsp pour y répondre. Pour le xml nous pensons peut-être l'utiliser pour importer et exporter des groupes d'utilisateurs.
 \section{Rôles des membres du groupe}
 
 Cela sera sûrement détaillé plus tard, et sujet à changement.
