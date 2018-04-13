@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.9.6)  12 APR 2018 18:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.5)  13 APR 2018 09:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **Rapport.tex
 (./Rapport.tex
 LaTeX2e <2016/02/01>
-Babel <3.9q> and hyphenation patterns for 5 language(s) loaded.
+Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
@@ -781,25 +781,25 @@ Package rerunfilecheck Info: File `Rapport.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 105.
  ) 
 Here is how much of TeX's memory you used:
- 7991 strings out of 494924
- 111644 string characters out of 6179709
- 204265 words of memory out of 5000000
- 11164 multiletter control sequences out of 15000+600000
+ 7991 strings out of 493029
+ 111644 string characters out of 6136235
+ 209010 words of memory out of 5000000
+ 11406 multiletter control sequences out of 15000+600000
  14209 words of font info for 36 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
+ 1141 hyphenation exceptions out of 8191
  29i,6n,30p,363b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/tao/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/tao
-/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/tao/.texmf-var/f
-onts/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/tao/.texmf-var/fonts/pk/ljfou
-r/jknappen/ec/ecsl1200.600pk> </home/tao/.texmf-var/fonts/pk/ljfour/jknappen/ec
-/ecrm1200.600pk> </home/tao/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600
-pk> </home/tao/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/ta
-o/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </home/tao/.texmf-var/
-fonts/pk/ljfour/jknappen/ec/ecrm2074.600pk>
-Output written on Rapport.pdf (7 pages, 439285 bytes).
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texmf/
+fonts/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf/fonts/type1/public/c
+m-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1728.pfb
+></usr/share/texmf/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf/f
+onts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm
+-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb>
+</usr/share/texmf/fonts/type1/public/cm-super/sfrm2074.pfb></usr/share/texmf/fo
+nts/type1/public/cm-super/sfsl1200.pfb>
+Output written on Rapport.pdf (7 pages, 497863 bytes).
 PDF statistics:
- 340 PDF objects out of 1000 (max. 8388607)
- 106 compressed objects within 2 object streams
+ 134 PDF objects out of 1000 (max. 8388607)
+ 98 compressed objects within 1 object stream
  20 named destinations out of 1000 (max. 500000)
  76 words of extra memory for PDF output out of 10000 (max. 10000000)
 
