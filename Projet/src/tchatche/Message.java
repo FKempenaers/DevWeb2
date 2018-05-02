@@ -28,4 +28,8 @@ public class Message {
 		return date;
 	}
 	
+	public String toString() {
+		return "["+date.toString()+"] "+user+" : "+message+"<br/>";	
+	}
+	
 }
