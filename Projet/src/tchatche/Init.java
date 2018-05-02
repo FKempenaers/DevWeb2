@@ -43,11 +43,7 @@ public class Init extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		//response.setContentType("text/html; charset=UTF-8");
-		//PrintWriter out = response.getWriter();
-		
-		//out.println(request.getParameter("pseudo"));
+
 		this.init();
 		HttpSession session = request.getSession();
 		String pseudo = request.getParameter("pseudo");
@@ -70,16 +66,10 @@ public class Init extends HttpServlet {
 		Hashtable<String, Integer> listeUsers = new Hashtable<String, Integer>();
 		// l'entier sert à stocker le nombre de messages envoyé par un meme utilisateur
 		
-		ArrayList<Message> listeMessages = new ArrayList<Message>();
-		
 		
 		context.setAttribute("listeUsers", listeUsers);
-		context.setAttribute("listeMessages", listeMessages);
+		context.setAttribute("listeMessages", GestionMessages.get());
 		
-		// exo6
-				context.setAttribute("nbRefresh", 0);
-				context.setAttribute("tailleDonnees", 0);
-				// fin exo6
 		
 	}
 
