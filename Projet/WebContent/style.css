@@ -1,0 +1,39 @@
+/* .grid { */
+/* 	border: 5px solid blue; */
+/* 	min-height: 10px; */
+/* 	color: red; */
+/* } */
+
+/* .grid>div { */
+/* 	display: inline-block; */
+/* 	height: 30px; */
+/* 	width: 30px; */
+/* 	border: 1px solid black; */
+/* } */
+
+/* .on { */
+/* 	background: chartreuse; */
+/* 	color: blue; */
+/* } */
+body {
+	background-image: url(bg.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+button {
+	border-radius: 25px;
+	/*background: blue;*/
+	color: white;
+	height: 20px;
+	width: 200px;
+	margin-right: 10px;
+	float: left;
+	background: url(images.jpeg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.deco {
+	float: right;
+}

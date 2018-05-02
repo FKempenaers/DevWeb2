@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>Projet</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
+		<param-name>listeMessages</param-name>
+		<param-value> </param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>listeUsers</param-name>
+		<param-value>  </param-value>
+	</context-param>
+	<context-param>
+		<param-name>nbRefresh</param-name>
+		<param-value>  </param-value>
+	</context-param>
+	<context-param>
+		<param-name>tailleDonnees</param-name>
+		<param-value>  </param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>SalutMonde</servlet-name>
+		<servlet-class>tchatche.SalutMonde</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SalutMonde</servlet-name>
+		<url-pattern> /SalutMonde </url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Init</servlet-name>
+		<servlet-class>tchatche.Init</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Init</servlet-name>
+		<url-pattern> /Init </url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Tchatche</servlet-name>
+		<servlet-class>tchatche.Tchatche</servlet-class>
+		<init-param>
+			<param-name>time_refresh</param-name>
+			<param-value> 2 </param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Tchatche</servlet-name>
+		<url-pattern> /Tchatche </url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Admin</servlet-name>
+		<servlet-class>tchatche.Admin</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Admin</servlet-name>
+		<url-pattern> /Admin </url-pattern>
+	</servlet-mapping>
+
+</web-app>
