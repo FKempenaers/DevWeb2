@@ -38,5 +38,16 @@ public class GestionMessages {
 		}
 		return s;
 	}
+	public String afficherClientLourd(int n) {
+		for(Message m : messages) {
+			if(m.getNum() == n) {
+				return m.getMessage();
+			}
+		}
+		return "Message non existant";
+	}
+	public int nbmessage() {
+		return messages.size();
+	}
 	
 }

@@ -20,7 +20,7 @@ public class editeur extends JFrame implements ActionListener {
 
       JPanel cp = new JPanel(new BorderLayout());
 
-      textArea = new RSyntaxTextArea(doc,45, 200);
+      textArea = new RSyntaxTextArea(doc,45, 100);
       textArea.setSyntaxEditingStyle(style);
       textArea.setCodeFoldingEnabled(true);
       RTextScrollPane sp = new RTextScrollPane(textArea);
