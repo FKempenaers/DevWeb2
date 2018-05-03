@@ -1,8 +1,6 @@
 package clientlourd;
 
-import java.awt.BorderLayout;
 //import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +16,10 @@ import tchatche.GestionMessages;
 //import tchatche.GestionMessages;
 
 public class Chat extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GestionMessages chat;
 	private JPanel cp;
 	private JLabel text[];
@@ -32,7 +34,7 @@ public class Chat extends JFrame {
 		if(nbmessage < 0) {
 			nbmessage = 0;
 		}
-		cp = new JPanel(new BorderLayout());
+		cp = new JPanel(null);
 		text = new JLabel[25];
 		int j = 0;
 		for(int i = 0; i < 24; i++,j += 20) {
@@ -92,7 +94,7 @@ public class Chat extends JFrame {
 		
 		setContentPane(cp);
 		setTitle("Chat");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 	    setLocationRelativeTo(null);
 

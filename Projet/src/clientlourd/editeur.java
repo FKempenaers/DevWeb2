@@ -50,8 +50,8 @@ public class editeur extends JFrame implements ActionListener {
       cp.add(toolBar, BorderLayout.NORTH);*/
 
       setContentPane(cp);
-      setTitle("Find and Replace Demo");
-      setDefaultCloseOperation(EXIT_ON_CLOSE);
+      setTitle("Editeur");
+      //setDefaultCloseOperation(EXIT_ON_CLOSE);
       pack();
       setLocationRelativeTo(null);
 
