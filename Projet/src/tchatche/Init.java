@@ -55,7 +55,8 @@ public class Init extends HttpServlet {
 			listeUsers.put(pseudo,0);
 		}
 		context.setAttribute("listeUsers", listeUsers);
-		
+
+		//response.sendRedirect("WEB-INF/tchatche.jsp");
 		getServletContext().getRequestDispatcher("/WEB-INF/tchatche.jsp").forward(request, response);
 	}
 

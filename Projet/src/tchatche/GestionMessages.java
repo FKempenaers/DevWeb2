@@ -27,8 +27,16 @@ public class GestionMessages {
 		messages.add(m);
 	}
 	
-	public void afficher() {
-		System.out.println(this.toString()+"<br/>");
+	public String afficher() {
+		String s = "";
+		if (messages.size() != 0) {
+			s += "<table>";
+			for(Message m : messages) {
+				s += "<tr><td>"+m.getDate()+"</td><td>"+m.getUser()+" : "+m.getMessage()+"</td></tr>";
+			}
+			s+= "</table>";
+		}
+		return s;
 	}
 	
 }

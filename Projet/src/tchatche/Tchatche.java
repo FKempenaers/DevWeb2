@@ -40,6 +40,7 @@ public class Tchatche extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession();
+		 String pseudo = (String)session.getAttribute("pseudo");
 		
 		
 		getServletContext().getRequestDispatcher("/WEB-INF/tchatche.jsp").forward(request, response);

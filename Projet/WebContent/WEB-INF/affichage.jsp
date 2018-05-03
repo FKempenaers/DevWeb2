@@ -10,7 +10,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	${listeMessages.toString()} ${response.setIntHeader("Refresh", 3)}
+	${listeMessages.afficher()}
 </body>
 </html>

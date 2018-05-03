@@ -16,7 +16,7 @@
        <label for="message"> Message :</label>
        <input type="text" name="message" id="message" />
 
-	<input type="submit" name="Envoyer"  />
+	<input type="submit" name="Envoyer"  value="Envoyer"/>
 	
 		</form>
 </body>
