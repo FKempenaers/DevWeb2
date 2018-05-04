@@ -8,45 +8,35 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rtextarea.RTextScrollPane;
 
-public class Administration extends JFrame{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class AllFiles  extends JFrame{
 	private JPanel cp;
 	private JLabel[] fichiers;
 	private JButton[] bAF;
-	private JButton allFi;
 	
-	public Administration() {
-		
+	public AllFiles() {
 		cp = new JPanel(null);
-		JLabel lf = new JLabel();
-		lf.setLayout(null);
-		lf.setLocation(new Point(0,20));
-		lf.setSize(200, 13);
-		lf.setText("Liste des fichiers");
-		cp.add(lf);
-		affiche_fichiers();
-		
-		
-		setContentPane(cp);
-		setTitle("Administration");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		afficher_fichiers();
+		JScrollPane sp = new JScrollPane();
+		//RTextScrollPane sp = new RTextScrollPane(cp);
+	    //cp.add(s);
+		add(sp.add(cp));
+		setContentPane(sp);
+		setTitle("Liste des fichiers");
 		pack();
-		setLocationRelativeTo(null);
+	    setLocationRelativeTo(null);
 	}
-	
-	public void affiche_fichiers() {
+	public void afficher_fichiers() {
 		int j = 40;
-		fichiers = new JLabel[20];
-		bAF = new JButton[20];
-		for(int i = 0; i < 20;i++,j+=20) {
+		fichiers = new JLabel[60];
+		bAF = new JButton[60];
+		for(int i = 0; i < 60;i++,j+=20) {
 			fichiers[i] = new JLabel();
 			fichiers[i].setLayout(null);
 			fichiers[i].setLocation(new Point(0,j));
@@ -86,35 +76,9 @@ public class Administration extends JFrame{
 				}
 			});
 			
-			
-			
-			
 			cp.add(fichiers[i]);
 			cp.add(bAF[i]);
 			
 		}
-		allFi = new JButton("Tous les fichiers");
-		allFi.setBounds(0, j+40, 190, 20);
-		allFi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				SwingUtilities.invokeLater(new Runnable() {
-				  public void run() {
-					try {
-						String laf = UIManager.getSystemLookAndFeelClassName();
-						UIManager.setLookAndFeel(laf);
-					} catch (Exception e) { /* never happens */ }
-					AllFiles af = new AllFiles();
-					
-					af.setSize(400, 600);
-					af.setVisible(true);
-					af.requestFocus();
-				 }
-			    });
-			}
-		});
-		cp.add(allFi);
 	}
-
-	
-	
 }
