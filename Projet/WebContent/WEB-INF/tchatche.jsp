@@ -10,8 +10,8 @@
 <title>Tchatche</title>
 </head>
 <body>
-
+	<script type="text/javascript" src="fonctions.js"></script>
 	<jsp:include page="affichage.jsp" />
-	<jsp:include page="saisie.jsp" />
+	<jsp:include page="saisie.html" />
 </body>
 </html>
