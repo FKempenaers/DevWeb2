@@ -2,6 +2,7 @@ package clientleger;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,7 +42,7 @@ public class AjouterFichier extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		getServletContext().getRequestDispatcher("/WEB-INF/ajouterFichier.jsp").forward(request, response);
 	}
 
 	/**
@@ -70,6 +71,19 @@ public class AjouterFichier extends HttpServlet {
 					n = Integer.parseInt(word);
 					out.println(n);
 				}
+				
+				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(uploads)));
+				
+				String fichier = "";
+				String line = br.readLine();
+				while(line!=null){
+				 out.println(line);
+				 fichier += line;
+				 line = br.readLine();
+				}
+				
+				getServletContext().setAttribute("fichier", fichier);
+				getServletContext().getRequestDispatcher("/WEB-INF/ajouterFichier.jsp").forward(request, response);
 			}
 		} finally {
 			out.close();
