@@ -20,7 +20,7 @@ public class Serveur extends Thread{
 	public void run() {
 		final int PORT = 8888;
 		try {
-			GestionMessages chat = new GestionMessages();;
+			GestionMessages chat = new GestionMessages();
 			ServerSocket server = new ServerSocket(PORT, 1);
 			while(true) {
 			Socket s = server.accept();
