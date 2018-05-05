@@ -20,6 +20,7 @@ public class Serveur extends Thread{
 	public void run() {
 		final int PORT = 8888;
 		try {
+			GestionMessages chat = new GestionMessages();;
 			ServerSocket server = new ServerSocket(PORT, 1);
 			
 			Socket s = server.accept();
@@ -32,8 +33,10 @@ public class Serveur extends Thread{
 					out.println(chat.nbmessage());
 					out.flush();
 				}
-				out.println(chat.afficherClientLourd(Integer.parseInt(ligne)));
-				out.flush();
+				else {
+					out.println(chat.afficherClientLourd(Integer.parseInt(ligne)));
+				  	out.flush();
+				}
 			}
 		} catch (IOException e) {}
 	}

@@ -37,7 +37,7 @@ public class Chat extends JFrame {
 		JTextField editbox;
 		
 		chat = GestionMessages.get();
-		nbmessage = chat.nbmessage()-20;
+		nbmessage = snbmessage()-20;
 		if(nbmessage < 0) {
 			nbmessage = 0;
 		}
@@ -50,7 +50,7 @@ public class Chat extends JFrame {
 		  text[i].setLayout(null);
 		  text[i].setLocation(new Point(0,j));
 		  text[i].setSize(200, 13);
-		  m = chat.afficherClientLourd(nbmessage);
+		  m = message(nbmessage);
 		  if(m != "Message non existant") {
 			  text[i].setText(m);
 		  }
