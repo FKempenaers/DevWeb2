@@ -2,21 +2,53 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> Enregistrement</title>
+<title>Enregistrement</title>
 </head>
 <body>
-		<p> Bonjour ! </p> 
-		<p> Bienvenue sur l'aplication de tchatche !</p>
-
+	<script>
+		src = "fonctions.js"
+	</script>
+	<p>Bonjour !</p>
+	<p>Bienvenue sur l'aplication de tchatche !</p>
+	<div>
 		<form method="post" action="Init">
- 
-       <label for="nom">Quel est votre pseudo ?</label>
-       <input type="text" name="pseudo" id="pseudo" />
 
-		<input type="submit" name="ok" value ="Entrer" />
-		<script>src="fonctions.js"</script>
-       
-</form>
+			<label for="nom">Quel est votre pseudo ?</label> <input type="text"
+				name="pseudo" id="pseudo" /> <input type="submit" name="ok"
+				value="Entrer" />
+		</form>
+
+	</div>
+
+	<div>
+		<p>Connexion</p>
+
+		<form method="post" action="Connexion">
+
+			<label for="nom">Pseudo</label> <input type="text" name="pseudo"
+				id="pseudo" /> <label for="mdp">Mot De Passe</label> <input
+				type="password" name="mdp" id="mdp" /> <input type="submit"
+				name="ok" value="Entrer" />
+		</form>
+
+	</div>
+
+	<div>
+		<p>Pas encore de compte ?</p>
+		<form method="get" action="EnregistrerUser">
+			<input type="submit" value="S'enregistrer" />
+		</form>
+	</div>
+
+	<div>
+		<p>fichier public ?</p>
+		<form method="post" action="AjouterFichier" enctype="multipart/form-data">>
+			<input type="file" value="Charger" name="fichier"/> <input type="submit"
+				value="Charger" />
+		</form>
+	</div>
+
+
 
 </body>
 </html>

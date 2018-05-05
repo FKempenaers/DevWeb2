@@ -25,6 +25,7 @@ public class Init extends HttpServlet {
      */
     public Init() {
         super();
+    	System.out.println("tamere");
         // TODO Auto-generated constructor stub
     }
 
