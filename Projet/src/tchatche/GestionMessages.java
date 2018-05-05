@@ -7,8 +7,6 @@ import java.util.Locale;
 
 public class GestionMessages {
 	private ArrayList<Message> messages;
-	private static GestionMessages chat = new GestionMessages();
-	
 	
 	public GestionMessages() {
 		this.messages = new ArrayList<Message>();
@@ -17,11 +15,7 @@ public class GestionMessages {
 	public String toString() {
 		return messages.toString();
 	}
-	
-	public static GestionMessages get() {
-		return chat;
-	}
-	
+
 	public void add(String p,String s) {
 		Message m = new Message(p,s, new SimpleDateFormat("HH:mm:SS", Locale.FRANCE).format(new Date()));
 		messages.add(m);
@@ -38,15 +32,26 @@ public class GestionMessages {
 		}
 		return s;
 	}
+//	public String afficherClientLourd(int n) {
+//		for(Message m : messages) {
+//			System.out.println(m.getMessage());
+//			if(m.getNum() == n) {
+//				return m.getMessage();
+//			}
+//		}
+//		return "Message non existant";
+//	}
+	
 	public String afficherClientLourd(int n) {
-		for(Message m : messages) {
-			System.out.println(m.getMessage());
-			if(m.getNum() == n) {
-				return m.getMessage();
-			}
-		}
-		return "Message non existant";
+		if(n < messages.size())
+		return messages.get(n).getMessage();
+		else
+			return null;
 	}
+	
+	
+	
+
 	public int nbmessage() {
 		return messages.size();
 	}

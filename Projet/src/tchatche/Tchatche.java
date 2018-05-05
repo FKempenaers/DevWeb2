@@ -74,9 +74,11 @@ public class Tchatche extends HttpServlet {
 	private void newMessage(String pseudo, String message, String date) {
 		// exo5
 		ServletContext context = this.getServletContext();
-		GestionMessages.get().add(message, pseudo);
+		GestionMessages liste = (GestionMessages) context.getAttribute("listeMessages");
+ 		
+		liste.add(message, pseudo);
 
-		context.setAttribute("listeMessages", GestionMessages.get());
+		context.setAttribute("listeMessages", liste);
 	}
 
 }
