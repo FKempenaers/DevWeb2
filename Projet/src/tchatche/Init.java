@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 
 public class Init extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private static serveur.Serveur serv = new serveur.Serveur();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -70,7 +70,7 @@ public class Init extends HttpServlet {
 		
 		
 		context.setAttribute("listeUsers", listeUsers);
-		context.setAttribute("listeMessages", GestionMessages.get());
+		context.setAttribute("listeMessages", serv.getChat());
 		
 		
 	}

@@ -9,9 +9,15 @@ import java.net.Socket;
 
 import tchatche.GestionMessages;
 
-public class Serveur {
+public class Serveur extends Thread{
 	private GestionMessages chat;
+	
 	public Serveur() {
+		chat = new GestionMessages();
+		this.start();
+	}
+	
+	public void run() {
 		final int PORT = 8888;
 		try {
 			ServerSocket server = new ServerSocket(PORT, 1);
@@ -31,4 +37,9 @@ public class Serveur {
 			}
 		} catch (IOException e) {}
 	}
+	
+	public GestionMessages getChat() {
+		return chat;
+	}
+	
 }
