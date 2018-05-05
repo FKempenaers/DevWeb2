@@ -40,6 +40,7 @@ public class GestionMessages {
 	}
 	public String afficherClientLourd(int n) {
 		for(Message m : messages) {
+			System.out.println(m.getMessage());
 			if(m.getNum() == n) {
 				return m.getMessage();
 			}

@@ -31,13 +31,27 @@ public class Chat extends JFrame {
 	private JPanel cp;
 	private JLabel text[];
 	private JButton b1 = new JButton("Envoyer");
+	final int PORT = 8888;
+	private InputStream in;
+	private OutputStream out;
+	BufferedReader reader;
+	private Socket s;
+	
 	public Chat() {
 		int nbmessage;
 		String m;
 		JTextField editbox;
-		
-		chat = GestionMessages.get();
-		nbmessage = snbmessage()-20;
+		try {
+			s = new Socket("localhost",PORT);
+			in = s.getInputStream();
+			out = s.getOutputStream();
+			reader = new BufferedReader(new InputStreamReader(in));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//chat = GestionMessages.get();
+		nbmessage = snbmessage()-23;
 		if(nbmessage < 0) {
 			nbmessage = 0;
 		}
@@ -60,10 +74,7 @@ public class Chat extends JFrame {
 		  
 		  nbmessage++;
 		}
-	
 
-		
-		
 		editbox = new JTextField();	
 		editbox.setLayout(null);
 		editbox.setLocation(new Point(0,500));
@@ -76,7 +87,9 @@ public class Chat extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if(!editbox.getText().isEmpty()) {
-				 chat.add(editbox.getText(),"Lucas");
+					PrintWriter writer = new PrintWriter(out);
+					writer.print("add\n"+editbox.getText()+"\n"+"Lucas\n");
+					writer.flush();
 				}
 				editbox.setText("");
 				actumessage();
@@ -126,14 +139,10 @@ public class Chat extends JFrame {
 		}
 	}
 	public int snbmessage() {
-		final int PORT = 8888;
+
 		try {
-			Socket s = new Socket("localhost",PORT);
-			InputStream in = s.getInputStream();
-			OutputStream out = s.getOutputStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			PrintWriter writer = new PrintWriter(out);
-			writer.print("nbmessages");
+			writer.print("nbmessages\n");
 			writer.flush();
 			return Integer.parseInt(reader.readLine());
 		} catch (IOException e) {
@@ -143,14 +152,10 @@ public class Chat extends JFrame {
 		return -1;
 	}
 	public String message(int n) {
-		final int PORT = 8888;
+		
 		try {
-			Socket s = new Socket("localhost",PORT);
-			InputStream in = s.getInputStream();
-			OutputStream out = s.getOutputStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			PrintWriter writer = new PrintWriter(out);
-			writer.print("n");
+			writer.print(n+"\n");
 			writer.flush();
 			return reader.readLine();
 		} catch (IOException e) {

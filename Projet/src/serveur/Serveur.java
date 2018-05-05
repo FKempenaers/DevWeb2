@@ -22,23 +22,36 @@ public class Serveur extends Thread{
 		try {
 			GestionMessages chat = new GestionMessages();;
 			ServerSocket server = new ServerSocket(PORT, 1);
-			
+			while(true) {
 			Socket s = server.accept();
 			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			PrintWriter out = new PrintWriter(s.getOutputStream());
-			String ligne;
-			while(true) {
+			String ligne,l1,l2;
+			
 				ligne = in.readLine();
-				if(ligne.equals("nbmessages")) {
-					out.println(chat.nbmessage());
-					out.flush();
+				while(!(ligne == null)) {
+					
+					if(ligne.equals("nbmessages")) {
+						out.println(chat.nbmessage());
+						out.flush();
+					}
+					else if(ligne.equals("add")) {
+						l1= in.readLine();
+						l2= in.readLine();
+						if(!ligne.equals("")) {
+							chat.add(l1, l2);
+						}
+					}
+					else {
+						out.println(chat.afficherClientLourd(Integer.parseInt(ligne)));
+						out.flush();
+					}
+					ligne = in.readLine();
 				}
-				else {
-					out.println(chat.afficherClientLourd(Integer.parseInt(ligne)));
-				  	out.flush();
-				}
+				
 			}
 		} catch (IOException e) {}
+		
 	}
 	
 	public GestionMessages getChat() {
