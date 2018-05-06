@@ -1,11 +1,11 @@
 //alert("ceci est du js rofl");
 
-var source = new EventSource("Tchatche");
-source.addEventListener('message', function(e) {
-	  console.log(e.data);
-	  alert("je vais reload");
-	  window.location.reload(true);
-	}, false);
+//var source = new EventSource("AfficheMessages");
+//source.addEventListener('message', function(e) {
+//	  console.log(e.data);
+//	  alert("je vais reload");
+//	  window.location.reload(true);
+//	}, false);
 
 
 //var r = new XMLHttpRequest();

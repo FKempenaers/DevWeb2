@@ -60,22 +60,22 @@ public class Tchatche extends HttpServlet {
 		String message = request.getParameter("message");
 		HttpSession session = request.getSession();
 		String pseudo = (String) session.getAttribute("pseudo");
-
+		
+		if(pseudo == null || message == null || request.getServletContext().getAttribute("listeMessages") == null)
+			response.sendRedirect("Init");
+		else {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:SS", Locale.FRANCE);
 		newMessage(pseudo, message, dateFormat.format(new Date()));
 		
-//		response.setContentType("text/event-stream");
-//		response.getOutputStream().write(0);
-//		response.sendRedirect("Tchatche");
-
 		getServletContext().getRequestDispatcher("/WEB-INF/tchatche.jsp").forward(request, response);
+		}
 	}
 
 	private void newMessage(String pseudo, String message, String date) {
 		// exo5
 		ServletContext context = this.getServletContext();
 		GestionMessages liste = (GestionMessages) context.getAttribute("listeMessages");
- 		
+		if(pseudo != null && message != null && liste != null)
 		liste.add(message, pseudo);
 
 		context.setAttribute("listeMessages", liste);

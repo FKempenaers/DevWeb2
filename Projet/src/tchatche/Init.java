@@ -25,7 +25,6 @@ public class Init extends HttpServlet {
      */
     public Init() {
         super();
-    	System.out.println("tamere");
         // TODO Auto-generated constructor stub
     }
 
@@ -59,6 +58,7 @@ public class Init extends HttpServlet {
 
 		response.sendRedirect("Tchatche");
 		//getServletContext().getRequestDispatcher("/WEB-INF/tchatche.jsp").forward(request, response);
+		//getServletContext().getRequestDispatcher("/Tchatche").forward(request, response);
 	}
 
 	

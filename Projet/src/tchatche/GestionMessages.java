@@ -48,12 +48,13 @@ public class GestionMessages {
 		else
 			return null;
 	}
-	
-	
-	
 
 	public int nbmessage() {
 		return messages.size();
+	}
+	
+	public ArrayList<Message> getMessages(){
+		return messages;
 	}
 	
 }
