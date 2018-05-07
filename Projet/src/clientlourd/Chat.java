@@ -52,9 +52,11 @@ public class Chat extends JFrame {
 		}
 		//chat = GestionMessages.get();
 		nbmessage = snbmessage()-23;
+		System.out.println("nb messages :" + nbmessage);
 		if(nbmessage < 0) {
 			nbmessage = 0;
 		}
+		System.out.println("nb messages :" + nbmessage);
 		cp = new JPanel(null);
 		text = new JLabel[25];
 		int j = 0;
@@ -88,7 +90,7 @@ public class Chat extends JFrame {
 
 				if(!editbox.getText().isEmpty()) {
 					PrintWriter writer = new PrintWriter(out);
-					writer.print("add\n"+editbox.getText()+"\n"+"Lucas\n");
+					writer.print("add\n"+editbox.getText()+"\n"+"Lucas\nxyz\n");
 					writer.flush();
 				}
 				editbox.setText("");
@@ -142,7 +144,7 @@ public class Chat extends JFrame {
 
 		try {
 			PrintWriter writer = new PrintWriter(out);
-			writer.print("nbmessages\n");
+			writer.print("nbmessages\nxyz\n");
 			writer.flush();
 			return Integer.parseInt(reader.readLine());
 		} catch (IOException e) {
@@ -155,7 +157,7 @@ public class Chat extends JFrame {
 		
 		try {
 			PrintWriter writer = new PrintWriter(out);
-			writer.print(n+"\n");
+			writer.print(n+"\nxyz\n");
 			writer.flush();
 			return reader.readLine();
 		} catch (IOException e) {

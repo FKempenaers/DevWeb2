@@ -27,10 +27,11 @@ public class Serveur extends Thread{
 			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			PrintWriter out = new PrintWriter(s.getOutputStream());
 			String ligne,l1,l2;
+			System.err.println("SERVER - NB Messages : " + chat.nbmessage());
 			
 				ligne = in.readLine();
-				while(!(ligne == null)) {
-					
+				while(!(ligne == "xyz")) {
+					System.err.println("SERVER - NB Messages 2 : " + chat.nbmessage());
 					if(ligne.equals("nbmessages")) {
 						out.println(chat.nbmessage());
 						out.flush();
@@ -43,10 +44,14 @@ public class Serveur extends Thread{
 						}
 					}
 					else {
-						out.println(chat.afficherClientLourd(Integer.parseInt(ligne)));
-						out.flush();
+						if(!ligne.equals("xyz")) {
+						 out.println(chat.afficherClientLourd(Integer.parseInt(ligne)));
+						 out.flush();
+						}
 					}
+					System.err.println("Ligne avant "+ligne);
 					ligne = in.readLine();
+					System.err.println("Ligne après "+ligne);
 				}
 				
 			}
