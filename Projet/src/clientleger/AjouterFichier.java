@@ -52,13 +52,13 @@ public class AjouterFichier extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		PrintWriter out = response.getWriter();
+		//PrintWriter out = response.getWriter();
 		/* Ajouter fonction pour mettre fichier dans bdd */
 		String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
 		Part filePart = request.getPart("fichier"); // Retrieves <input type="file" name="file">
 		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
 		InputStream fileContent = filePart.getInputStream();
-		File uploads = new File("/home/hp/uploads/fichieralacon");
+		File uploads = new File("/home/hp/uploads/fichier");
 		Files.copy(fileContent, uploads.toPath(),StandardCopyOption.REPLACE_EXISTING);
 
 		try {
@@ -69,7 +69,7 @@ public class AjouterFichier extends HttpServlet {
 				String word = "";
 				while ((word = reader.readLine()) != null) {
 					n = Integer.parseInt(word);
-					out.println(n);
+			//		out.println(n);
 				}
 				
 				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(uploads)));
@@ -77,16 +77,17 @@ public class AjouterFichier extends HttpServlet {
 				String fichier = "";
 				String line = br.readLine();
 				while(line!=null){
-				 out.println(line);
+				// out.println(line);
 				 fichier += line;
 				 line = br.readLine();
 				}
 				
 				getServletContext().setAttribute("fichier", fichier);
-				getServletContext().getRequestDispatcher("/WEB-INF/ajouterFichier.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/WEB-INF/affichageFichier.jsp").forward(request, response);
+				//response.sendRedirect("/AffichageFichier");
 			}
 		} finally {
-			out.close();
+			//out.close();
 		}
 	}
 
