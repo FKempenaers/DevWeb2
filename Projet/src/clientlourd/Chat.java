@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,7 +28,6 @@ public class Chat extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private GestionMessages chat;
 	private JPanel cp;
 	private JLabel text[];
 	private JButton b1 = new JButton("Envoyer");
@@ -41,7 +41,7 @@ public class Chat extends JFrame {
 		int nbmessage;
 		String m;
 		JTextField editbox;
-		try {
+		/*try {
 			s = new Socket("localhost",PORT);
 			in = s.getInputStream();
 			out = s.getOutputStream();
@@ -49,7 +49,7 @@ public class Chat extends JFrame {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		//chat = GestionMessages.get();
 		nbmessage = snbmessage()-23;
 		System.out.println("nb messages :" + nbmessage);
@@ -89,9 +89,22 @@ public class Chat extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if(!editbox.getText().isEmpty()) {
-					PrintWriter writer = new PrintWriter(out);
-					writer.print("add\n"+editbox.getText()+"\n"+"Lucas\nxyz\n");
-					writer.flush();
+					try {
+						s = new Socket("localhost",PORT);
+						in = s.getInputStream();
+						out = s.getOutputStream();
+						reader = new BufferedReader(new InputStreamReader(in));
+						PrintWriter writer = new PrintWriter(out);
+						writer.print("add\n"+editbox.getText()+"\n"+"Lucas\nxyz\n");
+						writer.flush();
+					} catch (UnknownHostException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 				}
 				editbox.setText("");
 				actumessage();
@@ -143,6 +156,10 @@ public class Chat extends JFrame {
 	public int snbmessage() {
 
 		try {
+			s = new Socket("localhost",PORT);
+			in = s.getInputStream();
+			out = s.getOutputStream();
+			reader = new BufferedReader(new InputStreamReader(in));
 			PrintWriter writer = new PrintWriter(out);
 			writer.print("nbmessages\nxyz\n");
 			writer.flush();
@@ -156,6 +173,10 @@ public class Chat extends JFrame {
 	public String message(int n) {
 		
 		try {
+			s = new Socket("localhost",PORT);
+			in = s.getInputStream();
+			out = s.getOutputStream();
+			reader = new BufferedReader(new InputStreamReader(in));
 			PrintWriter writer = new PrintWriter(out);
 			writer.print(n+"\nxyz\n");
 			writer.flush();

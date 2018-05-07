@@ -21,16 +21,14 @@ public class Serveur extends Thread{
 		final int PORT = 8888;
 		try {
 			ServerSocket server = new ServerSocket(PORT, 1);
+			String ligne,l1,l2;
 			while(true) {
 			Socket s = server.accept();
 			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			PrintWriter out = new PrintWriter(s.getOutputStream());
-			String ligne,l1,l2;
-			System.err.println("SERVER - NB Messages : " + chat.nbmessage());
 			
 				ligne = in.readLine();
-				while(!(ligne == "xyz")) {
-					System.err.println("SERVER - NB Messages : " + chat.nbmessage());
+				while(!(ligne.equals("xyz"))) {
 					if(ligne.equals("nbmessages")) {
 						out.println(chat.nbmessage());
 						out.flush();
@@ -50,6 +48,7 @@ public class Serveur extends Thread{
 					}
 					ligne = in.readLine();
 				}
+				s.close();
 				
 			}
 		} catch (IOException e) {}
