@@ -20,7 +20,6 @@ public class Serveur extends Thread{
 	public void run() {
 		final int PORT = 8888;
 		try {
-			GestionMessages chat = new GestionMessages();
 			ServerSocket server = new ServerSocket(PORT, 1);
 			while(true) {
 			Socket s = server.accept();
@@ -31,6 +30,7 @@ public class Serveur extends Thread{
 			
 				ligne = in.readLine();
 				while(!(ligne == "xyz")) {
+					System.err.println("SERVER - NB Messages : " + chat.nbmessage());
 					if(ligne.equals("nbmessages")) {
 						out.println(chat.nbmessage());
 						out.flush();
