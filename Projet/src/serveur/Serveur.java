@@ -31,7 +31,6 @@ public class Serveur extends Thread{
 			
 				ligne = in.readLine();
 				while(!(ligne == "xyz")) {
-					System.err.println("SERVER - NB Messages 2 : " + chat.nbmessage());
 					if(ligne.equals("nbmessages")) {
 						out.println(chat.nbmessage());
 						out.flush();
@@ -49,9 +48,7 @@ public class Serveur extends Thread{
 						 out.flush();
 						}
 					}
-					System.err.println("Ligne avant "+ligne);
 					ligne = in.readLine();
-					System.err.println("Ligne après "+ligne);
 				}
 				
 			}
