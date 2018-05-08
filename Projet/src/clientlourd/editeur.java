@@ -17,24 +17,19 @@ import javax.swing.*;
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 
-public class editeur extends JFrame implements ActionListener {
+public class editeur extends JFrame /*implements ActionListener,*/ {
 
    private static final long serialVersionUID = 1L;
 
    private RSyntaxTextArea textArea;
-   private JTextField searchField;
+   private static JTextField searchField;
    private JCheckBox regexCB;
    private JCheckBox matchCaseCB;
    private String doc;
+
    
-   final int PORT = 8888;
-   private InputStream in;
-   private OutputStream out;
-   BufferedReader reader;
-   private Socket s;
-
    public editeur(String doc,String style) {
-
+	   super();
       JPanel cp = new JPanel(new BorderLayout());
       this.doc = doc;
       textArea = new RSyntaxTextArea(this.doc,45, 100);
@@ -42,61 +37,29 @@ public class editeur extends JFrame implements ActionListener {
       textArea.setCodeFoldingEnabled(true);
       RTextScrollPane sp = new RTextScrollPane(textArea);
       cp.add(sp);
-      System.out.println("init!!");
-      cp.addKeyListener(new KeyListener() {
-
-    	  @Override
-	      public void keyPressed(KeyEvent arg0) {
-    		  System.out.println("test1");
-		      // TODO Auto-generated method stub
-		
-	      }
-
-    	  @Override
-    	  public void keyReleased(KeyEvent arg0) {
-    		  System.out.println("test2");
-    		  String text = searchField.getText();
-    		  // TODO Auto-generated method stub
-    		  try {
-    				s = new Socket("localhost",PORT);
-    				in = s.getInputStream();
-    				out = s.getOutputStream();
-    				reader = new BufferedReader(new InputStreamReader(in));
-    				PrintWriter writer = new PrintWriter(out);
-    			    writer.print("fichier\n"+text+"\n;;//*::::;;;;:;\nxyz\n");
-    				writer.flush();
-    				
-    			} catch (UnknownHostException e1) {
-    				// TODO Auto-generated catch block
-    				e1.printStackTrace();
-    			} catch (IOException e1) {
-    				// TODO Auto-generated catch block
-    				e1.printStackTrace();
-    			}
-		
-    	  }
-
-    	  @Override
-    	  public void keyTyped(KeyEvent arg0) {
-    		  System.out.println("test3");
-    		  // TODO Auto-generated method stub
-		
-    	  }
-
-      });
-  
-      cp.requestFocus();
+      
       setContentPane(cp);
       setTitle("Editeur");
       pack();
       setLocationRelativeTo(null);
-
+      textArea.addKeyListener(new TitreKeyListener(this));
+      textArea.setFocusable(true);
    }
    public RSyntaxTextArea gettextarea() {
 	   return textArea;
    }
+   
+   
+   public String gettext() {
 
-   public void actionPerformed(ActionEvent e) {
+	   return textArea.getText();
+   }
+   public void settext(String s) {
+
+	   textArea.setText(s);
+   }
+
+   //public void actionPerformed(ActionEvent e) {
 
       // "FindNext" => search forward, "FindPrev" => search backward
       /*String command = e.getActionCommand();
@@ -139,6 +102,57 @@ public class editeur extends JFrame implements ActionListener {
          JOptionPane.showMessageDialog(this, "Text not found");
       }*/
 
-   }
+  // }
 
+}
+
+class TitreKeyListener implements KeyListener {
+	   final int PORT = 8888;
+	   private InputStream in;
+	   private OutputStream out;
+	   BufferedReader reader;
+	   private Socket s;
+	   editeur ed;
+    public TitreKeyListener(editeur e) {
+    	System.out.println("ok");
+    	this.ed = e;
+    }
+ 
+    public void keyPressed(KeyEvent e) {
+    	try {
+			s = new Socket("localhost",PORT);
+			in = s.getInputStream();
+			out = s.getOutputStream();
+			reader = new BufferedReader(new InputStreamReader(in));
+			PrintWriter writer = new PrintWriter(out);
+			writer.print("getfichier\nxyz\n");
+			writer.flush();
+			ed.settext(reader.readLine());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    }
+ 
+    public void keyReleased(KeyEvent e) {
+    	try {
+    		s = new Socket("localhost",PORT);
+			in = s.getInputStream();
+			out = s.getOutputStream();
+			reader = new BufferedReader(new InputStreamReader(in));
+			PrintWriter writer = new PrintWriter(out);
+			writer.print("fichier\n"+ed.gettext()+"\n"+";;//*::::;;;;:;\nxyz\n");
+			writer.flush();
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    }
+ 
+    public void keyTyped(KeyEvent e) {
+        // on ne fait rien
+    }
 }
