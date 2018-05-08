@@ -11,10 +11,24 @@ import tchatche.GestionMessages;
 
 public class Serveur extends Thread{
 	private GestionMessages chat;
+	private boolean newmodif;
+	private String fichier;
 	
 	public Serveur() {
 		chat = new GestionMessages();
 		this.start();
+	}
+	public boolean getnewmodif() {
+		return newmodif;
+	}
+	public void setnewmodif(boolean newmodif) {
+		this.newmodif = newmodif;
+	}
+	public String getfichier() {
+		return fichier;
+	}
+	public void setfichier(String fichier) {
+		this.fichier = fichier;
 	}
 	
 	public void run() {
@@ -39,6 +53,17 @@ public class Serveur extends Thread{
 						if(!ligne.equals("")) {
 							chat.add(l1, l2);
 						}
+					}
+					else if(ligne.equals("fichier")) {
+						String f ="",l;
+						l = in.readLine();
+						while(!(ligne.equals(";;//*::::;;;;:;"))) {
+							f = f + l;
+							l = in.readLine(); 
+						}
+						fichier = f;
+						System.out.println(fichier);
+						newmodif = true;
 					}
 					else {
 						if(!ligne.equals("xyz")) {

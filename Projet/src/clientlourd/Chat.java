@@ -52,11 +52,9 @@ public class Chat extends JFrame {
 		}*/
 		//chat = GestionMessages.get();
 		nbmessage = snbmessage()-23;
-		System.out.println("nb messages :" + nbmessage);
 		if(nbmessage < 0) {
 			nbmessage = 0;
 		}
-		System.out.println("nb messages :" + nbmessage);
 		cp = new JPanel(null);
 		text = new JLabel[25];
 		int j = 0;
