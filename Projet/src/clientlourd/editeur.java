@@ -42,16 +42,19 @@ public class editeur extends JFrame implements ActionListener {
       textArea.setCodeFoldingEnabled(true);
       RTextScrollPane sp = new RTextScrollPane(textArea);
       cp.add(sp);
+      System.out.println("init!!");
       cp.addKeyListener(new KeyListener() {
 
     	  @Override
 	      public void keyPressed(KeyEvent arg0) {
+    		  System.out.println("test1");
 		      // TODO Auto-generated method stub
 		
 	      }
 
     	  @Override
     	  public void keyReleased(KeyEvent arg0) {
+    		  System.out.println("test2");
     		  String text = searchField.getText();
     		  // TODO Auto-generated method stub
     		  try {
@@ -75,13 +78,14 @@ public class editeur extends JFrame implements ActionListener {
 
     	  @Override
     	  public void keyTyped(KeyEvent arg0) {
+    		  System.out.println("test3");
     		  // TODO Auto-generated method stub
 		
     	  }
 
       });
   
-
+      cp.requestFocus();
       setContentPane(cp);
       setTitle("Editeur");
       pack();
