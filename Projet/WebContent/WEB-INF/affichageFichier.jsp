@@ -19,15 +19,33 @@
 
 
 	<script>
-		var socket = new WebSocket("ws://localhost:8080/Projet/AfficheFichier");
-		sendText();
 
-		// 		var source = new EventSource("AfficheFichier");
-		// 		source.onmessage = function(event) {
-		// 			document.getElementById('fichier').innerHTML = event.data;
-		// 		};
 
-		function sendText() {
+
+// implementation sse
+				var source = new EventSource("AfficheFichier");
+				source.onmessage = function(event) {
+					document.getElementById('fichier').innerHTML = event.data;
+				};
+				
+				
+				setInterval(function(){ 
+					
+					var r = new XMLHttpRequest();
+					var fichier = document.getElementById('fichier').value;
+					r.open("POST", "AfficheFichier");
+					r.send(fichier);
+					
+					
+				}, 3000);
+				
+				
+				
+				// implementation webSocket
+				/*var socket = new WebSocket("ws://localhost:8080/Projet/AfficheFichier");
+				sendText();
+
+		/*function sendText() {
 			// Construct a msg object containing the data the server needs to process the message from the chat client.
 			var msg = {
 				type : "message",
@@ -48,7 +66,7 @@
 				document.getElementById("fichier").contentWindow
 						.scrollByPages(1);
 			}
-		};
+		};*/
 	</script>
 
 </body>

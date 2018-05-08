@@ -34,11 +34,6 @@ public class AfficheFichier extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
         fichier = (String) request.getServletContext().getAttribute("fichier");
-        
-		HttpSession session = request.getSession();
-		String pseudo = (String) session.getAttribute("pseudo");
-		if(pseudo == null)
-			response.sendRedirect("Init");
 
 		response.setContentType("text/event-stream");
 		response.setCharacterEncoding("UTF-8");
@@ -54,7 +49,8 @@ public class AfficheFichier extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		fichier = request.getParameter("fichier");
+		request.getServletContext().setAttribute("fichier",fichier);
 	}
 
 }
