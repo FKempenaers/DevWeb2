@@ -12,7 +12,7 @@ public class Connect {
 	
 	public Connect() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
-		c = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Java", "root", "mdproot");
+		c = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/Java", "root", "mdproot");
 		st = (Statement) c.createStatement();
 	}
 	

@@ -77,7 +77,7 @@ public class Request {
 		return rs;
 	}
 	
-	public boolean check_user(String pseudo, String mdp) throws ClassNotFoundException, SQLException {
+	public static boolean check_user(String pseudo, String mdp) throws ClassNotFoundException, SQLException {
 		Connect cnx = new Connect();	
 		
 		Statement st = cnx.getSmt();

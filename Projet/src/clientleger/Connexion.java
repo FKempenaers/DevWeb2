@@ -44,8 +44,7 @@ public class Connexion extends HttpServlet {
 		String mdp = request.getParameter("mdp");
 		
 		try {
-			basededonnees.Request requete = new basededonnees.Request();
-			boolean check_user = requete.check_user(pseudo, mdp);
+			boolean check_user = basededonnees.Request.check_user(pseudo, mdp);
 			
 			if (check_user) {
 				doGet(request, response);
