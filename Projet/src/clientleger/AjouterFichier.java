@@ -42,7 +42,7 @@ public class AjouterFichier extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		getServletContext().getRequestDispatcher("/WEB-INF/ajouterFichier.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/WEB-INF/affichageFichier.jsp").forward(request, response);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class AjouterFichier extends HttpServlet {
 		// TODO Auto-generated method stub
 		//PrintWriter out = response.getWriter();
 		/* Ajouter fonction pour mettre fichier dans bdd */
-		String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
+		//String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
 		Part filePart = request.getPart("fichier"); // Retrieves <input type="file" name="file">
 		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
 		InputStream fileContent = filePart.getInputStream();
