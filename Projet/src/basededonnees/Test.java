@@ -10,11 +10,11 @@ public class Test extends Request {
 
 		Statement st = c.getSmt();
 		
-		clear_all_tables(st);
+		//clear_all_tables(st);
 		
-		init(st);
+		//init(st);
 		
-		addUser(st, 1, "tao", "1234");
+		/*addUser(st, 1, "tao", "1234");
 		addUser(st, 2, "francis", "4567");
 		addUser(st, 3, "lucas", "8901");
 		addGroup(st, 1, "L3 info");
@@ -53,8 +53,8 @@ public class Test extends Request {
 		}
 		*/
 		
-		rs.close();
+		/*rs.close();
 		st.close();
-		c.getCnx().close();
+		c.getCnx().close();*/
 	}
 }
