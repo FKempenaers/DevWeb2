@@ -2,6 +2,9 @@ package basededonnees;
 
 import java.sql.*;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
+
 public class Connect {
 	private Connection c;
 	private Statement st;
@@ -9,8 +12,8 @@ public class Connect {
 	
 	public Connect() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
-		c = DriverManager.getConnection("jdbc:mysql://localhost:3306/Java", "root", "mdproot");
-		st = c.createStatement();
+		c = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Java", "root", "mdproot");
+		st = (Statement) c.createStatement();
 	}
 	
 	public Connection getCnx () {

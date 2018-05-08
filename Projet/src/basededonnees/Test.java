@@ -15,7 +15,18 @@ public class Test extends Request {
 		init(st);
 		
 		addUser(st, 1, "tao", "1234");
+		addUser(st, 2, "francis", "4567");
+		addUser(st, 3, "lucas", "8901");
 		addGroup(st, 1, "L3 info");
+		
+		boolean ok = check_user("tao", "1234");
+		
+		if (ok) {
+			System.out.println("true");
+		}
+		else {
+			System.out.println("false");
+		}
 		
 		ResultSet rs = select_all(st, "Utilisateur");
 		

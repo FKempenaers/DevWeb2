@@ -1,6 +1,8 @@
 package clientleger;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +40,28 @@ public class Connexion extends HttpServlet {
 		
 		//ajouter code pour verifier username + pass et set la session
 		
-		doGet(request, response);
+		String pseudo = request.getParameter("pseudo");
+		String mdp = request.getParameter("mdp");
+		
+		try {
+			basededonnees.Request requete = new basededonnees.Request();
+			boolean check_user = requete.check_user(pseudo, mdp);
+			
+			if (check_user) {
+				doGet(request, response);
+			}
+			else {
+				response.sendRedirect("index.html");
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		//doGet(request, response);
 	}
 
 }
