@@ -47,10 +47,10 @@ public class Connexion extends HttpServlet {
 			boolean check_user = basededonnees.Request.check_user(pseudo, mdp);
 			
 			if (check_user) {
-				doGet(request, response);
+				response.sendRedirect("index.html");
 			}
 			else {
-				response.sendRedirect("index.html");
+				doGet(request, response);
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

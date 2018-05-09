@@ -82,7 +82,10 @@ public class AjouterFichier extends HttpServlet {
 				 line = br.readLine();
 				}
 				
+				serveur.Serveur serv = (serveur.Serveur) getServletContext().getAttribute("serveur");
+				
 				getServletContext().setAttribute("fichier", fichier);
+				serv.setfichier(fichier);
 				getServletContext().getRequestDispatcher("/WEB-INF/affichageFichier.jsp").forward(request, response);
 				//response.sendRedirect("/AffichageFichier");
 			}

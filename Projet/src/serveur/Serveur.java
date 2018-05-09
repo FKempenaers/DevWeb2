@@ -16,6 +16,7 @@ public class Serveur extends Thread{
 	
 	public Serveur() {
 		chat = new GestionMessages();
+		this.fichier = "";
 		this.start();
 	}
 	public boolean getnewmodif() {

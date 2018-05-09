@@ -48,6 +48,9 @@ public class Init extends HttpServlet {
 		HttpSession session = request.getSession();
 		String pseudo = request.getParameter("pseudo");
 		session.setAttribute("pseudo", pseudo);
+		String fichier = "";
+		
+		request.setAttribute("fichier", fichier);
 		
 		ServletContext context = this.getServletContext();
 		Hashtable<String, Integer> listeUsers = (Hashtable<String, Integer>)context.getAttribute("listeUsers");
@@ -71,6 +74,8 @@ public class Init extends HttpServlet {
 		
 		context.setAttribute("listeUsers", listeUsers);
 		context.setAttribute("listeMessages", serv.getChat());
+		context.setAttribute("fichier", serv.getfichier());
+		context.setAttribute("serveur", serv);
 		
 		
 	}
