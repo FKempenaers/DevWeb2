@@ -47,10 +47,18 @@ public class Connexion extends HttpServlet {
 			boolean check_user = basededonnees.Request.check_user(pseudo, mdp);
 			
 			if (check_user) {
-				response.sendRedirect("index.html");
+				doGet(request, response);
+				/*
+				 * L'utilisateur a un compte enregistré sur la base de données et les infos correspondent.
+				 * Il faut le rediriger vers l'accueil.
+				 */
 			}
 			else {
-				doGet(request, response);
+				response.sendRedirect("index.html");
+				/*
+				 * L'utilisateur n'a pas de données correspondantes dans la base de données.
+				 * Il est donc redirigé vers une page d'inscription.
+				 */
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
