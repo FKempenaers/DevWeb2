@@ -183,6 +183,19 @@ public class Serveur extends Thread{
 						out.println("-1\n");
 						out.flush();
 					}
+					else if(ligne.equals("newfichier")) {
+						String f ="";
+						ligne = in.readLine();
+						while(!(ligne.equals(";;//*::::;;;;:;"))) {
+							f = f + ligne;
+							ligne = in.readLine(); 
+							if(!(ligne.equals(";;//*::::;;;;:;"))) {
+								f = f + '\n';
+							}
+						}
+						fichier = f;
+						newmodif = true;
+					}
 					else {
 						if(!ligne.equals("xyz")) {
 						 out.println(chat.afficherClientLourd(Integer.parseInt(ligne)));
