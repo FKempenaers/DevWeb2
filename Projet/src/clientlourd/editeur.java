@@ -51,7 +51,7 @@ public class editeur extends JFrame /*implements ActionListener,*/ {
    
    
    public String gettext() {
-
+	   
 	   return textArea.getText();
    }
    public void settext(String s) {
@@ -59,51 +59,7 @@ public class editeur extends JFrame /*implements ActionListener,*/ {
 	   textArea.setText(s);
    }
 
-   //public void actionPerformed(ActionEvent e) {
-
-      // "FindNext" => search forward, "FindPrev" => search backward
-      /*String command = e.getActionCommand();
-      boolean forward = "FindNext".equals(command);
-      System.err.println("lol");
-      // Create an object defining our search parameters.
-      SearchContext context = new SearchContext();
-      String text = searchField.getText();
-      System.out.println("test!!");
-      if (text.length() == 0) {
-         return;
-      }
-      
-      context.setSearchFor(text);
-      context.setMatchCase(matchCaseCB.isSelected());
-      context.setRegularExpression(regexCB.isSelected());
-      context.setSearchForward(forward);
-      context.setWholeWord(false);
-
-      try {
-		s = new Socket("localhost",PORT);
-		in = s.getInputStream();
-		out = s.getOutputStream();
-		reader = new BufferedReader(new InputStreamReader(in));
-		PrintWriter writer = new PrintWriter(out);
-	    writer.print("fichier\n"+text+"\n;;//*::::;;;;:;\nxyz\n");
-		writer.flush();
-		
-	} catch (UnknownHostException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
-
-      
-      boolean found = SearchEngine.find(textArea, context).wasFound();
-      if (!found) {
-         JOptionPane.showMessageDialog(this, "Text not found");
-      }*/
-
-  // }
-
+  
 }
 
 class TitreKeyListener implements KeyListener {
@@ -116,14 +72,12 @@ class TitreKeyListener implements KeyListener {
 	   boolean newmodif = true;
 	   editeur ed;
     public TitreKeyListener(editeur e) {
-    	System.out.println("ok");
     	this.ed = e;
     }
  
     public void keyPressed(KeyEvent e) {
     	String st,ligne;
     	try {
-    		System.out.println("ok1");
 			s = new Socket("localhost",PORT);
 			in = s.getInputStream();
 			out = s.getOutputStream();
@@ -133,9 +87,12 @@ class TitreKeyListener implements KeyListener {
 			writer.flush();
 			st ="";
 			ligne = reader.readLine();
-			st = ligne;
 			while(!ligne.equals(";;//*::::;;;;:;")) {
 				st = st + ligne;
+				ligne = reader.readLine();
+				if(!ligne.equals(";;//*::::;;;;:;")) {
+					st = st + '\n';
+				}
 			}
 			ed.settext(st);
 		} catch (IOException e1) {
@@ -146,12 +103,13 @@ class TitreKeyListener implements KeyListener {
  
     public void keyReleased(KeyEvent e) {
     	try {
-    		System.out.println("ok2");
     		s = new Socket("localhost",PORT);
 			in = s.getInputStream();
 			out = s.getOutputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
 			PrintWriter writer = new PrintWriter(out);
+
+			System.out.println(ed.gettext()+"FIN!!!");
 			writer.print("fichier\n"+ed.gettext()+"\n"+";;//*::::;;;;:;\nxyz\n");
 			writer.flush();
 		} catch (UnknownHostException e1) {

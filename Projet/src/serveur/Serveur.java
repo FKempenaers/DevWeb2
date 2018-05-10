@@ -61,6 +61,9 @@ public class Serveur extends Thread{
 						while(!(ligne.equals(";;//*::::;;;;:;"))) {
 							f = f + ligne;
 							ligne = in.readLine(); 
+							if(!(ligne.equals(";;//*::::;;;;:;"))) {
+								f = f + '\n';
+							}
 						}
 						fichier = f;
 						newmodif = true;
