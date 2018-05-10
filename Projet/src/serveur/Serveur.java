@@ -62,11 +62,10 @@ public class Serveur extends Thread{
 							ligne = in.readLine(); 
 						}
 						fichier = f;
-						System.out.println(fichier);
 						newmodif = true;
 					}
 					else if(ligne.equals("getfichier")) {
-						out.println(fichier);
+						out.println(fichier+"\n;;//*::::;;;;:;\n");
 						out.flush();
 					}
 					else {

@@ -37,7 +37,7 @@ public class editeur extends JFrame /*implements ActionListener,*/ {
       textArea.setCodeFoldingEnabled(true);
       RTextScrollPane sp = new RTextScrollPane(textArea);
       cp.add(sp);
-      
+      System.out.println("okv");
       setContentPane(cp);
       setTitle("Editeur");
       pack();
@@ -112,6 +112,8 @@ class TitreKeyListener implements KeyListener {
 	   private OutputStream out;
 	   BufferedReader reader;
 	   private Socket s;
+		
+	   boolean newmodif = true;
 	   editeur ed;
     public TitreKeyListener(editeur e) {
     	System.out.println("ok");
@@ -119,7 +121,9 @@ class TitreKeyListener implements KeyListener {
     }
  
     public void keyPressed(KeyEvent e) {
+    	String st,ligne;
     	try {
+    		System.out.println("ok1");
 			s = new Socket("localhost",PORT);
 			in = s.getInputStream();
 			out = s.getOutputStream();
@@ -127,7 +131,13 @@ class TitreKeyListener implements KeyListener {
 			PrintWriter writer = new PrintWriter(out);
 			writer.print("getfichier\nxyz\n");
 			writer.flush();
-			ed.settext(reader.readLine());
+			st ="";
+			ligne = reader.readLine();
+			st = ligne;
+			while(!ligne.equals(";;//*::::;;;;:;")) {
+				st = st + ligne;
+			}
+			ed.settext(st);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -136,6 +146,7 @@ class TitreKeyListener implements KeyListener {
  
     public void keyReleased(KeyEvent e) {
     	try {
+    		System.out.println("ok2");
     		s = new Socket("localhost",PORT);
 			in = s.getInputStream();
 			out = s.getOutputStream();
