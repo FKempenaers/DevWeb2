@@ -22,19 +22,24 @@
 
 	<div>
 		<ul>
-			<c:forEach items="${liste}" var="current">
+			<c:forEach items="${liste}" var="item">
 				<li><span>
 						<form method="post" action="ChoixFichier">
-						<input type="text" value="${current[0]}" name="id"/>
-						<input type="text" value="${current[3]}" name="lien"/>
-							<input type="submit" value="${current[2]}" name="fichier" />
-						</form>
+						<input type="hidden" value="${item[0]}" name="id"/>
+						<input type="hidden" value="${item[3]}" name="lien"/>
+							<input type="submit" value="${item[2]}" name="fichier" />
 				</span></li>
 			</c:forEach>
 		</ul>
-
-
 	</div>
+<%-- 	     <c:forEach var = "i" begin = "1" end = "5"> --%>
+<%--          Item <c:out value = "${i}"/><p> --%>
+<%--       </c:forEach> --%>
+	
+<!-- 					for(int i = 0; i < files.size(); i++) { -->
+<!-- 				for(String s : files.get(i)) -->
+<!-- 					System.out.println(s); -->
+<!-- 				} -->
 
 </body>
 </html>

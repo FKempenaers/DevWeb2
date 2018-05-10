@@ -16,20 +16,23 @@ public class Test extends Request {
 		//init(st);
 		int i = 0;
 		
-		addFile("quentin", "test.txt", "/home/test.txt");
-		
-		ArrayList<String[]> files = user_file("tao");
+		boolean check = addFile("francis", "test.txt", "/home/test.txt");
+		if (check) {
+			ArrayList<String[]> files = user_file("francis");
 	
 		
-		while (i < files.size()) {
-			String[] infos = files.get(i);
-			System.out.println(infos[0]); //id
-			System.out.println(infos[1]); //pseudo
-			System.out.println(infos[2]); //nom
-			System.out.println(infos[3]); //lien
-			i++;
+			while (i < files.size()) {
+				String[] infos = files.get(i);
+				System.out.println(infos[0]); //id
+				System.out.println(infos[1]); //pseudo
+				System.out.println(infos[2]); //nom
+				System.out.println(infos[3]); //lien
+				i++;
+			}
 		}
-		
+		else {
+			System.out.println("pas ok");
+		}
 		/*addUser(st, 1, "tao", "1234");
 		addUser(st, 2, "francis", "4567");
 		addUser(st, 3, "lucas", "8901");

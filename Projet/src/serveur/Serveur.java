@@ -24,6 +24,7 @@ public class Serveur extends Thread{
 	public Serveur() {
 		chat = new GestionMessages();
 		this.fichier = "";
+		this.fichierMap = new HashMap<Integer,String>();
 		this.start();
 	}
 	public boolean getnewmodif() {
