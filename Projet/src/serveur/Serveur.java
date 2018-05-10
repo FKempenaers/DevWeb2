@@ -75,9 +75,29 @@ public class Serveur extends Thread{
 					}
 					else if(ligne.equals("connexion")) {
 						l1 = in.readLine();
-						l2 = in.readLine();
+						l2 = in.readLine();						
 						try {
 							if(basededonnees.Request.check_user(l1, l2)) {
+								out.println("true\n");
+								out.flush();
+							}
+							else {
+								out.println("false\n");
+								out.flush();
+							}
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					else if(ligne.equals("crecompte")) {
+						l1 = in.readLine();
+						l2 = in.readLine();						
+						try {
+							if(basededonnees.Request.addUser(l1, l2)) {
 								out.println("true\n");
 								out.flush();
 							}

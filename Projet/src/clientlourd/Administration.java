@@ -33,6 +33,7 @@ public class Administration extends JFrame{
 	JTextField conUserr;
 	JTextField conMPr;
 	private JButton connexion;
+	private JButton crecompte;
 	private JButton[] bAF;
 	private JButton[] bAFA;
 	private JButton preced,suivant;
@@ -50,7 +51,7 @@ public class Administration extends JFrame{
 		n = 0;
 		connexion();
 		connexion = new JButton("Connexion ");
-		connexion.setBounds(150,80,100,20);
+		connexion.setBounds(0,80,100,20);
 		connexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String ligne;
@@ -70,7 +71,18 @@ public class Administration extends JFrame{
 						lf.setSize(200, 13);
 						lf.setText("Liste des fichiers");
 						cp.add(lf);
+						remove(connexion);
+						remove(crecompte);
+						remove(conUserr);
+						remove(conMPr);
+						remove(conMP);
+						remove(conUser);
+						repaint();
 						affiche_fichiers();
+					}
+					else {
+						conUserr.setText("");
+						conMPr.setText("");
 					}
 					
 					
@@ -83,6 +95,51 @@ public class Administration extends JFrame{
 			}
 		});			
 		cp.add(connexion);
+		crecompte = new JButton("creer un compte");
+		crecompte.setBounds(150,80,200,20);
+		crecompte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String ligne;
+				try {
+					s = new Socket("localhost",PORT);
+					in = s.getInputStream();
+					out = s.getOutputStream();
+					reader = new BufferedReader(new InputStreamReader(in));
+					PrintWriter writer = new PrintWriter(out);
+					writer.print("crecompte\n"+conUserr.getText()+"\n"+conMPr.getText()+"\nxyz\n");
+					writer.flush();
+					ligne = reader.readLine();
+					if(ligne.equals("true")) {
+						JLabel lf = new JLabel();
+						lf.setLayout(null);
+						lf.setLocation(new Point(0,20));
+						lf.setSize(200, 13);
+						lf.setText("Liste des fichiers");
+						cp.add(lf);
+						remove(connexion);
+						remove(crecompte);
+						remove(conUserr);
+						remove(conMPr);
+						remove(conMP);
+						remove(conUser);
+						repaint();
+						affiche_fichiers();
+					}
+					else {
+						conUserr.setText("");
+						conMPr.setText("");
+					}
+					
+					
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});			
+		cp.add(crecompte);
 		setContentPane(cp);
 		setTitle("Administration");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
