@@ -6,13 +6,8 @@
 	<classpathentry kind="lib" path="/home/lib/jstl_1.2.jar"/>
 	<classpathentry kind="lib" path="/home/lib/rsyntaxtextarea-3.0.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="/home/lib/jdbc.jar"/>
-<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0 (2)">
-=======
-	<classpathentry kind="lib" path="/home/lib/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46-bin.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0">
->>>>>>> branch 'dev' of https://github.com/TaoGrolleau/DevWeb2.git
-		<attributes>
+	<classpathentry kind="lib" path="/home/lib/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46-bin.jar"/>		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
