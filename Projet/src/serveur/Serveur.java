@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 
 import tchatche.GestionMessages;
 
@@ -71,6 +72,26 @@ public class Serveur extends Thread{
 					else if(ligne.equals("getfichier")) {
 						out.println(fichier+"\n;;//*::::;;;;:;\n");
 						out.flush();
+					}
+					else if(ligne.equals("connexion")) {
+						l1 = in.readLine();
+						l2 = in.readLine();
+						try {
+							if(basededonnees.Request.check_user(l1, l2)) {
+								out.println("true\n");
+								out.flush();
+							}
+							else {
+								out.println("false\n");
+								out.flush();
+							}
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					else {
 						if(!ligne.equals("xyz")) {

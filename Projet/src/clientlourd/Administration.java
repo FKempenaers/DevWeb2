@@ -3,11 +3,19 @@ package clientlourd;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -20,29 +28,93 @@ public class Administration extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel cp;
 	private JLabel[] fichiers;
+	private JLabel conUser;
+	private JLabel conMP;
+	JTextField conUserr;
+	JTextField conMPr;
+	private JButton connexion;
 	private JButton[] bAF;
 	private JButton[] bAFA;
 	private JButton preced,suivant;
 	private int n;
 	
+	final int PORT = 8888;
+	private InputStream in;
+	private OutputStream out;
+	BufferedReader reader;
+	private Socket s;
+	
 	public Administration() {
 		
 		cp = new JPanel(null);
-		JLabel lf = new JLabel();
-		lf.setLayout(null);
-		lf.setLocation(new Point(0,20));
-		lf.setSize(200, 13);
-		lf.setText("Liste des fichiers");
-		cp.add(lf);
 		n = 0;
-		affiche_fichiers();
-		
-		
+		connexion();
+		connexion = new JButton("Connexion ");
+		connexion.setBounds(150,80,100,20);
+		connexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String ligne;
+				try {
+					s = new Socket("localhost",PORT);
+					in = s.getInputStream();
+					out = s.getOutputStream();
+					reader = new BufferedReader(new InputStreamReader(in));
+					PrintWriter writer = new PrintWriter(out);
+					writer.print("connexion\n"+conUserr.getText()+"\n"+conMPr.getText()+"\nxyz\n");
+					writer.flush();
+					ligne = reader.readLine();
+					if(ligne.equals("true")) {
+						JLabel lf = new JLabel();
+						lf.setLayout(null);
+						lf.setLocation(new Point(0,20));
+						lf.setSize(200, 13);
+						lf.setText("Liste des fichiers");
+						cp.add(lf);
+						affiche_fichiers();
+					}
+					
+					
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});			
+		cp.add(connexion);
 		setContentPane(cp);
 		setTitle("Administration");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setLocationRelativeTo(null);
+	}
+	
+	public void connexion() {
+		String ligne;
+		conUserr = new JTextField();	
+		conUserr.setLayout(null);
+		conUserr.setLocation(new Point(0,10));
+		conUserr.setSize(300, 30);
+		cp.add(conUserr);
+		conMPr = new JTextField();	
+		conMPr.setLayout(null);
+		conMPr.setLocation(new Point(0,40));
+		conMPr.setSize(300, 30);
+		cp.add(conMPr);
+		conUser = new JLabel();
+		conUser.setLayout(null);
+		conUser.setLocation(new Point(300,10));
+		conUser.setSize(300, 17);
+		conUser.setText("Utilisateur");
+		cp.add(conUser);
+		conMP = new JLabel();
+		conMP.setLayout(null);
+		conMP.setLocation(new Point(300,40));
+		conMP.setSize(300, 17);
+		conMP.setText("Mot de passe");
+		cp.add(conMP);
+		
 	}
 	
 	public void affiche_fichiers() {

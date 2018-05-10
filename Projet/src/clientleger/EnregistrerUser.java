@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class EnregistrerUser
@@ -45,7 +46,11 @@ public class EnregistrerUser extends HttpServlet {
 			boolean addUser = basededonnees.Request.addUser(pseudo, mdp);
 			
 			if (addUser) {
-				doGet(request, response);
+				
+				HttpSession session =  request.getSession();
+				session.setAttribute("pseudo", pseudo);
+				session.setAttribute("auth", true);
+				request.getServletContext().getRequestDispatcher("/WEB-INF/accueilUser.jsp").forward(request, response);
 				/*
 				 * L'utilisateur a ajouté son pseudo et son mdp dans la base de données
 				 */
