@@ -57,12 +57,6 @@ public class Request {
 		st.executeUpdate(clear_all_tables);
 	}
 	
-	public void addUser(Statement st, int id, String pseudo, String mdp) throws SQLException {
-		String addUser = "insert into Utilisateur values ("+id+", "+"\""+pseudo+"\""+", "+"\""+mdp+"\""+");";
-		
-		st.executeUpdate(addUser);
-	}
-	
 	public void addGroup(Statement st, int id, String name) throws SQLException {
 		String addGroup = "insert into Groupe values ("+id+", "+"\""+name+"\""+");";
 		
@@ -77,22 +71,51 @@ public class Request {
 		return rs;
 	}
 	
+	public static boolean addUser(String pseudo, String mdp) throws SQLException, ClassNotFoundException {
+		Connect cnx = new Connect();
+		
+		Statement st = cnx.getSmt();
+		
+		String user_already_exists = "select pseudo from Utilisateur where pseudo = \""+pseudo+"\";";
+		String previous_id = "select * from Utilisateur;";
+		
+		ResultSet p_id = st.executeQuery(previous_id);
+		boolean check = p_id.last();
+		int new_id = 0;
+		if (check) {
+			new_id = p_id.getInt(1) + 1;
+		}
+		
+		ResultSet rs_user = st.executeQuery(user_already_exists);
+			
+		if (!rs_user.isBeforeFirst()) {
+			String addUser = "insert into Utilisateur values ("+new_id+", "+"\""+pseudo+"\""+", "+"\""+mdp+"\");";
+			
+			st.executeUpdate(addUser);
+				
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public static boolean check_user(String pseudo, String mdp) throws ClassNotFoundException, SQLException {
 		Connect cnx = new Connect();	
 		
 		Statement st = cnx.getSmt();
 		
 		String check_user = "select pseudo, mdp from Utilisateur where pseudo = \""+pseudo+"\" and mdp = \""+mdp+"\";";
-		System.out.println(check_user);
 		
 		ResultSet rs = st.executeQuery(check_user);
 		
-		if (rs == null) {
-			return false;
-		} 
-		else {
-			return true;
-		}
+		boolean check = rs.isBeforeFirst();
+		
+		rs.close();
+		st.close();
+		cnx.getCnx().close();
+		
+		return check;
 	}
 }
 

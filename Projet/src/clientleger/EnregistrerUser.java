@@ -1,6 +1,8 @@
 package clientleger;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +38,28 @@ public class EnregistrerUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//Ajouter code pour mettre user dans bdd
-		doGet(request, response);
+		String pseudo = request.getParameter("pseudo");
+		String mdp = request.getParameter("mdp");
+		
+		try {
+			boolean addUser = basededonnees.Request.addUser(pseudo, mdp);
+			
+			if (addUser) {
+				doGet(request, response);
+				/*
+				 * L'utilisateur a ajouté son pseudo et son mdp dans la base de données
+				 */
+			}
+			else {
+				response.sendRedirect("index.html");
+				/*
+				 * Il y a eu un problème lors de l''inscription de l'utilisateur
+				 */
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

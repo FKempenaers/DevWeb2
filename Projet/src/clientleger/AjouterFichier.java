@@ -57,8 +57,9 @@ public class AjouterFichier extends HttpServlet {
 		//String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
 		Part filePart = request.getPart("fichier"); // Retrieves <input type="file" name="file">
 		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+		System.out.println(fileName);
 		InputStream fileContent = filePart.getInputStream();
-		File uploads = new File("/home/hp/uploads/fichier");
+		File uploads = new File(fileName);
 		Files.copy(fileContent, uploads.toPath(),StandardCopyOption.REPLACE_EXISTING);
 
 		try {
