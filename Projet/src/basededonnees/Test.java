@@ -16,8 +16,8 @@ public class Test extends Request {
 		//init(st);
 		int i = 0;
 		
-		boolean check = addFile("francis", "test.txt", "/home/test.txt");
-		if (check) {
+		int check = addFile("francis", "test.txt", "/home/test.txt");
+		if (check != -1) {
 			ArrayList<String[]> files = user_file("francis");
 	
 		

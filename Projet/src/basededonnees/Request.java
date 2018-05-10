@@ -29,19 +29,19 @@ public class Request {
 		String table_modifie = "create table Modifie (id_user_m INT," +
 								"id_file_m INT," + 
 								"CONSTRAINT Mpk PRIMARY KEY (id_user_m, id_file_m)," +
-								"CONSTRAINT Mfk1 FOREIGN KEY (id_user_m) REFERENCES Utilisateur(id_user)," + 
-								"CONSTRAINT Mfk2 FOREIGN KEY (id_file_m) REFERENCES Fichier(id_file));";
+								"CONSTRAINT Mfk1 FOREIGN KEY (id_user_m) REFERENCES Utilisateur(id_user) ON DELETE CASCADE," + 
+								"CONSTRAINT Mfk2 FOREIGN KEY (id_file_m) REFERENCES Fichier(id_file) ON DELETE CASCADE);";
 		
 		String table_appartient = "create table Appartient (id_user_a INT," +
 								   "id_groupe_a INT," +
-								   "CONSTRAINT Afk1 FOREIGN KEY (id_user_a) REFERENCES Utilisateur(id_user)," +
-								   "CONSTRAINT Afk2 FOREIGN KEY (id_groupe_a) REFERENCES Fichier(id_file), " +
+								   "CONSTRAINT Afk1 FOREIGN KEY (id_user_a) REFERENCES Utilisateur(id_user) ON DELETE CASCADE," +
+								   "CONSTRAINT Afk2 FOREIGN KEY (id_groupe_a) REFERENCES Fichier(id_file) ON DELETE CASCADE, " +
 								   "CONSTRAINT Apk PRIMARY KEY (id_user_a, id_groupe_a));";
 		
 		String table_contient = "create table Contient (id_groupe_c INT," + 
 								 "id_file_c INT," +
-								 "CONSTRAINT Cfk1 FOREIGN KEY (id_groupe_c) REFERENCES Groupe(id_groupe)," +
-								 "CONSTRAINT Cfk2 FOREIGN KEY (id_file_c) REFERENCES Fichier(id_file)," +
+								 "CONSTRAINT Cfk1 FOREIGN KEY (id_groupe_c) REFERENCES Groupe(id_groupe) ON DELETE CASCADE," +
+								 "CONSTRAINT Cfk2 FOREIGN KEY (id_file_c) REFERENCES Fichier(id_file) ON DELETE CASCADE," +
 								 "CONSTRAINT Cpk PRIMARY KEY (id_groupe_c, id_file_c));" ;
 		
 		st.executeUpdate(foreign_key_check);
@@ -159,7 +159,7 @@ public class Request {
 		return fichier_infos;
 	}
 	
-	public static boolean addFile(String pseudo, String name_file, String link_file) throws ClassNotFoundException, SQLException {
+	public static int addFile(String pseudo, String name_file, String link_file) throws ClassNotFoundException, SQLException {
 		Connect cnx = new Connect();
 		
 		Statement st = cnx.getSmt();
@@ -167,7 +167,7 @@ public class Request {
 		String previous_id = "select * from Fichier;";
 		String uid ="select id_user from Utilisateur where pseudo = \""+pseudo+"\";";
 		
-		String delFile = "delete from Fichier where nom =\""+name_file+"\";";	
+		String delFile = "delete from Fichier where lien_fichier =\""+link_file+"\";";	
 		st.executeUpdate(delFile);
 		
 		ResultSet u_id = st.executeQuery(uid);
@@ -198,13 +198,36 @@ public class Request {
 			st.close();
 			cnx.getCnx().close();
 			
-			return true;
+			return new_id;
 		}
 		else {
 			u_id.close();
 			st.close();
 			cnx.getCnx().close();
 			
+			return -1;
+		}
+	}
+	
+	public static boolean addUsertoFile (String pseudo, String id_file) throws ClassNotFoundException, SQLException {
+		Connect cnx = new Connect();
+		Statement st = cnx.getSmt();
+		
+		String getUid = "select id_user from Utilisateur where pseudo = \""+pseudo+"\";";
+		
+		ResultSet rs = st.executeQuery(getUid);
+		
+		boolean check = rs.last();
+		if (check) {
+			int id = rs.getInt(1);
+			
+			String addUsertoFile = "insert into Modifie values ("+id+", "+id_file+");";
+			
+			st.executeUpdate(addUsertoFile);
+			
+			return true;
+		}
+		else {
 			return false;
 		}
 	}

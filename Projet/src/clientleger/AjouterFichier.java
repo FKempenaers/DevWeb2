@@ -76,7 +76,7 @@ public class AjouterFichier extends HttpServlet {
 		Files.copy(fileContent, uploads.toPath(),StandardCopyOption.REPLACE_EXISTING);
 
 		try {
-			boolean ajout_fichier = basededonnees.Request.addFile(pseudo, fileName, uploads.toString());
+			int ajout_fichier = basededonnees.Request.addFile(pseudo, fileName, uploads.toString());
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
