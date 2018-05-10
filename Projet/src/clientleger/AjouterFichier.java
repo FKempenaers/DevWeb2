@@ -72,7 +72,7 @@ public class AjouterFichier extends HttpServlet {
 
 		InputStream fileContent = filePart.getInputStream();
 		new File("uploads/"+pseudo+"/").mkdirs();
-		File uploads = new File("uploads/"+pseudo+"/"+fileName);
+		File uploads = new File("uploads/"+pseudo+"/"+fileName+"/");
 		Files.copy(fileContent, uploads.toPath(),StandardCopyOption.REPLACE_EXISTING);
 
 		try {
@@ -106,7 +106,7 @@ public class AjouterFichier extends HttpServlet {
 				serv.setfichier(fichier);
 				
 				getServletContext().setAttribute("fichier", fichier);
-				getServletContext().getRequestDispatcher("/WEB-INF/affichageFichier.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/WEB-INF/tchatche.jsp").forward(request, response);
 				
 			} 
 		}finally{}
