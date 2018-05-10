@@ -124,12 +124,12 @@ public class Request {
 	
 	public static ArrayList<String[]> user_file (String pseudo) throws ClassNotFoundException, SQLException {
 		ArrayList<String[]> fichier_infos = new ArrayList<String[]>();
-		String[] infos = new String[3];
+		String[] infos = new String[4];
 		Connect cnx = new Connect();
 		
 		Statement st = cnx.getSmt();
 		
-		String user_file = "select pseudo, nom, lien_fichier from Utilisateur, Fichier, Modifie where id_user_m = id_user and id_file = id_file_m;";
+		String user_file = "select id_file, pseudo, nom, lien_fichier from Utilisateur, Fichier, Modifie where id_user_m = id_user and id_file = id_file_m;";
 		
 		ResultSet rs = st.executeQuery(user_file);
 		
@@ -137,6 +137,7 @@ public class Request {
 			infos[0] = rs.getString(1);
 			infos[1] = rs.getString(2);
 			infos[2] = rs.getString(3);
+			infos[3] = rs.getString(4);
 			
 			fichier_infos.add(infos);
 			

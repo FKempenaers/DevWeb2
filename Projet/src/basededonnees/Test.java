@@ -23,6 +23,7 @@ public class Test extends Request {
 			System.out.println(infos[0]);
 			System.out.println(infos[1]);
 			System.out.println(infos[2]);
+			System.out.println(infos[3]);
 			i++;
 		}
 		
