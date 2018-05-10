@@ -63,9 +63,15 @@ public class Connexion extends HttpServlet {
 				comme ca dans la jsp on recup et on fait des boutons avec pour que l'user puisse ouvrir les fichiers
 				*/
 				
-				ArrayList<String[]> files = basededonnees.Request.user_file("tao");
+				ArrayList<String[]> files = basededonnees.Request.user_file(pseudo);
 				
-				getServletContext().setAttribute("files", files);
+				getServletContext().setAttribute("liste", files);
+				for(int i = 0; i < files.size(); i++) {
+				for(String s : files.get(i))
+					System.out.println(s);
+				}
+				
+				String[] lol = files.get(1);
 				
 				request.getServletContext().getRequestDispatcher("/WEB-INF/accueilUser.jsp").forward(request, response);				
 				
