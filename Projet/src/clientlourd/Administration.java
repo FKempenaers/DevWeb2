@@ -4,15 +4,20 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.lang.ProcessBuilder.Redirect;
 import java.net.Socket;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,6 +44,7 @@ public class Administration extends JFrame{
 	private JButton crecompte;
 	private JButton[] bAF;
 	private JButton[] bAFA;
+	private JButton bupload;
 	private JButton preced,suivant;
 	private int n;
 	
@@ -280,14 +286,51 @@ public class Administration extends JFrame{
 			}
 		});
 		cp.add(suivant);
-		suivant= new JButton("Suivant");
-		suivant.setBounds(110, j+60, 100, 20);
-		suivant.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		cp.add(suivant);
+		bupload = new JButton("Charger");
+		bupload.setBounds(110, j+60, 100, 20);
+		bupload.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	JFileChooser fileChooser = new JFileChooser();
+                try {
+					fileChooser.setCurrentDirectory(new File(new File(".").getCanonicalPath()));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+                int result = fileChooser.showDialog(null, "selectionner");
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile() ;
+                    File fichier = new File(selectedFile.getAbsoluteFile().toString());
+            		try {
+            			String strFichier = "";
+            			BufferedReader bfr = new BufferedReader(new FileReader(fichier));
+            			String ligne = bfr.readLine();
+            			s = new Socket("localhost",PORT);
+            			in = s.getInputStream();
+            			out = s.getOutputStream();
+            			reader = new BufferedReader(new InputStreamReader(in));
+            			PrintWriter writer = new PrintWriter(out);
+            			writer.print("newfichier\n"+user+"\n");
+            			
+
+            			while(ligne!=null) {
+            				strFichier += ligne;
+            				ligne = bfr.readLine();
+            			}
+            			writer.print(strFichier+"\n;;//*::::;;;;:;\nxyz\n");
+            			
+            			bfr.close();
+            			writer.flush();
+            		}catch (FileNotFoundException e) {
+            			e.printStackTrace();
+            		} catch (IOException e) {
+            			e.printStackTrace();
+            		}
+                    
+                }
+            }
+        });
+		cp.add(bupload);
 	}
 
 	public void actufichier() {
