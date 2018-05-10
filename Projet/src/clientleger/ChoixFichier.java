@@ -38,9 +38,11 @@ public class ChoixFichier extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ServletContext context = getServletContext();
-		String idFichier = request.getParameter("fichier");
+		String idFichier = request.getParameter("id");
+		String lienFichier = request.getParameter("lien");
 		serveur.Serveur serv = (serveur.Serveur) context.getAttribute("serveur");
-		context.setAttribute("fichier", serv.getfichier() );
+		context.setAttribute("fichier", serv.getFichierMap(idFichier,lienFichier) );
+		context.setAttribute("idFichier", Integer.parseInt(idFichier));
 	}
 
 }

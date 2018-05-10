@@ -25,7 +25,9 @@
 			<c:forEach items="${liste}" var="current">
 				<li><span>
 						<form method="post" action="ChoixFichier">
-							<input type="submit" value="${current}" name="fichier" />
+						<input type="text" value="${current[0]}" name="id"/>
+						<input type="text" value="${current[3]}" name="lien"/>
+							<input type="submit" value="${current[2]}" name="fichier" />
 						</form>
 				</span></li>
 			</c:forEach>

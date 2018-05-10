@@ -23,10 +23,10 @@ public class Test extends Request {
 		
 		while (i < files.size()) {
 			String[] infos = files.get(i);
-			System.out.println(infos[0]);
-			System.out.println(infos[1]);
-			System.out.println(infos[2]);
-			System.out.println(infos[3]);
+			System.out.println(infos[0]); //id
+			System.out.println(infos[1]); //pseudo
+			System.out.println(infos[2]); //nom
+			System.out.println(infos[3]); //lien
 			i++;
 		}
 		
