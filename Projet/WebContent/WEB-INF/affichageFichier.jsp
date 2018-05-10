@@ -21,9 +21,9 @@
 
 	<script>
 		// implementation sse
+		refresh();
+		setInterval(refresh, 3000);
 
-				setInterval(refresh,3000);
-		
 		function refresh() {
 			var r = new XMLHttpRequest();
 
@@ -34,10 +34,10 @@
 			r.open("GET", "AfficheFichier");
 			r.send();
 
-// 		var source = new EventSource("AfficheFichier");
-// 			source.onmessage = function(event) {
-// 				document.getElementById('fichier').value = event.data;
-// 			};
+			// 		var source = new EventSource("AfficheFichier");
+			// 			source.onmessage = function(event) {
+			// 				document.getElementById('fichier').value = event.data;
+			// 			};
 		}
 
 		function envoi() {
@@ -54,7 +54,6 @@
 
 			r.send('fichier=' + fichier);
 		}
-
 
 		// 		var source = new EventSource("AfficheFichier");
 		// 		source.onmessage = function(event) {

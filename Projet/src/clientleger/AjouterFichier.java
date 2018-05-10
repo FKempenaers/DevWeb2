@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 /**
@@ -52,14 +53,25 @@ public class AjouterFichier extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//PrintWriter out = response.getWriter();
+		
+		HttpSession session =  request.getSession();
+		String pseudo = (String) session.getAttribute("pseudo");
+
+		
+		if(!(boolean) session.getAttribute("auth")) {
+			response.sendRedirect("index.html");
+		}
+		
+		
+		
 		/* Ajouter fonction pour mettre fichier dans bdd */
-		//String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
+		String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
 		Part filePart = request.getPart("fichier"); // Retrieves <input type="file" name="file">
 		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-		System.out.println(fileName);
+
 		InputStream fileContent = filePart.getInputStream();
-		File uploads = new File(fileName);
+		new File("uploads/"+pseudo+"/").mkdirs();
+		File uploads = new File("uploads/"+pseudo+"/"+fileName);
 		Files.copy(fileContent, uploads.toPath(),StandardCopyOption.REPLACE_EXISTING);
 
 		try {
@@ -70,7 +82,7 @@ public class AjouterFichier extends HttpServlet {
 				String word = "";
 				while ((word = reader.readLine()) != null) {
 					n = Integer.parseInt(word);
-			//		out.println(n);
+
 				}
 				
 				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(uploads)));
@@ -88,11 +100,10 @@ public class AjouterFichier extends HttpServlet {
 				
 				getServletContext().setAttribute("fichier", fichier);
 				getServletContext().getRequestDispatcher("/WEB-INF/affichageFichier.jsp").forward(request, response);
-				//response.sendRedirect("/AffichageFichier");
-			}
-		} finally {
-			//out.close();
-		}
+				
+			} 
+		}finally{}
 	}
-
 }
+
+
