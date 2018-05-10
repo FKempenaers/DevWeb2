@@ -1,12 +1,16 @@
 package serveur;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import tchatche.GestionMessages;
 
@@ -14,6 +18,7 @@ public class Serveur extends Thread{
 	private GestionMessages chat;
 	private boolean newmodif;
 	private String fichier;
+	private HashMap<Integer,String> fichierMap;
 	
 	public Serveur() {
 		chat = new GestionMessages();
@@ -32,6 +37,34 @@ public class Serveur extends Thread{
 	public void setfichier(String fichier) {
 		this.fichier = fichier;
 	}
+	
+	public String getFichierMap(String idFichier, String lienFichier) {
+		int idFichierInt = Integer.parseInt(idFichier);
+		if(fichierMap.containsKey(idFichierInt))
+			return fichierMap.get(idFichierInt);
+			
+		File fichier = new File(lienFichier);
+		try {
+			String strFichier = "";
+			BufferedReader bfr = new BufferedReader(new FileReader(fichier));
+			String ligne = bfr.readLine();
+			
+			while(ligne!=null) {
+				strFichier += ligne;
+				ligne = bfr.readLine();
+			}
+			bfr.close();
+			fichierMap.put(idFichierInt, strFichier);
+			return strFichier;
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+
 	
 	public void run() {
 		final int PORT = 8888;

@@ -2,6 +2,7 @@ package clientleger;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -62,9 +63,9 @@ public class Connexion extends HttpServlet {
 				comme ca dans la jsp on recup et on fait des boutons avec pour que l'user puisse ouvrir les fichiers
 				*/
 				
-				String[] liste = {"web","lol","fichierpourrave"};
+				ArrayList<String[]> files = basededonnees.Request.user_file("tao");
 				
-				getServletContext().setAttribute("liste", liste);
+				getServletContext().setAttribute("files", files);
 				
 				request.getServletContext().getRequestDispatcher("/WEB-INF/accueilUser.jsp").forward(request, response);				
 				
