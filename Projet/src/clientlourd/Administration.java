@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +26,8 @@ public class Administration extends JFrame{
 	/**
 	 * 
 	 */
+	private String user;
+	private ArrayList<String[]> listef;
 	private static final long serialVersionUID = 1L;
 	private JPanel cp;
 	private JLabel[] fichiers;
@@ -61,6 +64,7 @@ public class Administration extends JFrame{
 					out = s.getOutputStream();
 					reader = new BufferedReader(new InputStreamReader(in));
 					PrintWriter writer = new PrintWriter(out);
+					user = conUserr.getText();
 					writer.print("connexion\n"+conUserr.getText()+"\n"+conMPr.getText()+"\nxyz\n");
 					writer.flush();
 					ligne = reader.readLine();
@@ -106,6 +110,7 @@ public class Administration extends JFrame{
 					out = s.getOutputStream();
 					reader = new BufferedReader(new InputStreamReader(in));
 					PrintWriter writer = new PrintWriter(out);
+					user = conUserr.getText();
 					writer.print("crecompte\n"+conUserr.getText()+"\n"+conMPr.getText()+"\nxyz\n");
 					writer.flush();
 					ligne = reader.readLine();
@@ -176,17 +181,18 @@ public class Administration extends JFrame{
 	
 	public void affiche_fichiers() {
 		int j = 40;
+		int nbfichier;
 		fichiers = new JLabel[20];
 		bAF = new JButton[20];
 		bAFA = new JButton[20];
-		for(int i = n; i < n+20;i++,j+=20) {
+		nbfichier = nbfichier();
+		for(int i = n; i < n+20 || i < nbfichier;i++,j+=20) {
 			fichiers[i-n] = new JLabel();
 			fichiers[i-n].setLayout(null);
 			fichiers[i-n].setLocation(new Point(0,j));
 			fichiers[i-n].setSize(100, 17);
-			fichiers[i-n].setText("fichier "+i);
 			
-			bAFA[i-n] = new JButton("Admin "+i);
+			bAFA[i-n] = new JButton(listef.get(i)[3]);
 			bAFA[i-n].setBounds(260,j,100,20);
 			
 			bAFA[i-n].addActionListener(new ActionListener() {
@@ -201,7 +207,7 @@ public class Administration extends JFrame{
 				}
 			});
 			cp.add(bAFA[i-n]);
-			bAF[i-n] = new JButton("Editer "+i);
+			bAF[i-n] = new JButton("Editer ");
 			bAF[i-n].setBounds(110, j, 150, 20);
 
 			bAF[i-n].addActionListener(new ActionListener() {
@@ -272,6 +278,51 @@ public class Administration extends JFrame{
 		cp.add(suivant);
 	}
 
+	public void actufichier() {
+		String ligne;
+		try {
+			s = new Socket("localhost",PORT);
+			in = s.getInputStream();
+			out = s.getOutputStream();
+			reader = new BufferedReader(new InputStreamReader(in));
+			PrintWriter writer = new PrintWriter(out);
+			writer.print("actufichier\n"+user+"\nxyz\n");
+			writer.flush();
+			ligne = reader.readLine();
+			while(!ligne.equals("fin")) {
+				String fi[] = new String[4];
+				for(int i=0;i < 4;i++) {
+					fi[i] = ligne;
+					ligne = reader.readLine();
+				}
+				listef.add(fi);
+				ligne = reader.readLine();
+			}
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 	
+	public int nbfichier() {
+		String ligne;
+		try {
+			s = new Socket("localhost",PORT);
+			in = s.getInputStream();
+			out = s.getOutputStream();
+			reader = new BufferedReader(new InputStreamReader(in));
+			PrintWriter writer = new PrintWriter(out);
+			writer.print("nbfichier\n"+user+"\nxyz\n");
+			writer.flush();
+			ligne = reader.readLine();
+			return Integer.parseInt(ligne);
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return -1;
+	}
 	
 }
