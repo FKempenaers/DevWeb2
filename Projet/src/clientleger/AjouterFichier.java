@@ -65,11 +65,10 @@ public class AjouterFichier extends HttpServlet {
 		}
 		
 		
-		
-		/* Ajouter fonction pour mettre fichier dans bdd */
 		String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
 		Part filePart = request.getPart("fichier"); // Retrieves <input type="file" name="file">
 		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+		int ajout_fichier=-1;
 
 		InputStream fileContent = filePart.getInputStream();
 		new File("uploads/"+pseudo+"/").mkdirs();
@@ -77,8 +76,8 @@ public class AjouterFichier extends HttpServlet {
 		Files.copy(fileContent, uploads.toPath(),StandardCopyOption.REPLACE_EXISTING);
 
 		try {
-			boolean ajout_fichier = basededonnees.Request.addFile(pseudo, fileName, uploads.toString());
-			if(!ajout_fichier)
+			ajout_fichier = basededonnees.Request.addFile(pseudo, fileName, uploads.toString());
+			if(ajout_fichier == -1)
 			response.sendRedirect("index.html");
 			
 		} catch (ClassNotFoundException | SQLException e) {
@@ -106,19 +105,19 @@ public class AjouterFichier extends HttpServlet {
 				 line = br.readLine();
 				}
 
-				serveur.Serveur serv = (serveur.Serveur) request.getServletContext().getAttribute("serveur");
-				serv.setfichier(fichier);
+//				serveur.Serveur serv = (serveur.Serveur) request.getServletContext().getAttribute("serveur");
+//				serv.setfichier(fichier);
+//				
+//				getServletContext().setAttribute("fichier", fichier);
+//				getServletContext().getRequestDispatcher("/WEB-INF/tchatche.jsp").forward(request, response);
 				
-				getServletContext().setAttribute("fichier", fichier);
-				getServletContext().getRequestDispatcher("/WEB-INF/tchatche.jsp").forward(request, response);
-				
-//				ServletContext context = getServletContext();
-//				String idFichier = 
-//				String lienFichier = 
-//				serveur.Serveur serv = (serveur.Serveur) context.getAttribute("serveur");
-//				context.setAttribute("fichier", serv.getFichierMap(idFichier,lienFichier) );
-//				context.setAttribute("idFichier", Integer.parseInt(idFichier));
-//				response.sendRedirect("Tchatche");
+				ServletContext context = getServletContext();
+				String idFichier = String.valueOf(ajout_fichier);
+				String lienFichier = "uploads/"+pseudo+"/"+fileName+"/";
+				serveur.Serveur serv = (serveur.Serveur) context.getAttribute("serveur");
+				context.setAttribute("fichier", serv.getFichierMap(idFichier,lienFichier) );
+				context.setAttribute("idFichier", Integer.parseInt(idFichier));
+				response.sendRedirect("Tchatche");
 				
 				
 				

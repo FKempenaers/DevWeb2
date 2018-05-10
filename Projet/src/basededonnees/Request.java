@@ -209,7 +209,7 @@ public class Request {
 		}
 	}
 	
-	public static boolean addUsertoFile (String pseudo, String id_file) throws ClassNotFoundException, SQLException {
+	public static boolean addUsertoFile (String pseudo, int id_file) throws ClassNotFoundException, SQLException {
 		Connect cnx = new Connect();
 		Statement st = cnx.getSmt();
 		

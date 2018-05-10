@@ -71,8 +71,6 @@ public class Connexion extends HttpServlet {
 					System.out.println(s);
 				}
 				
-				String[] lol = files.get(1);
-				
 				request.getServletContext().getRequestDispatcher("/WEB-INF/accueilUser.jsp").forward(request, response);				
 				
 				
