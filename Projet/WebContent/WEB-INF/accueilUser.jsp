@@ -24,7 +24,7 @@
 		<ul>
 			<c:forEach items="${liste}" var="current">
 				<li><span>
-						<form method="post" action="AjouterFichier">
+						<form method="post" action="ChoixFichier">
 							<input type="submit" value="${current}" name="fichier" />
 						</form>
 				</span></li>
