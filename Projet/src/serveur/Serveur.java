@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import tchatche.GestionMessages;
@@ -23,6 +24,7 @@ public class Serveur extends Thread{
 	public Serveur() {
 		chat = new GestionMessages();
 		this.fichier = "";
+		this.fichierMap = new HashMap<Integer,String>();
 		this.start();
 	}
 	public boolean getnewmodif() {
@@ -145,6 +147,41 @@ public class Serveur extends Thread{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+					}
+					else if(ligne.equals("nbfichier")) {
+						ligne = in.readLine();
+						try {
+							ArrayList<String[]> listef = basededonnees.Request.user_file(ligne);
+							out.println(listef.size()+"\n");
+							out.flush();
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						out.println("-1\n");
+						out.flush();
+					}
+					else if(ligne.equals("actufichier")) {
+						ligne = in.readLine();
+						try {
+							ArrayList<String[]> listef = basededonnees.Request.user_file(ligne);
+							for(int i=0;i <listef.size();i++) {
+								out.println(listef.get(i)[0]+"\n"+listef.get(i)[1]+"\n"+listef.get(i)[2]+"\n"+listef.get(i)[3]+"\n");
+							}
+							out.println("fin\n");
+							out.flush();
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						out.println("-1\n");
+						out.flush();
 					}
 					else {
 						if(!ligne.equals("xyz")) {

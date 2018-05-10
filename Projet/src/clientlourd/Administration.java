@@ -186,13 +186,14 @@ public class Administration extends JFrame{
 		bAF = new JButton[20];
 		bAFA = new JButton[20];
 		nbfichier = nbfichier();
-		for(int i = n; i < n+20 || i < nbfichier;i++,j+=20) {
+		actufichier();
+		for(int i = n; i < n+20 && i < nbfichier;i++,j+=20) {
 			fichiers[i-n] = new JLabel();
 			fichiers[i-n].setLayout(null);
 			fichiers[i-n].setLocation(new Point(0,j));
 			fichiers[i-n].setSize(100, 17);
 			
-			bAFA[i-n] = new JButton(listef.get(i)[3]);
+			bAFA[i-n] = new JButton("Admin");
 			bAFA[i-n].setBounds(260,j,100,20);
 			
 			bAFA[i-n].addActionListener(new ActionListener() {
@@ -207,7 +208,7 @@ public class Administration extends JFrame{
 				}
 			});
 			cp.add(bAFA[i-n]);
-			bAF[i-n] = new JButton("Editer ");
+			bAF[i-n] = new JButton("Editer");
 			bAF[i-n].setBounds(110, j, 150, 20);
 
 			bAF[i-n].addActionListener(new ActionListener() {
@@ -267,6 +268,9 @@ public class Administration extends JFrame{
 		suivant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				n += 20;
+				if(n > nbfichier) {
+					n = nbfichier;
+				}
 				for(int i = 0;i<20;i++) {
 					  remove(bAF[i]);
 					  remove(fichiers[i]);
@@ -276,10 +280,19 @@ public class Administration extends JFrame{
 			}
 		});
 		cp.add(suivant);
+		suivant= new JButton("Suivant");
+		suivant.setBounds(110, j+60, 100, 20);
+		suivant.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		cp.add(suivant);
 	}
 
 	public void actufichier() {
 		String ligne;
+		listef = new ArrayList<String[]>();
 		try {
 			s = new Socket("localhost",PORT);
 			in = s.getInputStream();
@@ -289,13 +302,15 @@ public class Administration extends JFrame{
 			writer.print("actufichier\n"+user+"\nxyz\n");
 			writer.flush();
 			ligne = reader.readLine();
+			int j = 0,i=0;
 			while(!ligne.equals("fin")) {
-				String fi[] = new String[4];
-				for(int i=0;i < 4;i++) {
+				String[] fi = new String[4];
+				for(i=0;i < 4;i++) {
 					fi[i] = ligne;
 					ligne = reader.readLine();
 				}
-				listef.add(fi);
+				listef.add(j,fi);
+				j++;
 				ligne = reader.readLine();
 			}
 			

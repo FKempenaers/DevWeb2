@@ -43,6 +43,7 @@ public class ChoixFichier extends HttpServlet {
 		serveur.Serveur serv = (serveur.Serveur) context.getAttribute("serveur");
 		context.setAttribute("fichier", serv.getFichierMap(idFichier,lienFichier) );
 		context.setAttribute("idFichier", Integer.parseInt(idFichier));
+		response.sendRedirect("Tchatche");
 	}
 
 }
