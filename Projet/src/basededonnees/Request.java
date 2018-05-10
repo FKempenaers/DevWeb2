@@ -87,7 +87,7 @@ public class Request {
 		
 		ResultSet rs = st.executeQuery(check_user);
 		
-		if (rs == null) {
+		if (rs.isBeforeFirst()) {
 			return false;
 		} 
 		else {

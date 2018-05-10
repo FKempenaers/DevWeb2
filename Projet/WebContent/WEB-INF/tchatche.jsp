@@ -13,5 +13,6 @@
 	<script type="text/javascript" src="fonctions.js"></script>
 	<jsp:include page="affichage.jsp" />
 	<jsp:include page="saisie.html" />
+		<jsp:include page="affichageFichier.jsp" />
 </body>
 </html>

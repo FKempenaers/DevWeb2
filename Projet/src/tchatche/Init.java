@@ -25,6 +25,7 @@ public class Init extends HttpServlet {
      */
     public Init() {
         super();
+		
         // TODO Auto-generated constructor stub
     }
 
@@ -33,7 +34,7 @@ public class Init extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		this.init();
 		response.sendRedirect("index.html");
 		
 	}
@@ -43,7 +44,6 @@ public class Init extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 		this.init();
 		HttpSession session = request.getSession();
 		String pseudo = request.getParameter("pseudo");
@@ -71,6 +71,8 @@ public class Init extends HttpServlet {
 		
 		context.setAttribute("listeUsers", listeUsers);
 		context.setAttribute("listeMessages", serv.getChat());
+		context.setAttribute("fichier", serv.getfichier());
+		context.setAttribute("serveur", serv);
 		
 		
 	}
