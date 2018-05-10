@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -74,6 +75,12 @@ public class AjouterFichier extends HttpServlet {
 		File uploads = new File("uploads/"+pseudo+"/"+fileName);
 		Files.copy(fileContent, uploads.toPath(),StandardCopyOption.REPLACE_EXISTING);
 
+		try {
+			basededonnees.Request.addFile(pseudo, fileName, uploads.toString());
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try {
 			if (fileContent != null) {
 				InputStreamReader isr = new InputStreamReader(fileContent);

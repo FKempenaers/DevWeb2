@@ -16,14 +16,17 @@ public class Test extends Request {
 		//init(st);
 		int i = 0;
 		
+		addFile("quentin", "test.txt", "/home/test.txt");
+		
 		ArrayList<String[]> files = user_file("tao");
+	
 		
 		while (i < files.size()) {
 			String[] infos = files.get(i);
 			System.out.println(infos[0]);
 			System.out.println(infos[1]);
 			System.out.println(infos[2]);
-			System.out.println(infos[4]);
+			System.out.println(infos[3]);
 			i++;
 		}
 		

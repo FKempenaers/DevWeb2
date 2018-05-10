@@ -123,30 +123,74 @@ public class Request {
 	}
 	
 	public static ArrayList<String[]> user_file (String pseudo) throws ClassNotFoundException, SQLException {
+		int i = 0;
 		ArrayList<String[]> fichier_infos = new ArrayList<String[]>();
-		String[] infos = new String[4];
+
 		Connect cnx = new Connect();
 		
 		Statement st = cnx.getSmt();
 		
-		String user_file = "select id_file, pseudo, nom, lien_fichier from Utilisateur, Fichier, Modifie where id_user_m = id_user and id_file = id_file_m;";
+		String user_file = "select id_file, pseudo, nom, lien_fichier from Utilisateur, Fichier, Modifie where id_user_m = id_user and id_file = id_file_m and pseudo = \""+pseudo+"\";";
 		
 		ResultSet rs = st.executeQuery(user_file);
 		
 		while (rs.next()) {
+			String[] infos = new String[4];
 			infos[0] = rs.getString(1);
 			infos[1] = rs.getString(2);
 			infos[2] = rs.getString(3);
 			infos[3] = rs.getString(4);
 			
-			fichier_infos.add(infos);
+			/*
+			System.out.println("id : " + rs.getString(1));
+			System.out.println("pseudo : " + rs.getString(2));
+			System.out.println("nom fichier : " + rs.getString(3));
+			System.out.println("lien fichier : " + rs.getString(4));
+			*/
 			
-			//System.out.println("pseudo : " + rs.getString(1));
-			//System.out.println("nom fichier : " + rs.getString(2));
-			//System.out.println("lien fichier : " + rs.getString(3));
+			fichier_infos.add(i, infos);
+			i++;
 		}
 		
+		rs.close();
+		st.close();
+		cnx.getCnx().close();
+		
 		return fichier_infos;
+	}
+	
+	public static void addFile(String pseudo, String name_file, String link_file) throws ClassNotFoundException, SQLException {
+		Connect cnx = new Connect();
+		
+		Statement st = cnx.getSmt();
+		
+		String previous_id = "select * from Fichier;";
+		String uid ="select id_user from Utilisateur where pseudo = \""+pseudo+"\";";
+		
+		ResultSet p_id = st.executeQuery(previous_id);
+		
+		boolean check = p_id.last();
+		int new_id = 0;
+		if (check) {
+			new_id = p_id.getInt(1) + 1;
+		}
+		
+		ResultSet u_id = st.executeQuery(uid);
+		boolean checkuser = u_id.last();
+		int id_user = 0;
+		if (checkuser) {
+			id_user = u_id.getInt(1);
+		}
+		String addFile = "insert into Fichier values ("+new_id+", "+"\""+name_file+"\""+", "+"\""+link_file+"\", \"src\", \"0\");";
+		String modify = "insert into Modifie values ("+id_user+", "+new_id+");";
+		
+		st.executeUpdate(addFile);
+		st.executeUpdate(modify);
+		
+		p_id.close();
+		u_id.close();
+		st.close();
+		cnx.getCnx().close();
 	}
 }
 
