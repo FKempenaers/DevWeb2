@@ -68,10 +68,7 @@ public class AjouterFichier extends HttpServlet {
 		String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
 		Part filePart = request.getPart("fichier"); // Retrieves <input type="file" name="file">
 		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'dev' of https://github.com/TaoGrolleau/DevWeb2.git
 		InputStream fileContent = filePart.getInputStream();
 		new File("uploads/"+pseudo+"/").mkdirs();
 		File uploads = new File("uploads/"+pseudo+"/"+fileName);
