@@ -159,7 +159,7 @@ public class Request {
 		return fichier_infos;
 	}
 	
-	public static void addFile(String pseudo, String name_file, String link_file) throws ClassNotFoundException, SQLException {
+	public static boolean addFile(String pseudo, String name_file, String link_file) throws ClassNotFoundException, SQLException {
 		Connect cnx = new Connect();
 		
 		Statement st = cnx.getSmt();
@@ -167,30 +167,46 @@ public class Request {
 		String previous_id = "select * from Fichier;";
 		String uid ="select id_user from Utilisateur where pseudo = \""+pseudo+"\";";
 		
-		ResultSet p_id = st.executeQuery(previous_id);
-		
-		boolean check = p_id.last();
-		int new_id = 0;
-		if (check) {
-			new_id = p_id.getInt(1) + 1;
-		}
+		String delFile = "delete from Fichier where nom =\""+name_file+"\";";	
+		st.executeUpdate(delFile);
 		
 		ResultSet u_id = st.executeQuery(uid);
+		
 		boolean checkuser = u_id.last();
-		int id_user = 0;
 		if (checkuser) {
-			id_user = u_id.getInt(1);
+			int id_user = 0;
+			if (checkuser) {
+				id_user = u_id.getInt(1);
+			}
+			
+			ResultSet p_id = st.executeQuery(previous_id);
+			
+			boolean check = p_id.last();
+			int new_id = 0;
+			if (check) {
+				new_id = p_id.getInt(1) + 1;
+			}
+				
+			String addFile = "insert into Fichier values ("+new_id+", "+"\""+name_file+"\""+", "+"\""+link_file+"\", \"src\", \"0\");";
+			String modify = "insert into Modifie values ("+id_user+", "+new_id+");";
+		
+			st.executeUpdate(addFile);
+			st.executeUpdate(modify);
+			
+			p_id.close();
+			u_id.close();
+			st.close();
+			cnx.getCnx().close();
+			
+			return true;
 		}
-		String addFile = "insert into Fichier values ("+new_id+", "+"\""+name_file+"\""+", "+"\""+link_file+"\", \"src\", \"0\");";
-		String modify = "insert into Modifie values ("+id_user+", "+new_id+");";
-		
-		st.executeUpdate(addFile);
-		st.executeUpdate(modify);
-		
-		p_id.close();
-		u_id.close();
-		st.close();
-		cnx.getCnx().close();
+		else {
+			u_id.close();
+			st.close();
+			cnx.getCnx().close();
+			
+			return false;
+		}
 	}
 }
 
