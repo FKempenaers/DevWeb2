@@ -1,12 +1,13 @@
 package basededonnees;
 
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Request {
-	public void init(Statement st) throws ClassNotFoundException, SQLException {		
-		//String foreign_key_check = "set FOREIGN_KEY_CHECKS = 0;";
+	public static void init(Statement st) throws ClassNotFoundException, SQLException {		
+		String foreign_key_check = "set FOREIGN_KEY_CHECKS = 0;";
 		
 		String table_user = "create table Utilisateur (id_user INT," +
 							"pseudo VARCHAR(40)," +
@@ -20,6 +21,7 @@ public class Request {
 		String table_fichier = "create table Fichier (id_file INT," +
 							   "nom VARCHAR(40)," +
 							   "lien_fichier VARCHAR(100)," +
+							   "type_fichier VARCHAR(20)," +
 							   "visibilite INT," +
 							   "PRIMARY KEY(id_file));";
 		
@@ -42,6 +44,8 @@ public class Request {
 								 "CONSTRAINT Cfk2 FOREIGN KEY (id_file_c) REFERENCES Fichier(id_file)," +
 								 "CONSTRAINT Cpk PRIMARY KEY (id_groupe_c, id_file_c));" ;
 		
+		st.executeUpdate(foreign_key_check);
+		
 		st.executeUpdate(table_user);
 		st.executeUpdate(table_groupe);
 		st.executeUpdate(table_fichier);
@@ -51,7 +55,7 @@ public class Request {
 		st.executeUpdate(table_contient);
 	}
 	
-	public void clear_all_tables(Statement st) throws ClassNotFoundException, SQLException {	
+	public static void clear_all_tables(Statement st) throws ClassNotFoundException, SQLException {	
 		String clear_all_tables = "drop table Appartient, Modifie, Contient, Groupe, Utilisateur, Fichier";
 		
 		st.executeUpdate(clear_all_tables);
@@ -116,6 +120,32 @@ public class Request {
 		cnx.getCnx().close();
 		
 		return check;
+	}
+	
+	public static ArrayList<String[]> user_file (String pseudo) throws ClassNotFoundException, SQLException {
+		ArrayList<String[]> fichier_infos = new ArrayList<String[]>();
+		String[] infos = new String[3];
+		Connect cnx = new Connect();
+		
+		Statement st = cnx.getSmt();
+		
+		String user_file = "select pseudo, nom, lien_fichier from Utilisateur, Fichier, Modifie where id_user_m = id_user and id_file = id_file_m;";
+		
+		ResultSet rs = st.executeQuery(user_file);
+		
+		while (rs.next()) {
+			infos[0] = rs.getString(1);
+			infos[1] = rs.getString(2);
+			infos[2] = rs.getString(3);
+			
+			fichier_infos.add(infos);
+			
+			//System.out.println("pseudo : " + rs.getString(1));
+			//System.out.println("nom fichier : " + rs.getString(2));
+			//System.out.println("lien fichier : " + rs.getString(3));
+		}
+		
+		return fichier_infos;
 	}
 }
 

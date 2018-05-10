@@ -1,6 +1,7 @@
 package basededonnees;
 
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -13,11 +14,24 @@ public class Test extends Request {
 		//clear_all_tables(st);
 		
 		//init(st);
+		int i = 0;
+		
+		ArrayList<String[]> files = user_file("tao");
+		
+		while (i < files.size()) {
+			String[] infos = files.get(i);
+			System.out.println(infos[0]);
+			System.out.println(infos[1]);
+			System.out.println(infos[2]);
+			i++;
+		}
 		
 		/*addUser(st, 1, "tao", "1234");
 		addUser(st, 2, "francis", "4567");
 		addUser(st, 3, "lucas", "8901");
 		addGroup(st, 1, "L3 info");
+		
+		
 		
 		boolean ok = check_user("tao", "1234");
 		
