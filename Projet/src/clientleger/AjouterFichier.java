@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -77,6 +78,9 @@ public class AjouterFichier extends HttpServlet {
 
 		try {
 			boolean ajout_fichier = basededonnees.Request.addFile(pseudo, fileName, uploads.toString());
+			if(!ajout_fichier)
+			response.sendRedirect("index.html");
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -107,6 +111,16 @@ public class AjouterFichier extends HttpServlet {
 				
 				getServletContext().setAttribute("fichier", fichier);
 				getServletContext().getRequestDispatcher("/WEB-INF/tchatche.jsp").forward(request, response);
+				
+//				ServletContext context = getServletContext();
+//				String idFichier = 
+//				String lienFichier = 
+//				serveur.Serveur serv = (serveur.Serveur) context.getAttribute("serveur");
+//				context.setAttribute("fichier", serv.getFichierMap(idFichier,lienFichier) );
+//				context.setAttribute("idFichier", Integer.parseInt(idFichier));
+//				response.sendRedirect("Tchatche");
+				
+				
 				
 			} 
 		}finally{}
