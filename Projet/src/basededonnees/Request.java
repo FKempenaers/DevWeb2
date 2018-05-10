@@ -167,7 +167,11 @@ public class Request {
 		String previous_id = "select * from Fichier;";
 		String uid ="select id_user from Utilisateur where pseudo = \""+pseudo+"\";";
 		
+		String delFile = "delete from Fichier where nom =\""+name_file+"\";";	
+		st.executeUpdate(delFile);
+		
 		ResultSet u_id = st.executeQuery(uid);
+		
 		boolean checkuser = u_id.last();
 		if (checkuser) {
 			int id_user = 0;
@@ -182,13 +186,13 @@ public class Request {
 			if (check) {
 				new_id = p_id.getInt(1) + 1;
 			}
-			
+				
 			String addFile = "insert into Fichier values ("+new_id+", "+"\""+name_file+"\""+", "+"\""+link_file+"\", \"src\", \"0\");";
 			String modify = "insert into Modifie values ("+id_user+", "+new_id+");";
 		
 			st.executeUpdate(addFile);
 			st.executeUpdate(modify);
-		
+			
 			p_id.close();
 			u_id.close();
 			st.close();
