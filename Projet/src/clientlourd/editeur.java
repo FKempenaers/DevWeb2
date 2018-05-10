@@ -17,24 +17,19 @@ import javax.swing.*;
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 
-public class editeur extends JFrame implements ActionListener {
+public class editeur extends JFrame /*implements ActionListener,*/ {
 
    private static final long serialVersionUID = 1L;
 
    private RSyntaxTextArea textArea;
-   private JTextField searchField;
+   private static JTextField searchField;
    private JCheckBox regexCB;
    private JCheckBox matchCaseCB;
    private String doc;
+
    
-   final int PORT = 8888;
-   private InputStream in;
-   private OutputStream out;
-   BufferedReader reader;
-   private Socket s;
-
    public editeur(String doc,String style) {
-
+	   super();
       JPanel cp = new JPanel(new BorderLayout());
       this.doc = doc;
       textArea = new RSyntaxTextArea(this.doc,45, 100);
@@ -42,99 +37,91 @@ public class editeur extends JFrame implements ActionListener {
       textArea.setCodeFoldingEnabled(true);
       RTextScrollPane sp = new RTextScrollPane(textArea);
       cp.add(sp);
-      cp.addKeyListener(new KeyListener() {
-
-    	  @Override
-	      public void keyPressed(KeyEvent arg0) {
-		      // TODO Auto-generated method stub
-		
-	      }
-
-    	  @Override
-    	  public void keyReleased(KeyEvent arg0) {
-    		  String text = searchField.getText();
-    		  // TODO Auto-generated method stub
-    		  try {
-    				s = new Socket("localhost",PORT);
-    				in = s.getInputStream();
-    				out = s.getOutputStream();
-    				reader = new BufferedReader(new InputStreamReader(in));
-    				PrintWriter writer = new PrintWriter(out);
-    			    writer.print("fichier\n"+text+"\n;;//*::::;;;;:;\nxyz\n");
-    				writer.flush();
-    				
-    			} catch (UnknownHostException e1) {
-    				// TODO Auto-generated catch block
-    				e1.printStackTrace();
-    			} catch (IOException e1) {
-    				// TODO Auto-generated catch block
-    				e1.printStackTrace();
-    			}
-		
-    	  }
-
-    	  @Override
-    	  public void keyTyped(KeyEvent arg0) {
-    		  // TODO Auto-generated method stub
-		
-    	  }
-
-      });
-  
-
+      System.out.println("okv");
       setContentPane(cp);
       setTitle("Editeur");
       pack();
       setLocationRelativeTo(null);
-
+      textArea.addKeyListener(new TitreKeyListener(this));
+      textArea.setFocusable(true);
    }
    public RSyntaxTextArea gettextarea() {
 	   return textArea;
    }
+   
+   
+   public String gettext() {
+	   
+	   return textArea.getText();
+   }
+   public void settext(String s) {
 
-   public void actionPerformed(ActionEvent e) {
-
-      // "FindNext" => search forward, "FindPrev" => search backward
-      /*String command = e.getActionCommand();
-      boolean forward = "FindNext".equals(command);
-      System.err.println("lol");
-      // Create an object defining our search parameters.
-      SearchContext context = new SearchContext();
-      String text = searchField.getText();
-      System.out.println("test!!");
-      if (text.length() == 0) {
-         return;
-      }
-      
-      context.setSearchFor(text);
-      context.setMatchCase(matchCaseCB.isSelected());
-      context.setRegularExpression(regexCB.isSelected());
-      context.setSearchForward(forward);
-      context.setWholeWord(false);
-
-      try {
-		s = new Socket("localhost",PORT);
-		in = s.getInputStream();
-		out = s.getOutputStream();
-		reader = new BufferedReader(new InputStreamReader(in));
-		PrintWriter writer = new PrintWriter(out);
-	    writer.print("fichier\n"+text+"\n;;//*::::;;;;:;\nxyz\n");
-		writer.flush();
-		
-	} catch (UnknownHostException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
-
-      
-      boolean found = SearchEngine.find(textArea, context).wasFound();
-      if (!found) {
-         JOptionPane.showMessageDialog(this, "Text not found");
-      }*/
-
+	   textArea.setText(s);
    }
 
+  
+}
+
+class TitreKeyListener implements KeyListener {
+	   final int PORT = 8888;
+	   private InputStream in;
+	   private OutputStream out;
+	   BufferedReader reader;
+	   private Socket s;
+		
+	   boolean newmodif = true;
+	   editeur ed;
+    public TitreKeyListener(editeur e) {
+    	this.ed = e;
+    }
+ 
+    public void keyPressed(KeyEvent e) {
+    	String st,ligne;
+    	try {
+			s = new Socket("localhost",PORT);
+			in = s.getInputStream();
+			out = s.getOutputStream();
+			reader = new BufferedReader(new InputStreamReader(in));
+			PrintWriter writer = new PrintWriter(out);
+			writer.print("getfichier\nxyz\n");
+			writer.flush();
+			st ="";
+			ligne = reader.readLine();
+			while(!ligne.equals(";;//*::::;;;;:;")) {
+				st = st + ligne;
+				ligne = reader.readLine();
+				if(!ligne.equals(";;//*::::;;;;:;")) {
+					st = st + '\n';
+				}
+			}
+			ed.settext(st);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    }
+ 
+    public void keyReleased(KeyEvent e) {
+    	try {
+    		s = new Socket("localhost",PORT);
+			in = s.getInputStream();
+			out = s.getOutputStream();
+			reader = new BufferedReader(new InputStreamReader(in));
+			PrintWriter writer = new PrintWriter(out);
+
+			System.out.println(ed.gettext()+"FIN!!!");
+			writer.print("fichier\n"+ed.gettext()+"\n"+";;//*::::;;;;:;\nxyz\n");
+			writer.flush();
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    }
+ 
+    public void keyTyped(KeyEvent e) {
+        // on ne fait rien
+    }
 }

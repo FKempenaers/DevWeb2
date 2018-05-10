@@ -16,6 +16,7 @@ public class Serveur extends Thread{
 	
 	public Serveur() {
 		chat = new GestionMessages();
+		this.fichier = "";
 		this.start();
 	}
 	public boolean getnewmodif() {
@@ -42,7 +43,7 @@ public class Serveur extends Thread{
 			PrintWriter out = new PrintWriter(s.getOutputStream());
 			
 				ligne = in.readLine();
-				while(!(ligne.equals("xyz"))) {
+				while(!(ligne.equals("xyz") && ligne != null)) {
 					if(ligne.equals("nbmessages")) {
 						out.println(chat.nbmessage());
 						out.flush();
@@ -55,15 +56,21 @@ public class Serveur extends Thread{
 						}
 					}
 					else if(ligne.equals("fichier")) {
-						String f ="",l;
-						l = in.readLine();
+						String f ="";
+						ligne = in.readLine();
 						while(!(ligne.equals(";;//*::::;;;;:;"))) {
-							f = f + l;
-							l = in.readLine(); 
+							f = f + ligne;
+							ligne = in.readLine(); 
+							if(!(ligne.equals(";;//*::::;;;;:;"))) {
+								f = f + '\n';
+							}
 						}
 						fichier = f;
-						System.out.println(fichier);
 						newmodif = true;
+					}
+					else if(ligne.equals("getfichier")) {
+						out.println(fichier+"\n;;//*::::;;;;:;\n");
+						out.flush();
 					}
 					else {
 						if(!ligne.equals("xyz")) {
