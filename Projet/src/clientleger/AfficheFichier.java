@@ -35,8 +35,7 @@ public class AfficheFichier extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		serveur.Serveur serv = (serveur.Serveur) request.getServletContext().getAttribute("serveur");
-		fichier = serv.getfichier();
+		fichier = (String) request.getServletContext().getAttribute("fichier");
 
 		// response.setContentType("text/event-stream");
 		response.setContentType("text/plain");
@@ -60,7 +59,8 @@ public class AfficheFichier extends HttpServlet {
 		serveur.Serveur serv = (serveur.Serveur) request.getServletContext().getAttribute("serveur");
 		serv.setfichier(fichier);
 		System.out.println(fichier);
-		// doGet(request,response);
+		/*Manque le code pour remettre le fichier dans la map du serv et dans la bdd
+		 * du coup realtime buggé atm parce que les modifs sont pas mises au bon endroit*/
 	}
 
 }

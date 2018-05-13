@@ -31,7 +31,42 @@ public class Connexion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session =  request.getSession();
+		String pseudo = (String) session.getAttribute("pseudo");
+		
+		if ((boolean)session.getAttribute("auth") == true){
+			/*
+			 * L'utilisateur a un compte enregistré sur la base de données et les infos correspondent.
+			 * Il faut le rediriger vers l'accueil utilisateur.
+			 */
+			
+			
+			ArrayList<String[]> files = new ArrayList<String[]>();
+			try {
+				files = basededonnees.Request.user_file(pseudo);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			getServletContext().setAttribute("liste", files);
+			for(int i = 0; i < files.size(); i++) {
+			for(String s : files.get(i))
+				System.out.println(s);
+			}
+			
+			request.getServletContext().getRequestDispatcher("/WEB-INF/accueilUser.jsp").forward(request, response);				
+			
+			
+		}
+		else {
+			response.sendRedirect("index.html");
+		}
+		
+		
 	}
 
 	/**
@@ -39,8 +74,6 @@ public class Connexion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		//ajouter code pour verifier username + pass et set la session
 		
 		String pseudo = request.getParameter("pseudo");
 		String mdp = request.getParameter("mdp");
@@ -51,17 +84,13 @@ public class Connexion extends HttpServlet {
 			if (check_user) {
 				/*
 				 * L'utilisateur a un compte enregistré sur la base de données et les infos correspondent.
-				 * Il faut le rediriger vers l'accueil.
+				 * Il faut le rediriger vers l'accueil  utilisateur.
 				 */
 				
 				HttpSession session =  request.getSession();
 				session.setAttribute("pseudo", pseudo);
 				session.setAttribute("auth", true);
-				
-				/*
-				Pecho la liste des fichiers du user et mettre dans une var
-				comme ca dans la jsp on recup et on fait des boutons avec pour que l'user puisse ouvrir les fichiers
-				*/
+
 				
 				ArrayList<String[]> files = basededonnees.Request.user_file(pseudo);
 				
@@ -89,8 +118,7 @@ public class Connexion extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
-		//doGet(request, response);
+
 	}
 
 }
