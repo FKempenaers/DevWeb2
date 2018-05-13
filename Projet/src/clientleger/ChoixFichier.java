@@ -41,8 +41,10 @@ public class ChoixFichier extends HttpServlet {
 		String idFichier = request.getParameter("id");
 		String lienFichier = request.getParameter("lien");
 		serveur.Serveur serv = (serveur.Serveur) context.getAttribute("serveur");
+		System.out.println(idFichier+" "+lienFichier);
 		context.setAttribute("fichier", serv.getFichierMap(idFichier,lienFichier) );
-		context.setAttribute("idFichier", Integer.parseInt(idFichier));
+		context.setAttribute("idFichier", idFichier);
+		context.setAttribute("lienFichier", lienFichier);
 		getServletContext().getRequestDispatcher("/WEB-INF/tchatche.jsp").forward(request, response);
 	}
 

@@ -12,7 +12,7 @@
 <body>
 
 	<div>
-		<p>fichier public ?</p>
+		<p>Upload un nouveau fichier</p>
 		<form method="post" action="AjouterFichier"
 			enctype="multipart/form-data">
 			> <input type="file" value="Charger" name="fichier" /> <input

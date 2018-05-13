@@ -3,6 +3,7 @@ package clientleger;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,12 +56,19 @@ public class AfficheFichier extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		ServletContext context = this.getServletContext();
 		fichier = request.getParameter("fichier");
+		context.setAttribute("fichier", fichier);
 		serveur.Serveur serv = (serveur.Serveur) request.getServletContext().getAttribute("serveur");
-		serv.setfichier(fichier);
+		String idFichier = (String) context.getAttribute("idFichier");
+		String lienFichier = (String) context.getAttribute("lienFichier");
+		serv.setFichierMap(idFichier, fichier, lienFichier);
 		System.out.println(fichier);
-		/*Manque le code pour remettre le fichier dans la map du serv et dans la bdd
-		 * du coup realtime buggé atm parce que les modifs sont pas mises au bon endroit*/
+		/*
+		 * Manque le code pour remettre le fichier dans la map du serv et dans le
+		 * filesystem du coup realtime buggé atm parce que les modifs sont pas mises au
+		 * bon endroit
+		 */
 	}
 
 }
