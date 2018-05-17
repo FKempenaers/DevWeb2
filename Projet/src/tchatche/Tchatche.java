@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import serveur.Serveur;
+
 /**
  * Servlet implementation class Tchatche
  */
@@ -74,11 +76,11 @@ public class Tchatche extends HttpServlet {
 	private void newMessage(String pseudo, String message, String date) {
 		// exo5
 		ServletContext context = this.getServletContext();
-		GestionMessages liste = (GestionMessages) context.getAttribute("listeMessages");
+		String idFichier = (String) context.getAttribute("idFichier");
+		Serveur serv = (Serveur) context.getAttribute("serveur");
+		GestionMessages liste = serv.getChatMap(idFichier);
 		if(pseudo != null && message != null && liste != null)
 		liste.add(message, pseudo);
-
-		context.setAttribute("listeMessages", liste);
 	}
 
 }
