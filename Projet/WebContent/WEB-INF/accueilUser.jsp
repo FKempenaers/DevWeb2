@@ -22,12 +22,13 @@
 
 	<div>
 		<ul>
-			<c:forEach items="${liste}" var="item">
+			<c:forEach items="${liste}" var="item" varStatus="i">
 				<li><span>
 						<form method="post" action="ChoixFichier">
 							<input type="hidden" value="${item[0]}" name="id" /> <input
 								type="hidden" value="${item[3]}" name="lien" /> <input
 								type="submit" value="${item[2]}" name="fichier" />
+								${permissions.get(i.getIndex())}
 						</form>
 				</span></li>
 			</c:forEach>
@@ -39,10 +40,24 @@
 			<c:forEach items="${liste}" var="item">
 				<li><span>
 						<form method="post" action="AjoutUseraFichier">
-							<input type="hidden" value="${item[0]}" name="id" /> <input
-								type="hidden" value="${item[3]}" name="lien" /> 
+							<input type="hidden" value="${item[0]}" name="id" />
 								<label for="user">Nom de l'utilisateur :</label> <input type="text"
 								name="user" /> <input type="submit" value="Ajout à ${item[2]}"
+								name="fichier" />
+						</form>
+				</span></li>
+			</c:forEach>
+		</ul>
+	</div>
+	
+		<div>
+		<ul>
+			<c:forEach items="${liste}" var="item">
+				<li><span>
+						<form method="post" action="SuppUserDeFichier">
+							<input type="hidden" value="${item[0]}" name="id" />
+								<label for="user">Nom de l'utilisateur :</label> <input type="text"
+								name="user" /> <input type="submit" value="Enlever de ${item[2]}"
 								name="fichier" />
 						</form>
 				</span></li>

@@ -100,6 +100,7 @@ public class Connexion extends HttpServlet {
 				}
 
 				getServletContext().setAttribute("liste", files);
+				getServletContext().setAttribute("permissions", permissions);
 				for (int i = 0; i < permissions.size(); i++) {
 					for (String s : permissions.get(i))
 						System.out.println(s);

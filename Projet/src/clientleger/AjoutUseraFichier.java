@@ -47,10 +47,8 @@ public class AjoutUseraFichier extends HttpServlet {
 			
 		ServletContext context = getServletContext();
 		String idFichier = request.getParameter("id");
-		String lienFichier = request.getParameter("lien");
 		String user = request.getParameter("user");
 		serveur.Serveur serv = (serveur.Serveur) context.getAttribute("serveur");
-		System.out.println(idFichier+" "+lienFichier);
 		
 		try {
 			basededonnees.Request.addUsertoFile(user, Integer.parseInt(idFichier));
