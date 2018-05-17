@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class ChoixFichier
@@ -29,7 +30,7 @@ public class ChoixFichier extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.sendRedirect("index.html");
 	}
 
 	/**
@@ -37,6 +38,14 @@ public class ChoixFichier extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		HttpSession session = request.getSession();
+		String pseudo = (String) session.getAttribute("pseudo");
+
+		if ((boolean) session.getAttribute("auth") == true) {
+		
+		
+		
 		ServletContext context = getServletContext();
 		String idFichier = request.getParameter("id");
 		String lienFichier = request.getParameter("lien");
@@ -46,6 +55,10 @@ public class ChoixFichier extends HttpServlet {
 		context.setAttribute("idFichier", idFichier);
 		context.setAttribute("lienFichier", lienFichier);
 		getServletContext().getRequestDispatcher("/WEB-INF/tchatche.jsp").forward(request, response);
+		
+		}else {
+			response.sendRedirect("index.html");
+		}
 	}
 
 }

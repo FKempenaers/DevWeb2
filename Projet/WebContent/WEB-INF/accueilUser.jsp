@@ -28,6 +28,7 @@
 						<input type="hidden" value="${item[0]}" name="id"/>
 						<input type="hidden" value="${item[3]}" name="lien"/>
 							<input type="submit" value="${item[2]}" name="fichier" />
+							</form>
 				</span></li>
 			</c:forEach>
 		</ul>
