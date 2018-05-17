@@ -236,14 +236,14 @@ public class Request {
 		Connect cnx = new Connect();
 		Statement st = cnx.getSmt();
 		
-		String getUid = "select id from Utilisateur where pseudo = \""+pseudo+"\";";
+		String getUid = "select id_user from Utilisateur where pseudo = \""+pseudo+"\";";
 		
 		ResultSet rs = st.executeQuery(getUid);
 		boolean check = rs.last();
 		if (check) {
 			int id = rs.getInt(1);
 			
-			String delUsertoFile = "delete from Modifie where is_user_m = "+id+" and id_file_m = "+id_file+";";
+			String delUsertoFile = "delete from Modifie where id_user_m = "+id+" and id_file_m = "+id_file+";";
 			
 			st.executeUpdate(delUsertoFile);
 			
