@@ -69,22 +69,10 @@ public class AjouterFichier extends HttpServlet {
 		String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
 		Part filePart = request.getPart("fichier"); // Retrieves <input type="file" name="file">
 		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-		int ajout_fichier=-1;
 
-		InputStream fileContent = filePart.getInputStream();
-		new File("uploads/"+pseudo+"/").mkdirs();
-		File uploads = new File("uploads/"+pseudo+"/"+fileName+"/");
-		Files.copy(fileContent, uploads.toPath(),StandardCopyOption.REPLACE_EXISTING);
-
-		try {
-			ajout_fichier = basededonnees.Request.addFile(pseudo, fileName, uploads.toString());
-			if(ajout_fichier == -1)
+		if(!basededonnees.GestionFichiers.ajouterFichier(pseudo, description, filePart, fileName))
 			response.sendRedirect("index.html");
-			
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 
 		response.sendRedirect("Connexion");
 	}

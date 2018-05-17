@@ -52,12 +52,28 @@ public class Connexion extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			ArrayList<ArrayList<String>> permissions = new ArrayList<ArrayList<String>>();
+			
+			for(int i=0; i < files.size(); i++) {
+				try {
+					permissions.add(basededonnees.Request.list_user(Integer.parseInt(files.get(i)[0])));
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 
 			getServletContext().setAttribute("liste", files);
-			for (int i = 0; i < files.size(); i++) {
-				for (String s : files.get(i))
-					System.out.println(s);
-			}
+			getServletContext().setAttribute("permissions", permissions);
+
 
 			request.getServletContext().getRequestDispatcher("/WEB-INF/accueilUser.jsp").forward(request, response);
 
@@ -101,10 +117,6 @@ public class Connexion extends HttpServlet {
 
 				getServletContext().setAttribute("liste", files);
 				getServletContext().setAttribute("permissions", permissions);
-				for (int i = 0; i < permissions.size(); i++) {
-					for (String s : permissions.get(i))
-						System.out.println(s);
-				}
 
 				request.getServletContext().getRequestDispatcher("/WEB-INF/accueilUser.jsp").forward(request, response);
 
