@@ -42,3 +42,7 @@ button {
 	height: 1000px;
 	width: 600px;
 }
+
+.liste{
+	float: left;
+}

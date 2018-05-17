@@ -1,6 +1,7 @@
 package clientleger;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class ChoixFichier
+ * Servlet implementation class AjoutUseraFichier
  */
-@WebServlet("/ChoixFichier")
-public class ChoixFichier extends HttpServlet {
+@WebServlet("/AjoutUseraFichier")
+public class AjoutUseraFichier extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChoixFichier() {
+    public AjoutUseraFichier() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,7 +31,7 @@ public class ChoixFichier extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.sendRedirect("index.html");
+		
 	}
 
 	/**
@@ -43,23 +44,35 @@ public class ChoixFichier extends HttpServlet {
 		String pseudo = (String) session.getAttribute("pseudo");
 
 		if ((boolean) session.getAttribute("auth") == true) {
-		
-		
-		
+			
 		ServletContext context = getServletContext();
 		String idFichier = request.getParameter("id");
 		String lienFichier = request.getParameter("lien");
+		String user = request.getParameter("user");
 		serveur.Serveur serv = (serveur.Serveur) context.getAttribute("serveur");
 		System.out.println(idFichier+" "+lienFichier);
-		context.setAttribute("fichier", serv.getFichierMap(idFichier,lienFichier) );
-		context.setAttribute("liste", serv.getChatMap(idFichier));
-		context.setAttribute("idFichier", idFichier);
-		context.setAttribute("lienFichier", lienFichier);
-		getServletContext().getRequestDispatcher("/WEB-INF/tchatche.jsp").forward(request, response);
+		
+		try {
+			basededonnees.Request.addUsertoFile(user, Integer.parseInt(idFichier));
+			
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		response.sendRedirect("Connexion");
 		
 		}else {
 			response.sendRedirect("index.html");
 		}
+		
 	}
 
 }

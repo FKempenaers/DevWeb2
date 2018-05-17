@@ -266,7 +266,7 @@ public class Request {
 		ResultSet rs = st.executeQuery(list_user);
 		
 		while (rs.next()) {
-			liste.add(i, rs.getString(2));
+			liste.add(i, rs.getString(1));
 			i++;
 		}
 		
