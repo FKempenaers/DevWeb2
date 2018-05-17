@@ -130,6 +130,7 @@ public class Serveur extends Thread {
 							}
 						}
 						String id = in.readLine();
+						System.out.println(id);
 						fichier = fichierMap.get(Integer.parseInt(id));
 						ligne = in.readLine();
 						setFichierMap(id,f,ligne);
@@ -203,6 +204,7 @@ public class Serveur extends Thread {
 						try {
 							ArrayList<String[]> listef = basededonnees.Request.user_file(ligne);
 							for (int i = 0; i < listef.size(); i++) {
+								System.out.println(listef.get(i)[0]);
 								out.println(listef.get(i)[0] + "\n" + listef.get(i)[1] + "\n" + listef.get(i)[2] + "\n"
 										+ listef.get(i)[3] + "\n");
 							}
