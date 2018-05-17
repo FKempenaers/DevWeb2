@@ -116,11 +116,27 @@ public class Serveur extends Thread {
 								f = f + '\n';
 							}
 						}
-						fichier = f;
+						String id = in.readLine();
+						if(fichierMap.containsKey(Integer.parseInt(id))){
+							fichier = fichierMap.get(Integer.parseInt(id));
+						}
+						else {
+							ligne = in.readLine();
+							System.out.println(ligne);
+							setFichierMap(id,f,ligne);
+						}
 						newmodif = true;
 					} else if (ligne.equals("getfichier")) {
-						out.println(fichier + "\n;;//*::::;;;;:;\n");
-						out.flush();
+						String id = in.readLine();
+						if(fichierMap.containsKey(Integer.parseInt(id))){
+							fichier = fichierMap.get(Integer.parseInt(id));
+						}
+						else {
+							ligne = in.readLine();
+							fichier = getFichierMap(id,ligne);
+						}
+							out.println(fichier + "\n;;//*::::;;;;:;\n");
+							out.flush();
 					} else if (ligne.equals("connexion")) {
 						l1 = in.readLine();
 						l2 = in.readLine();

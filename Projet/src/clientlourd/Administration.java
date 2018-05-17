@@ -53,6 +53,7 @@ public class Administration extends JFrame{
 	private OutputStream out;
 	BufferedReader reader;
 	private Socket s;
+	private String ids,liens;
 	
 	public Administration() {
 		
@@ -216,7 +217,9 @@ public class Administration extends JFrame{
 			cp.add(bAFA[i-n]);
 			bAF[i-n] = new JButton("Editer");
 			bAF[i-n].setBounds(110, j, 150, 20);
-
+			ids = listef.get(i-n)[0];
+			liens = listef.get(i-n)[3];
+			
 			bAF[i-n].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					SwingUtilities.invokeLater(new Runnable() {
@@ -234,12 +237,16 @@ public class Administration extends JFrame{
 					//chat.setVisible(true);
 				    //Start all Swing applications on the EDT.
 				    SwingUtilities.invokeLater(new Runnable() {
+				    	String id = ids;
+				    	String lien = liens;
 					 public void run() {
+						 //String id,lien;
 						 try {
 							 String laf = UIManager.getSystemLookAndFeelClassName();
 							 UIManager.setLookAndFeel(laf);
 						 } catch (Exception e) { /* never happens */ }
-						 editeur demo = new editeur(null,SyntaxConstants.SYNTAX_STYLE_C);
+						 
+						 editeur demo = new editeur(null,SyntaxConstants.SYNTAX_STYLE_C,id,lien);
 						 demo.setVisible(true);
 						demo.gettextarea().requestFocusInWindow();
 					  }

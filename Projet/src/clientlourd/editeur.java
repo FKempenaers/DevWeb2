@@ -28,7 +28,7 @@ public class editeur extends JFrame /*implements ActionListener,*/ {
    private String doc;
 
    
-   public editeur(String doc,String style) {
+   public editeur(String doc,String style,String id, String lien) {
 	   super();
       JPanel cp = new JPanel(new BorderLayout());
       this.doc = doc;
@@ -42,7 +42,7 @@ public class editeur extends JFrame /*implements ActionListener,*/ {
       setTitle("Editeur");
       pack();
       setLocationRelativeTo(null);
-      textArea.addKeyListener(new TitreKeyListener(this));
+      textArea.addKeyListener(new TitreKeyListener(this,id,lien));
       textArea.setFocusable(true);
    }
    public RSyntaxTextArea gettextarea() {
@@ -68,10 +68,12 @@ class TitreKeyListener implements KeyListener {
 	   private OutputStream out;
 	   BufferedReader reader;
 	   private Socket s;
-		
+	   private String id,lien;
 	   boolean newmodif = true;
 	   editeur ed;
-    public TitreKeyListener(editeur e) {
+    public TitreKeyListener(editeur e,String id,String lien) {
+    	this.id = id;
+    	this.lien = lien;
     	this.ed = e;
     }
  
@@ -83,7 +85,7 @@ class TitreKeyListener implements KeyListener {
 			out = s.getOutputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
 			PrintWriter writer = new PrintWriter(out);
-			writer.print("getfichier\nxyz\n");
+			writer.print("getfichier\n"+id+"\n"+lien+"\nxyz\n");
 			writer.flush();
 			st ="";
 			ligne = reader.readLine();
@@ -110,7 +112,7 @@ class TitreKeyListener implements KeyListener {
 			PrintWriter writer = new PrintWriter(out);
 
 			System.out.println(ed.gettext()+"FIN!!!");
-			writer.print("fichier\n"+ed.gettext()+"\n"+";;//*::::;;;;:;\nxyz\n");
+			writer.print("fichier\n"+ed.gettext()+"\n"+";;//*::::;;;;:;\n"+id+"\n"+lien+"\nxyz\n");
 			writer.flush();
 		} catch (UnknownHostException e1) {
 			// TODO Auto-generated catch block
