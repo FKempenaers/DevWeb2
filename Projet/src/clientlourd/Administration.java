@@ -231,7 +231,7 @@ public class Administration extends JFrame{
 							UIManager.setLookAndFeel(laf);
 						} catch (Exception e) { /* never happens */ }
 						//System.out.println(id);
-						Chat chat = new Chat(id);
+						Chat chat = new Chat(id,user);
 						chat.setSize(400, 600);
 						chat.setVisible(true);
 						chat.requestFocus();

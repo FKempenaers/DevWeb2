@@ -37,11 +37,13 @@ public class Chat extends JFrame {
 	BufferedReader reader;
 	private Socket s;
 	private String id;
+	private String user;
 	
-	public Chat(String ids) {
+	public Chat(String ids,String user) {
 		int nbmessage;
 		String m;
 		id = ids;
+		this.user = user;
 		JTextField editbox;
 		/*try {
 			s = new Socket("localhost",PORT);
@@ -95,7 +97,7 @@ public class Chat extends JFrame {
 						out = s.getOutputStream();
 						reader = new BufferedReader(new InputStreamReader(in));
 						PrintWriter writer = new PrintWriter(out);
-						writer.print("add\n"+id+"\n"+editbox.getText()+"\n"+"Lucas\nxyz\n");
+						writer.print("add\n"+id+"\n"+editbox.getText()+"\n"+user+"\nxyz\n");
 						writer.flush();
 					} catch (UnknownHostException e) {
 						// TODO Auto-generated catch block
