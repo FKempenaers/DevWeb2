@@ -204,6 +204,7 @@ public class Administration extends JFrame{
 			bAFA[i-n].setBounds(260,j,100,20);
 			
 			bAFA[i-n].addActionListener(new ActionListener() {
+				String id = ids;
 				public void actionPerformed(ActionEvent arg0) {
 					JLabel membres = new JLabel();
 					membres.setLayout(null);
@@ -211,6 +212,7 @@ public class Administration extends JFrame{
 					membres.setSize(300, 17);
 					membres.setText("Membres du fichier");
 					cp.add(membres);
+					
 					repaint();
 				}
 			});
