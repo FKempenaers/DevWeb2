@@ -36,10 +36,12 @@ public class Chat extends JFrame {
 	private OutputStream out;
 	BufferedReader reader;
 	private Socket s;
+	private String id;
 	
-	public Chat() {
+	public Chat(String ids) {
 		int nbmessage;
 		String m;
+		id = ids;
 		JTextField editbox;
 		/*try {
 			s = new Socket("localhost",PORT);
@@ -93,7 +95,7 @@ public class Chat extends JFrame {
 						out = s.getOutputStream();
 						reader = new BufferedReader(new InputStreamReader(in));
 						PrintWriter writer = new PrintWriter(out);
-						writer.print("add\n"+editbox.getText()+"\n"+"Lucas\nxyz\n");
+						writer.print("add\n"+id+"\n"+editbox.getText()+"\n"+"Lucas\nxyz\n");
 						writer.flush();
 					} catch (UnknownHostException e) {
 						// TODO Auto-generated catch block
@@ -159,7 +161,7 @@ public class Chat extends JFrame {
 			out = s.getOutputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
 			PrintWriter writer = new PrintWriter(out);
-			writer.print("nbmessages\nxyz\n");
+			writer.print("nbmessages\n"+id+"\nxyz\n");
 			writer.flush();
 			return Integer.parseInt(reader.readLine());
 		} catch (IOException e) {
@@ -175,8 +177,9 @@ public class Chat extends JFrame {
 			in = s.getInputStream();
 			out = s.getOutputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
+			System.out.println(id);
 			PrintWriter writer = new PrintWriter(out);
-			writer.print(n+"\nxyz\n");
+			writer.print(id+"\n"+n+"\nxyz\n");
 			writer.flush();
 			return reader.readLine();
 		} catch (IOException e) {

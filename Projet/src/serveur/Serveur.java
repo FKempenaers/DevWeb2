@@ -111,9 +111,25 @@ public class Serveur extends Thread {
 				ligne = in.readLine();
 				while (!(ligne.equals("xyz") && ligne != null)) {
 					if (ligne.equals("nbmessages")) {
+						ligne = in.readLine();
+						if(chatMap.containsKey(Integer.parseInt(ligne))){
+							chat = chatMap.get(Integer.parseInt(ligne));
+							
+						}
+						else {
+							chat = getChatMap(ligne);
+						}
 						out.println(chat.nbmessage());
 						out.flush();
 					} else if (ligne.equals("add")) {
+						ligne = in.readLine();
+						if(chatMap.containsKey(Integer.parseInt(ligne))){
+							chat = chatMap.get(Integer.parseInt(ligne));
+							
+						}
+						else {
+							chat = getChatMap(ligne);
+						}
 						l1 = in.readLine();
 						l2 = in.readLine();
 						if (!ligne.equals("")) {
@@ -130,7 +146,6 @@ public class Serveur extends Thread {
 							}
 						}
 						String id = in.readLine();
-						System.out.println(id);
 						fichier = fichierMap.get(Integer.parseInt(id));
 						ligne = in.readLine();
 						setFichierMap(id,f,ligne);
@@ -233,6 +248,14 @@ public class Serveur extends Thread {
 						newmodif = true;
 					} else {
 						if (!ligne.equals("xyz")) {
+							if(chatMap.containsKey(Integer.parseInt(ligne))){
+								chat = chatMap.get(Integer.parseInt(ligne));
+								
+							}
+							else {
+								chat = getChatMap(ligne);
+							}
+							ligne = in.readLine();
 							out.println(chat.afficherClientLourd(Integer.parseInt(ligne)));
 							out.flush();
 						}

@@ -221,6 +221,8 @@ public class Administration extends JFrame{
 			liens = listef.get(i-n)[3];
 			
 			bAF[i-n].addActionListener(new ActionListener() {
+				String id = ids;
+		    	String lien = liens;
 				public void actionPerformed(ActionEvent arg0) {
 					SwingUtilities.invokeLater(new Runnable() {
 					  public void run() {
@@ -228,7 +230,8 @@ public class Administration extends JFrame{
 							String laf = UIManager.getSystemLookAndFeelClassName();
 							UIManager.setLookAndFeel(laf);
 						} catch (Exception e) { /* never happens */ }
-						Chat chat = new Chat();
+						//System.out.println(id);
+						Chat chat = new Chat(id);
 						chat.setSize(400, 600);
 						chat.setVisible(true);
 						chat.requestFocus();
@@ -237,8 +240,6 @@ public class Administration extends JFrame{
 					//chat.setVisible(true);
 				    //Start all Swing applications on the EDT.
 				    SwingUtilities.invokeLater(new Runnable() {
-				    	String id = ids;
-				    	String lien = liens;
 					 public void run() {
 						 //String id,lien;
 						 try {
