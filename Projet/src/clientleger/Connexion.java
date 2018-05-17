@@ -92,10 +92,17 @@ public class Connexion extends HttpServlet {
 				session.setAttribute("auth", true);
 
 				ArrayList<String[]> files = basededonnees.Request.user_file(pseudo);
+				
+				ArrayList<ArrayList<String>> permissions = new ArrayList<ArrayList<String>>();
+				
+				for(int i=0; i < files.size(); i++) {
+					permissions.add(basededonnees.Request.list_user(Integer.parseInt(files.get(i)[0])));
+				}
 
 				getServletContext().setAttribute("liste", files);
-				for (int i = 0; i < files.size(); i++) {
-					for (String s : files.get(i))
+				getServletContext().setAttribute("permissions", permissions);
+				for (int i = 0; i < permissions.size(); i++) {
+					for (String s : permissions.get(i))
 						System.out.println(s);
 				}
 

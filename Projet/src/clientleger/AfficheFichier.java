@@ -63,12 +63,7 @@ public class AfficheFichier extends HttpServlet {
 		String idFichier = (String) context.getAttribute("idFichier");
 		String lienFichier = (String) context.getAttribute("lienFichier");
 		serv.setFichierMap(idFichier, fichier, lienFichier);
-		System.out.println(fichier);
-		/*
-		 * Manque le code pour remettre le fichier dans la map du serv et dans le
-		 * filesystem du coup realtime buggé atm parce que les modifs sont pas mises au
-		 * bon endroit
-		 */
+
 	}
 
 }
