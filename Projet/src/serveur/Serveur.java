@@ -58,6 +58,7 @@ public class Serveur extends Thread {
 			String ligne = bfr.readLine();
 
 			while (ligne != null) {
+				ligne += "\n";
 				strFichier += ligne;
 				ligne = bfr.readLine();
 			}

@@ -36,7 +36,11 @@ public class AfficheFichier extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		fichier = (String) request.getServletContext().getAttribute("fichier");
+		ServletContext context = this.getServletContext();
+		String idFichier = (String) context.getAttribute("idFichier");
+		String lienFichier = (String) context.getAttribute("lienFichier");
+		serveur.Serveur serv = (serveur.Serveur) request.getServletContext().getAttribute("serveur");
+		fichier = serv.getFichierMap(idFichier, lienFichier);
 
 		// response.setContentType("text/event-stream");
 		response.setContentType("text/plain");
