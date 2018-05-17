@@ -253,5 +253,28 @@ public class Request {
 			return false;
 		}
 	}
+	
+	public static ArrayList<String> list_user (int id_file) throws ClassNotFoundException, SQLException {
+		int i = 0;
+		Connect cnx = new Connect();
+		Statement st = cnx.getSmt();
+		
+		ArrayList<String> liste = new ArrayList<String>();
+		
+		String list_user = "select pseudo from Utilisateur, Modifie where id_file_m = "+id_file+" and id_user_m = id_user;";
+		
+		ResultSet rs = st.executeQuery(list_user);
+		
+		while (rs.next()) {
+			liste.add(i, rs.getString(2));
+			i++;
+		}
+		
+		rs.close();
+		st.close();
+		cnx.getCnx().close();
+		
+		return liste;
+	}
 }
 
