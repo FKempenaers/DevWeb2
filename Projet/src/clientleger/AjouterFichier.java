@@ -1,19 +1,8 @@
 package clientleger;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +25,6 @@ public class AjouterFichier extends HttpServlet {
 	 */
 	public AjouterFichier() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -45,7 +33,6 @@ public class AjouterFichier extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		getServletContext().getRequestDispatcher("/WEB-INF/affichage.jsp").forward(request, response);
 	}
 
@@ -55,7 +42,6 @@ public class AjouterFichier extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		HttpSession session =  request.getSession();
 		String pseudo = (String) session.getAttribute("pseudo");
@@ -66,14 +52,13 @@ public class AjouterFichier extends HttpServlet {
 		}
 		
 		
-		String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
-		Part filePart = request.getPart("fichier"); // Retrieves <input type="file" name="file">
-		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+		String description = request.getParameter("description");
+		Part filePart = request.getPart("fichier"); 
+		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
 		if(!basededonnees.GestionFichiers.ajouterFichier(pseudo, description, filePart, fileName))
 			response.sendRedirect("index.html");
 		
-
 		response.sendRedirect("Connexion");
 	}
 }

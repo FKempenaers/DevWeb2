@@ -22,14 +22,12 @@ public class ChoixFichier extends HttpServlet {
      */
     public ChoixFichier() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.sendRedirect("index.html");
 	}
 
@@ -37,10 +35,8 @@ public class ChoixFichier extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession();
-		String pseudo = (String) session.getAttribute("pseudo");
 
 		if ((boolean) session.getAttribute("auth") == true) {
 		
@@ -50,7 +46,7 @@ public class ChoixFichier extends HttpServlet {
 		String idFichier = request.getParameter("id");
 		String lienFichier = request.getParameter("lien");
 		serveur.Serveur serv = (serveur.Serveur) context.getAttribute("serveur");
-		System.out.println(idFichier+" "+lienFichier);
+
 		context.setAttribute("fichier", serv.getFichierMap(idFichier,lienFichier) );
 		context.setAttribute("liste", serv.getChatMap(idFichier));
 		context.setAttribute("idFichier", idFichier);

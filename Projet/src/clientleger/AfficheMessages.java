@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import basededonnees.GestionMessages;
 import serveur.Serveur;
-import tchatche.GestionMessages;
 
 /**
  * Servlet implementation class AfficheMessages
@@ -27,14 +27,14 @@ public class AfficheMessages extends HttpServlet {
      */
     public AfficheMessages() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub4
+
 		String idFichier = (String) request.getServletContext().getAttribute("idFichier");
 		serveur.Serveur serv = (Serveur) request.getServletContext().getAttribute("serveur");
         liste = serv.getChatMap(idFichier);
@@ -58,7 +58,7 @@ public class AfficheMessages extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		doGet(request, response);
 	}
 

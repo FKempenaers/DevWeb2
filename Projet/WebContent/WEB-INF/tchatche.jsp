@@ -7,12 +7,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Tchatche</title>
+<title>Edition Collaborative de Documents</title>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<script type="text/javascript" src="fonctions.js"></script>
+	<a id=link href="Connexion" >Retour à l'accueil</a>
 	<jsp:include page="affichage.jsp" />
 	<jsp:include page="saisie.html" />
-		<jsp:include page="affichageFichier.jsp" />
+	<jsp:include page="affichageFichier.jsp" />
 </body>
 </html>

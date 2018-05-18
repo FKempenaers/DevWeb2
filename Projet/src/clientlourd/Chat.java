@@ -19,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import tchatche.GestionMessages;
+import basededonnees.GestionMessages;
 
 //import tchatche.GestionMessages;
 

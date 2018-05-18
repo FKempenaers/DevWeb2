@@ -4,19 +4,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Enregistrement</title>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
-			<form method="post" action="EnregistrerUser">
+	<div id=connex2>
+	<p>Bienvenue, nouvel utilisateur !</p>
+		<form class=form-connex method="post" action="EnregistrerUser">
  
-       <label for="nom">Pseudo</label>
-       <input type="text" name="pseudo" id="pseudo" />
-              <label for="mdp">Mot De Passe</label>
-       <input type="password" name="mdp" id="mdp" />
+       		<label class=lbl for="nom">Pseudo</label>
+       		<input type="text" name="pseudo" id="pseudo" /><br />
+            <label class=lbl for="mdp">Mot De Passe</label>
+       		<input type="password" name="mdp" id="mdp" /><br />
 
-		<input type="submit" name="ok" value ="S'enregistrer" />
+			<input type="submit" name="ok" value ="S'enregistrer" />
 		</form>
-
+	</div>
 </body>
 </html>

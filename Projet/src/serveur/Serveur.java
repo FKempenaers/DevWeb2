@@ -18,8 +18,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import tchatche.GestionMessages;
-import tchatche.Message;
+import basededonnees.GestionMessages;
+import basededonnees.Message;
 
 public class Serveur extends Thread {
 	private GestionMessages chat;
@@ -95,12 +95,10 @@ public class Serveur extends Thread {
 	
 	public GestionMessages getChatMap(String idFichier){
 		int idFichierInt = Integer.parseInt(idFichier);
-		
 		if (!chatMap.containsKey(idFichierInt)) {
-			
+
 			chatMap.put(idFichierInt, new GestionMessages());
 		}
-		
 			return chatMap.get(idFichierInt);
 	}
 

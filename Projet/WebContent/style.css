@@ -15,10 +15,16 @@
 /* 	background: chartreuse; */
 /* 	color: blue; */
 /* } */
+
+html {
+	height:100%;
+}
+
 body {
 	background-image: url(bg.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
+	height: 100%;
 }
 
 button {
@@ -39,6 +45,88 @@ button {
 }
 
 #fichier{
-	height: 1000px;
-	width: 600px;
+	height: 100%;
+	width: 40%;
+	float: left;
+}
+
+#messages {
+	width: 20%;
+	height: 100%;
+	float:left;
+}
+
+#gauche {
+	height: 100%;
+	width: 20%;
+	float: left;
+}
+
+#droite {
+	height: 100%;
+	width: 40%;
+	float: left;
+}
+
+.centre {
+	margin-left: auto;
+	marfin-right: auto;
+	text-align: center;
+}
+
+.lbl {
+	margin-top: 1%;
+	display: block;
+	float: left;
+	width: 150px;
+	text-align: left;
+	margin-left: 15%;
+}
+
+.other {
+	display: block;
+	width: 200px;
+	float:left;
+}
+
+.connex {
+	margin-left : auto;
+	margin-right: auto;
+	text-align: center;
+	margin-top: 10%;
+}
+
+#connex2 {
+	margin-left : auto;
+	margin-right: auto;
+	text-align: center;
+	margin-top: 20%;
+}
+
+.form-connex {
+	margin: auto;
+	border: 1px solid grey;
+	background-color: white;
+	width: 50%;
+}
+
+#enregistre {
+	text-align: center;
+}
+
+#link-style {
+	margin-top: 2%;
+	border: none;
+	color: #2A99E3;
+	text-decoration: underline;
+	background-image: url(bg.jpg);
+}
+
+#link-style:hover {
+	cursor: pointer;
+	font-weight: bold;
+}
+
+#link {
+	float: right;
 }
