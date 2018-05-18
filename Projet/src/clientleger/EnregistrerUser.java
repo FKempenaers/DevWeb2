@@ -45,22 +45,12 @@ public class EnregistrerUser extends HttpServlet {
 		try {
 			boolean addUser = basededonnees.Request.addUser(pseudo, mdp);
 			
-			if (addUser) {
-				
-				HttpSession session =  request.getSession();
-				session.setAttribute("pseudo", pseudo);
-				session.setAttribute("auth", true);
-				request.getServletContext().getRequestDispatcher("/WEB-INF/accueilUser.jsp").forward(request, response);
-				/*
-				 * L'utilisateur a ajouté son pseudo et son mdp dans la base de données
-				 */
-			}
-			else {
+		
 				response.sendRedirect("index.html");
 				/*
 				 * Il y a eu un problème lors de l''inscription de l'utilisateur
 				 */
-			}
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

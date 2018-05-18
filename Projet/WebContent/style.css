@@ -16,11 +16,15 @@
 /* 	color: blue; */
 /* } */
 
+html {
+	height:100%;
+}
+
 body {
 	background-image: url(bg.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
-	margin: 0;
+	height: 100%;
 }
 
 button {
@@ -41,8 +45,27 @@ button {
 }
 
 #fichier{
-	height: 1000px;
-	width: 600px;
+	height: 100%;
+	width: 40%;
+	float: left;
+}
+
+#messages {
+	width: 20%;
+	height: 100%;
+	float:left;
+}
+
+#gauche {
+	height: 100%;
+	width: 20%;
+	float: left;
+}
+
+#droite {
+	height: 100%;
+	width: 40%;
+	float: left;
 }
 
 .centre {
@@ -51,13 +74,19 @@ button {
 	text-align: center;
 }
 
-label {
+.lbl {
 	margin-top: 1%;
 	display: block;
 	float: left;
 	width: 150px;
 	text-align: left;
 	margin-left: 15%;
+}
+
+.other {
+	display: block;
+	width: 200px;
+	float:left;
 }
 
 .connex {
@@ -96,4 +125,8 @@ label {
 #link-style:hover {
 	cursor: pointer;
 	font-weight: bold;
+}
+
+#link {
+	float: right;
 }

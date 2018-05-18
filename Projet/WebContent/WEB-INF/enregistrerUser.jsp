@@ -12,9 +12,9 @@
 	<p>Bienvenue, nouvel utilisateur !</p>
 		<form class=form-connex method="post" action="EnregistrerUser">
  
-       		<label for="nom">Pseudo</label>
+       		<label class=lbl for="nom">Pseudo</label>
        		<input type="text" name="pseudo" id="pseudo" /><br />
-            <label for="mdp">Mot De Passe</label>
+            <label class=lbl for="mdp">Mot De Passe</label>
        		<input type="password" name="mdp" id="mdp" /><br />
 
 			<input type="submit" name="ok" value ="S'enregistrer" />

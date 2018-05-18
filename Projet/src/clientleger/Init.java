@@ -1,4 +1,4 @@
-package tchatche;
+package clientleger;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class Init
  */
-
+@WebServlet("/Init")
 public class Init extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static serveur.Serveur serv = new serveur.Serveur();
@@ -25,15 +25,13 @@ public class Init extends HttpServlet {
      */
     public Init() {
         super();
-		
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		this.init();
 		response.sendRedirect("index.html");
 		
@@ -43,37 +41,15 @@ public class Init extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		this.init();
-		HttpSession session = request.getSession();
-		String pseudo = request.getParameter("pseudo");
-		session.setAttribute("pseudo", pseudo);
-		
-		ServletContext context = this.getServletContext();
-		Hashtable<String, Integer> listeUsers = (Hashtable<String, Integer>)context.getAttribute("listeUsers");
-		if (!listeUsers.containsValue(pseudo)) {
-			listeUsers.put(pseudo,0);
-		}
-		context.setAttribute("listeUsers", listeUsers);
+		this.init();;
 
-		response.sendRedirect("Tchatche");
-		//getServletContext().getRequestDispatcher("/WEB-INF/tchatche.jsp").forward(request, response);
-		//getServletContext().getRequestDispatcher("/Tchatche").forward(request, response);
+		response.sendRedirect("index.html");
 	}
 
 	
 	public void init() {
-		//exercice 5
 		ServletContext context = this.getServletContext();
-		Hashtable<String, Integer> listeUsers = new Hashtable<String, Integer>();
-		// l'entier sert à stocker le nombre de messages envoyé par un meme utilisateur
-		
-		
-		context.setAttribute("listeUsers", listeUsers);
-		context.setAttribute("listeMessages", serv.getChat());
-		context.setAttribute("fichier", serv.getfichier());
 		context.setAttribute("serveur", serv);
-		
 		
 	}
 

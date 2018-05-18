@@ -13,8 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import tchatche.GestionMessages;
-import tchatche.Message;
+import basededonnees.GestionMessages;
+import basededonnees.Message;
 
 public class Serveur extends Thread {
 	private GestionMessages chat;

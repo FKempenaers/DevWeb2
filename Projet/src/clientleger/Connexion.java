@@ -23,7 +23,6 @@ public class Connexion extends HttpServlet {
 	 */
 	public Connexion() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -32,7 +31,6 @@ public class Connexion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		String pseudo = (String) session.getAttribute("pseudo");
 
@@ -46,10 +44,8 @@ public class Connexion extends HttpServlet {
 			try {
 				files = basededonnees.Request.user_file(pseudo);
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -59,21 +55,16 @@ public class Connexion extends HttpServlet {
 				try {
 					permissions.add(basededonnees.Request.list_user(Integer.parseInt(files.get(i)[0])));
 				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 			
-
 			getServletContext().setAttribute("liste", files);
 			getServletContext().setAttribute("permissions", permissions);
-
 
 			request.getServletContext().getRequestDispatcher("/WEB-INF/accueilUser.jsp").forward(request, response);
 
@@ -89,7 +80,6 @@ public class Connexion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		String pseudo = request.getParameter("pseudo");
 		String mdp = request.getParameter("mdp");
@@ -128,13 +118,9 @@ public class Connexion extends HttpServlet {
 				 */
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
-
 }

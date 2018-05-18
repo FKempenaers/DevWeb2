@@ -15,6 +15,7 @@
 /* 	background: chartreuse; */
 /* 	color: blue; */
 /* } */
+
 body {
 	background-image: url(bg.jpg);
 	background-size: cover;
@@ -43,6 +44,55 @@ button {
 	width: 600px;
 }
 
-.liste{
+.centre {
+	margin-left: auto;
+	marfin-right: auto;
+	text-align: center;
+}
+
+label {
+	margin-top: 1%;
+	display: block;
 	float: left;
+	width: 150px;
+	text-align: left;
+	margin-left: 15%;
+}
+
+.connex {
+	margin-left : auto;
+	margin-right: auto;
+	text-align: center;
+	margin-top: 10%;
+}
+
+#connex2 {
+	margin-left : auto;
+	margin-right: auto;
+	text-align: center;
+	margin-top: 20%;
+}
+
+.form-connex {
+	margin: auto;
+	border: 1px solid grey;
+	background-color: white;
+	width: 50%;
+}
+
+#enregistre {
+	text-align: center;
+}
+
+#link-style {
+	margin-top: 2%;
+	border: none;
+	color: #2A99E3;
+	text-decoration: underline;
+	background-image: url(bg.jpg);
+}
+
+#link-style:hover {
+	cursor: pointer;
+	font-weight: bold;
 }

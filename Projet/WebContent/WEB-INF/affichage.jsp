@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script>
 	src = 'fonctions.js'
@@ -13,9 +14,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%-- 	${listeMessages.afficher()} --%>
 
-	<span id="messages"></span>
+	<div class="center" id="messages"></div>
 
 
 	<script>
@@ -24,6 +24,5 @@
 			document.getElementById('messages').innerHTML = event.data;
 		};
 	</script>
-
 </body>
 </html>

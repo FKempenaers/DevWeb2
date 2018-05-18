@@ -9,9 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import tchatche.GestionMessages;
 
 /**
  * Servlet implementation class AfficheFichier
@@ -26,7 +23,6 @@ public class AfficheFichier extends HttpServlet {
 	 */
 	public AfficheFichier() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -35,20 +31,18 @@ public class AfficheFichier extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		ServletContext context = this.getServletContext();
 		String idFichier = (String) context.getAttribute("idFichier");
 		String lienFichier = (String) context.getAttribute("lienFichier");
 		serveur.Serveur serv = (serveur.Serveur) request.getServletContext().getAttribute("serveur");
 		fichier = serv.getFichierMap(idFichier, lienFichier);
 
-		// response.setContentType("text/event-stream");
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 
 		PrintWriter writer = response.getWriter();
 		if (fichier != null)
-			// writer.write("data: "+ fichier +"\n\n");
 			writer.write(fichier);
 		writer.close();
 	}
@@ -59,7 +53,7 @@ public class AfficheFichier extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		ServletContext context = this.getServletContext();
 		fichier = request.getParameter("fichier");
 		context.setAttribute("fichier", fichier);
@@ -67,7 +61,6 @@ public class AfficheFichier extends HttpServlet {
 		String idFichier = (String) context.getAttribute("idFichier");
 		String lienFichier = (String) context.getAttribute("lienFichier");
 		serv.setFichierMap(idFichier, fichier, lienFichier);
-
 	}
 
 }
