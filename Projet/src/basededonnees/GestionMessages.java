@@ -32,15 +32,6 @@ public class GestionMessages {
 		}
 		return s;
 	}
-//	public String afficherClientLourd(int n) {
-//		for(Message m : messages) {
-//			System.out.println(m.getMessage());
-//			if(m.getNum() == n) {
-//				return m.getMessage();
-//			}
-//		}
-//		return "Message non existant";
-//	}
 	
 	public String afficherClientLourd(int n) {
 		if(n < messages.size())

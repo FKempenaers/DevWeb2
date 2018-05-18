@@ -1,21 +1,3 @@
-/* .grid { */
-/* 	border: 5px solid blue; */
-/* 	min-height: 10px; */
-/* 	color: red; */
-/* } */
-
-/* .grid>div { */
-/* 	display: inline-block; */
-/* 	height: 30px; */
-/* 	width: 30px; */
-/* 	border: 1px solid black; */
-/* } */
-
-/* .on { */
-/* 	background: chartreuse; */
-/* 	color: blue; */
-/* } */
-
 html {
 	height:100%;
 }
