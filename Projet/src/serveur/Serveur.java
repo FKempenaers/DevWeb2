@@ -90,12 +90,9 @@ public class Serveur extends Thread {
 	
 	public GestionMessages getChatMap(String idFichier){
 		int idFichierInt = Integer.parseInt(idFichier);
-		System.out.println("test");
 		if (!chatMap.containsKey(idFichierInt)) {
-			System.out.println("test1");
 			chatMap.put(idFichierInt, new GestionMessages());
 		}
-		System.out.println("test2");
 			return chatMap.get(idFichierInt);
 	}
 
