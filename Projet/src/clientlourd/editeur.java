@@ -37,7 +37,6 @@ public class editeur extends JFrame /*implements ActionListener,*/ {
       textArea.setCodeFoldingEnabled(true);
       RTextScrollPane sp = new RTextScrollPane(textArea);
       cp.add(sp);
-      System.out.println("okv");
       setContentPane(cp);
       setTitle("Editeur");
       pack();
@@ -111,7 +110,6 @@ class TitreKeyListener implements KeyListener {
 			reader = new BufferedReader(new InputStreamReader(in));
 			PrintWriter writer = new PrintWriter(out);
 
-			System.out.println(ed.gettext()+"FIN!!!");
 			writer.print("fichier\n"+ed.gettext()+"\n"+";;//*::::;;;;:;\n"+id+"\n"+lien+"\nxyz\n");
 			writer.flush();
 		} catch (UnknownHostException e1) {

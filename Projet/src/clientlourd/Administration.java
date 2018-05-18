@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.ProcessBuilder.Redirect;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -33,6 +35,7 @@ public class Administration extends JFrame{
 	 */
 	private String user;
 	private ArrayList<String[]> listef;
+	private ArrayList<String> listeM;
 	private static final long serialVersionUID = 1L;
 	private JPanel cp;
 	private JLabel[] fichiers;
@@ -46,7 +49,7 @@ public class Administration extends JFrame{
 	private JButton[] bAFA;
 	private JButton bupload;
 	private JButton preced,suivant;
-	private int n;
+	private int n,ii;
 	
 	final int PORT = 8888;
 	private InputStream in;
@@ -166,7 +169,7 @@ public class Administration extends JFrame{
 		conUserr.setLocation(new Point(0,10));
 		conUserr.setSize(300, 30);
 		cp.add(conUserr);
-		conMPr = new JTextField();	
+		conMPr = new  JPasswordField();	
 		conMPr.setLayout(null);
 		conMPr.setLocation(new Point(0,40));
 		conMPr.setSize(300, 30);
@@ -194,35 +197,186 @@ public class Administration extends JFrame{
 		bAFA = new JButton[20];
 		nbfichier = nbfichier();
 		actufichier();
-		for(int i = n; i < n+20 && i < nbfichier;i++,j+=20) {
-			fichiers[i-n] = new JLabel();
-			fichiers[i-n].setLayout(null);
-			fichiers[i-n].setLocation(new Point(0,j));
-			fichiers[i-n].setSize(100, 17);
+		for(ii = n; ii < n+20 && ii < nbfichier;ii++,j+=20) {
+			fichiers[ii-n] = new JLabel();
+			fichiers[ii-n].setLayout(null);
+			fichiers[ii-n].setLocation(new Point(0,j));
+			fichiers[ii-n].setSize(100, 17);
+			fichiers[ii-n].setText(listef.get(ii)[2]);
+			cp.add(fichiers[ii-n]);
+			bAFA[ii-n] = new JButton("Admin");
+			bAFA[ii-n].setBounds(260,j,100,20);
 			
-			bAFA[i-n] = new JButton("Admin");
-			bAFA[i-n].setBounds(260,j,100,20);
-			
-			bAFA[i-n].addActionListener(new ActionListener() {
+			bAFA[ii-n].addActionListener(new ActionListener() {
 				String id = ids;
+				JLabel conUser;
+				JTextField conUserr;
+				JButton supr;
+				JButton fin;
+				JButton ajouter;
+				int idb = ii;
+				
 				public void actionPerformed(ActionEvent arg0) {
+					
 					JLabel membres = new JLabel();
+					JLabel m[] = new JLabel[20];
 					membres.setLayout(null);
 					membres.setLocation(new Point(400,20));
 					membres.setSize(300, 17);
 					membres.setText("Membres du fichier");
 					cp.add(membres);
 					
+					conUserr = new JTextField();	
+					conUserr.setLayout(null);
+					conUserr.setLocation(new Point(700,20));
+					conUserr.setSize(200, 30);
+					cp.add(conUserr);
+					conUser = new JLabel();
+					conUser.setLayout(null);
+					conUser.setLocation(new Point(900,20));
+					conUser.setSize(300, 17);
+					conUser.setText("Utilisateur");
+					cp.add(conUser);
+					
+					membresfichier(id);
+					int j = 60;
+					for(int i = 0;i < listeM.size()&&i < 20;i++,j+=17) {
+						m[i] = new JLabel();
+						m[i].setLayout(null);
+						m[i].setLocation(new Point(400,j));
+						m[i].setSize(300, 17);
+						
+						if(!listeM.get(i).equals("")){
+							m[i].setText(listeM.get(i));
+						}
+						else if (j > 60) {
+							j-=17;
+						}
+						cp.add(m[i]);
+					}					
 					repaint();
+					supr = new JButton("supprimer ");
+					supr.setBounds(700,60,100,20);
+					supr.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							String ligne;
+							
+							try {
+								s = new Socket("localhost",PORT);
+								in = s.getInputStream();
+								out = s.getOutputStream();
+							} catch (UnknownHostException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+							reader = new BufferedReader(new InputStreamReader(in));
+							PrintWriter writer = new PrintWriter(out);
+							user = conUserr.getText();
+							writer.print("supprimeruser\n"+id+"\n"+conUserr.getText()+"\nxyz\n");
+							writer.flush();
+							membresfichier(id);
+							int j = 60;
+							for(int i = 0;i < listeM.size()+1&&i < 20;i++,j+=17) {
+								cp.remove(m[i]);
+								repaint();
+							}
+							j=60;
+							for(int i = 0;i < listeM.size()&&i < 20;i++,j+=17) {
+								m[i] = new JLabel();
+								m[i].setLayout(null);
+								m[i].setLocation(new Point(400,j));
+								m[i].setSize(300, 17);
+								
+								if(!listeM.get(i).equals("")){
+									m[i].setText(listeM.get(i));
+								}
+								else if (j > 60) {
+									j-=17;
+								}
+								cp.add(m[i]);
+							}					
+					        repaint();
+				        }
+			       });
+				   cp.add(supr);
+				   ajouter = new JButton("ajouter ");
+				   ajouter.setBounds(810,60,100,20);
+				   ajouter.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {							
+							try {
+								s = new Socket("localhost",PORT);
+								in = s.getInputStream();
+								out = s.getOutputStream();
+							} catch (UnknownHostException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+							reader = new BufferedReader(new InputStreamReader(in));
+							PrintWriter writer = new PrintWriter(out);
+							user = conUserr.getText();
+							writer.print("ajouteruser\n"+id+"\n"+conUserr.getText()+"\nxyz\n");
+							writer.flush();
+							membresfichier(id);
+							int j = 60;
+							for(int i = 0;i < listeM.size()&&i < 20;i++,j+=17) {
+								m[i] = new JLabel();
+								m[i].setLayout(null);
+								m[i].setLocation(new Point(400,j));
+								m[i].setSize(300, 17);
+								
+								if(!listeM.get(i).equals("")){
+									m[i].setText(listeM.get(i));
+								}
+								else if (j > 60) {
+									j-=17;
+								}
+								cp.add(m[i]);
+							}					
+					        repaint();
+				        }
+			       });
+				   cp.add(ajouter);
+				   repaint();
+				   fin = new JButton("fin admin");
+				   fin.setBounds(750,100,100,20);
+				   fin.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {	
+							for(int i = 0;i < listeM.size()-1&&i < 20;i++) {
+								cp.remove(m[i]);
+								repaint();
+							}
+							cp.remove(membres);
+							cp.remove(ajouter);
+							cp.remove(conUser);
+							cp.remove(conUserr);
+							cp.remove(supr);
+							cp.remove(fin);
+							
+							repaint();
+						}
+							
+			       });
+				   cp.add(fin);
+				   repaint();
 				}
+				
 			});
-			cp.add(bAFA[i-n]);
-			bAF[i-n] = new JButton("Editer");
-			bAF[i-n].setBounds(110, j, 150, 20);
-			ids = listef.get(i-n)[0];
-			liens = listef.get(i-n)[3];
 			
-			bAF[i-n].addActionListener(new ActionListener() {
+			cp.add(bAFA[ii-n]);
+			bAF[ii-n] = new JButton("Editer");
+			bAF[ii-n].setBounds(110, j, 150, 20);
+			ids = listef.get(ii-n)[0];
+			liens = listef.get(ii-n)[3];
+			
+			bAF[ii-n].addActionListener(new ActionListener() {
 				String id = ids;
 		    	String lien = liens;
 				public void actionPerformed(ActionEvent arg0) {
@@ -257,21 +411,26 @@ public class Administration extends JFrame{
 				}
 			});
 			
-			cp.add(fichiers[i-n]);
-			cp.add(bAF[i-n]);
+			cp.add(fichiers[ii-n]);
+			cp.add(bAF[ii-n]);
 			
 		}
 		preced = new JButton("Precedant");
 		preced.setBounds(10, j+40, 100, 20);
 		preced.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int nbfichier = nbfichier();
 				n -= 20;
 				if(n < 0) {
 					n = 0;
 				}
-				for(int i = 0;i<20;i++) {
+				for(int i = 0;i<20 && i < nbfichier;i++) {
 				  remove(bAF[i]);
+				  remove(bAFA[i]);
 				  remove(fichiers[i]);
+				  remove(suivant);
+				  remove(bupload);
+				  remove(preced);
 				}
 				affiche_fichiers();
 				repaint();
@@ -283,13 +442,18 @@ public class Administration extends JFrame{
 		suivant.setBounds(110, j+40, 100, 20);
 		suivant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int nbfichier = nbfichier();
 				n += 20;
 				if(n > nbfichier) {
-					n = nbfichier;
+					n-=20;
+					//n = nbfichier;
 				}
-				for(int i = 0;i<20;i++) {
+				for(int i = 0;i<20 && i < nbfichier;i++) {
 					  remove(bAF[i]);
 					  remove(fichiers[i]);
+					  remove(suivant);
+					  remove(bupload);
+					  remove(preced);
 				}
 				affiche_fichiers();
 				repaint();
@@ -320,14 +484,12 @@ public class Administration extends JFrame{
             			out = s.getOutputStream();
             			reader = new BufferedReader(new InputStreamReader(in));
             			PrintWriter writer = new PrintWriter(out);
-            			writer.print("newfichier\n"+user+"\n");
-            			
 
             			while(ligne!=null) {
             				strFichier += ligne;
             				ligne = bfr.readLine();
             			}
-            			writer.print(strFichier+"\n;;//*::::;;;;:;\nxyz\n");
+            			writer.print("newfichier\n"+user+"\n"+selectedFile.getName()+"\n"+strFichier+"\n;;//*::::;;;;:;\nxyz\n");
             			
             			bfr.close();
             			writer.flush();
@@ -336,6 +498,16 @@ public class Administration extends JFrame{
             		} catch (IOException e) {
             			e.printStackTrace();
             		}
+                    cp.removeAll();
+                    repaint();
+                    JLabel lf = new JLabel();
+					lf.setLayout(null);
+					lf.setLocation(new Point(0,20));
+					lf.setSize(200, 13);
+					lf.setText("Liste des fichiers");
+					cp.add(lf);
+                    affiche_fichiers();
+                    repaint();
                     
                 }
             }
@@ -391,6 +563,31 @@ public class Administration extends JFrame{
 			e1.printStackTrace();
 		}
 		return -1;
+	}
+	
+	public void membresfichier(String id) {
+		String ligne;
+		listeM = new ArrayList<String>();
+		try {
+			s = new Socket("localhost",PORT);
+			in = s.getInputStream();
+			out = s.getOutputStream();
+			reader = new BufferedReader(new InputStreamReader(in));
+			PrintWriter writer = new PrintWriter(out);
+			writer.print("membrefichier\n"+id+"\nxyz\n");
+			writer.flush();
+			ligne = reader.readLine();
+			int j = 0;
+			while(!ligne.equals("fin")) {
+				listeM.add(j,ligne);
+				j++;
+				ligne = reader.readLine();
+			}
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	
 }

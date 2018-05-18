@@ -179,7 +179,6 @@ public class Chat extends JFrame {
 			in = s.getInputStream();
 			out = s.getOutputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
-			System.out.println(id);
 			PrintWriter writer = new PrintWriter(out);
 			writer.print(id+"\n"+n+"\nxyz\n");
 			writer.flush();
