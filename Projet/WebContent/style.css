@@ -52,6 +52,7 @@ button {
 }
 
 label {
+	margin-top: 1%;
 	display: block;
 	float: left;
 	width: 150px;
@@ -70,7 +71,7 @@ label {
 	margin-left : auto;
 	margin-right: auto;
 	text-align: center;
-	margin-top: 40%;
+	margin-top: 20%;
 }
 
 .form-connex {
