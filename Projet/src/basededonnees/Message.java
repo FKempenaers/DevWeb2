@@ -1,5 +1,6 @@
 package basededonnees;
-/**Represente un message du chat*/
+
+/** Represente un message du chat */
 public class Message {
 
 	private String message;
@@ -14,21 +15,25 @@ public class Message {
 		this.date = date;
 		NUM_MESSAGE = ++nbMessages;
 	}
+
 	public String getMessage() {
 		return message;
 	}
+
 	public int getNum() {
 		return NUM_MESSAGE;
 	}
+
 	public String getUser() {
 		return user;
 	}
+
 	public String getDate() {
 		return date;
 	}
-	
+
 	public String toString() {
-		return "["+date.toString()+"] "+user+" : "+message+"<br/>";	
+		return "[" + date.toString() + "] " + user + " : " + message + "<br/>";
 	}
-	
+
 }

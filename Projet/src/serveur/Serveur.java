@@ -3,30 +3,30 @@ package serveur;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import basededonnees.GestionMessages;
-import basededonnees.Message;
 
+/**
+ * Le serveur qui communique avec le client lourd
+ *
+ */
 public class Serveur extends Thread {
 	private GestionMessages chat;
 	private boolean newmodif;
 	private String fichier;
 	private HashMap<Integer, String> fichierMap;
 	private HashMap<Integer, GestionMessages> chatMap;
+
 	public Serveur() {
 		chat = new GestionMessages();
 		this.fichier = "";
@@ -92,14 +92,14 @@ public class Serveur extends Thread {
 			}
 		}
 	}
-	
-	public GestionMessages getChatMap(String idFichier){
+
+	public GestionMessages getChatMap(String idFichier) {
 		int idFichierInt = Integer.parseInt(idFichier);
 		if (!chatMap.containsKey(idFichierInt)) {
 
 			chatMap.put(idFichierInt, new GestionMessages());
 		}
-			return chatMap.get(idFichierInt);
+		return chatMap.get(idFichierInt);
 	}
 
 	public void run() {
@@ -116,22 +116,20 @@ public class Serveur extends Thread {
 				while (!(ligne.equals("xyz") && ligne != null)) {
 					if (ligne.equals("nbmessages")) {
 						ligne = in.readLine();
-						if(chatMap.containsKey(Integer.parseInt(ligne))){
+						if (chatMap.containsKey(Integer.parseInt(ligne))) {
 							chat = chatMap.get(Integer.parseInt(ligne));
-							
-						}
-						else {
+
+						} else {
 							chat = getChatMap(ligne);
 						}
 						out.println(chat.nbmessage());
 						out.flush();
 					} else if (ligne.equals("add")) {
 						ligne = in.readLine();
-						if(chatMap.containsKey(Integer.parseInt(ligne))){
+						if (chatMap.containsKey(Integer.parseInt(ligne))) {
 							chat = chatMap.get(Integer.parseInt(ligne));
-							
-						}
-						else {
+
+						} else {
 							chat = getChatMap(ligne);
 						}
 						l1 = in.readLine();
@@ -139,10 +137,10 @@ public class Serveur extends Thread {
 						if (!ligne.equals("")) {
 							chat.add(l1, l2);
 						}
-					}else if (ligne.equals("ajouteruser")) {
+					} else if (ligne.equals("ajouteruser")) {
 						l1 = in.readLine();
 						l2 = in.readLine();
-						
+
 						try {
 							basededonnees.Request.addUsertoFile(l2, Integer.parseInt(l1));
 						} catch (NumberFormatException e) {
@@ -155,11 +153,10 @@ public class Serveur extends Thread {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					} 
-					else if (ligne.equals("supprimeruser")) {
+					} else if (ligne.equals("supprimeruser")) {
 						l1 = in.readLine();
 						l2 = in.readLine();
-						
+
 						try {
 							basededonnees.Request.delUsertoFile(l2, Integer.parseInt(l1));
 						} catch (NumberFormatException e) {
@@ -172,7 +169,7 @@ public class Serveur extends Thread {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					}else if (ligne.equals("fichier")) {
+					} else if (ligne.equals("fichier")) {
 						String f = "";
 						ligne = in.readLine();
 						while (!(ligne.equals(";;//*::::;;;;:;"))) {
@@ -185,19 +182,18 @@ public class Serveur extends Thread {
 						String id = in.readLine();
 						fichier = fichierMap.get(Integer.parseInt(id));
 						ligne = in.readLine();
-						setFichierMap(id,f,ligne);
+						setFichierMap(id, f, ligne);
 						newmodif = true;
 					} else if (ligne.equals("getfichier")) {
 						String id = in.readLine();
 						ligne = in.readLine();
-						if(fichierMap.containsKey(Integer.parseInt(id))){
+						if (fichierMap.containsKey(Integer.parseInt(id))) {
 							fichier = fichierMap.get(Integer.parseInt(id));
-							
+
+						} else {
+							fichier = getFichierMap(id, ligne);
 						}
-						else {
-							fichier = getFichierMap(id,ligne);
-						}
-						
+
 						out.println(fichier + "\n;;//*::::;;;;:;\n");
 						out.flush();
 					} else if (ligne.equals("connexion")) {
@@ -256,7 +252,7 @@ public class Serveur extends Thread {
 						try {
 							ArrayList<String[]> listef = basededonnees.Request.user_file(ligne);
 							for (int i = 0; i < listef.size(); i++) {
-								
+
 								out.println(listef.get(i)[0] + "\n" + listef.get(i)[1] + "\n" + listef.get(i)[2] + "\n"
 										+ listef.get(i)[3] + "\n");
 							}
@@ -271,14 +267,13 @@ public class Serveur extends Thread {
 						}
 						out.println("-1\n");
 						out.flush();
-					}
-					else if (ligne.equals("membrefichier")) {
+					} else if (ligne.equals("membrefichier")) {
 						ligne = in.readLine();
 						try {
-							
+
 							ArrayList<String> listeM = basededonnees.Request.list_user(Integer.parseInt(ligne));
 							for (int i = 0; i < listeM.size(); i++) {
-								
+
 								out.println(listeM.get(i) + "\n");
 							}
 							out.println("fin\n");
@@ -294,7 +289,6 @@ public class Serveur extends Thread {
 						String f = "";
 						String pseudo;
 						String name_file;
-						String link_file;
 						pseudo = in.readLine();
 						name_file = in.readLine();
 						ligne = in.readLine();
@@ -305,16 +299,16 @@ public class Serveur extends Thread {
 								f = f + '\n';
 							}
 						}
-						//ligne = in.readLine();
+						// ligne = in.readLine();
 
 						fichier = f;
-						link_file = ("/home/lucas/uploads/Lucas/"+name_file);
-						File fi = new File(link_file) ;
-						PrintWriter outf = new PrintWriter(new FileWriter(fi)) ;
-						outf.write(fichier) ; 
-						outf.close() ; 
+						File uploads = new File("uploads/" + pseudo + "/" + name_file + "/");
+						File fi = uploads;
+						PrintWriter outf = new PrintWriter(new FileWriter(fi));
+						outf.write(fichier);
+						outf.close();
 						try {
-							basededonnees.Request.addFile(pseudo, name_file, link_file);
+							basededonnees.Request.addFile(pseudo, name_file, uploads.toString());
 						} catch (ClassNotFoundException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -325,11 +319,10 @@ public class Serveur extends Thread {
 						newmodif = true;
 					} else {
 						if (!ligne.equals("xyz")) {
-							if(chatMap.containsKey(Integer.parseInt(ligne))){
+							if (chatMap.containsKey(Integer.parseInt(ligne))) {
 								chat = chatMap.get(Integer.parseInt(ligne));
-								
-							}
-							else {
+
+							} else {
 								chat = getChatMap(ligne);
 							}
 							ligne = in.readLine();

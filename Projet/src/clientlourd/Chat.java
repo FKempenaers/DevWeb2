@@ -1,6 +1,5 @@
 package clientlourd;
 
-//import java.awt.BorderLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,14 +18,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import basededonnees.GestionMessages;
-
-//import tchatche.GestionMessages;
-
+/**
+ * La fenetre de chat
+ * 
+ */
 public class Chat extends JFrame {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JPanel cp;
 	private JLabel text[];
@@ -37,67 +34,54 @@ public class Chat extends JFrame {
 	BufferedReader reader;
 	private Socket s;
 	private String id;
-	private String user;
-	
-	public Chat(String ids,String user) {
+
+	public Chat(String ids, String user) {
 		int nbmessage;
 		String m;
 		id = ids;
-		this.user = user;
 		JTextField editbox;
-		/*try {
-			s = new Socket("localhost",PORT);
-			in = s.getInputStream();
-			out = s.getOutputStream();
-			reader = new BufferedReader(new InputStreamReader(in));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		//chat = GestionMessages.get();
-		nbmessage = snbmessage()-23;
-		if(nbmessage < 0) {
+		nbmessage = snbmessage() - 23;
+		if (nbmessage < 0) {
 			nbmessage = 0;
 		}
 		cp = new JPanel(null);
 		text = new JLabel[25];
 		int j = 0;
-		for(int i = 0; i < 24; i++,j += 20) {
-			
-		  text[i] = new JLabel();
-		  text[i].setLayout(null);
-		  text[i].setLocation(new Point(0,j));
-		  text[i].setSize(200, 13);
-		  m = message(nbmessage);
-		  if(m != "Message non existant") {
-			  text[i].setText(m);
-		  }
-		  else {
-			  text[i].setText("");
-		  }
-		  
-		  nbmessage++;
+		for (int i = 0; i < 24; i++, j += 20) {
+
+			text[i] = new JLabel();
+			text[i].setLayout(null);
+			text[i].setLocation(new Point(0, j));
+			text[i].setSize(200, 13);
+			m = message(nbmessage);
+			if (m != "Message non existant") {
+				text[i].setText(m);
+			} else {
+				text[i].setText("");
+			}
+
+			nbmessage++;
 		}
 
-		editbox = new JTextField();	
+		editbox = new JTextField();
 		editbox.setLayout(null);
-		editbox.setLocation(new Point(0,500));
+		editbox.setLocation(new Point(0, 500));
 		editbox.setSize(300, 30);
 		cp.add(editbox);
-		
+
 		b1.setBounds(310, 500, 80, 30);
 
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if(!editbox.getText().isEmpty()) {
+				if (!editbox.getText().isEmpty()) {
 					try {
-						s = new Socket("localhost",PORT);
+						s = new Socket("localhost", PORT);
 						in = s.getInputStream();
 						out = s.getOutputStream();
 						reader = new BufferedReader(new InputStreamReader(in));
 						PrintWriter writer = new PrintWriter(out);
-						writer.print("add\n"+id+"\n"+editbox.getText()+"\n"+user+"\nxyz\n");
+						writer.print("add\n" + id + "\n" + editbox.getText() + "\n" + user + "\nxyz\n");
 						writer.flush();
 					} catch (UnknownHostException e) {
 						// TODO Auto-generated catch block
@@ -106,64 +90,60 @@ public class Chat extends JFrame {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
+
 				}
 				editbox.setText("");
 				actumessage();
 				setContentPane(cp);
 			}
 		});
-	
+
 		cp.add(b1);
-		
+
 		text[24] = new JLabel();
 		text[24].setLayout(null);
-		text[24].setLocation(new Point(0,480));
+		text[24].setLocation(new Point(0, 480));
 		text[24].setSize(100, 13);
 		text[24].setText("");
-		
-	    for(int i = 0;i<25;i++) {
-			 cp.add(text[i]);
+
+		for (int i = 0; i < 25; i++) {
+			cp.add(text[i]);
 		}
-		
-	        
-	    
-		
+
 		setContentPane(cp);
 		setTitle("Chat");
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
-	    setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 
 	}
-	
+
 	public void actumessage() {
 		int nbmessage;
 		String m;
-		nbmessage = snbmessage()-23;
-		if(nbmessage < 0) {
+		nbmessage = snbmessage() - 23;
+		if (nbmessage < 0) {
 			nbmessage = 0;
 		}
-		for(int i = 0; i < 24; i++) {
+		for (int i = 0; i < 24; i++) {
 			m = message(nbmessage);
-			if(m != "Message non existant") {
-			 text[i].setText(m);
-			}
-			else {
-			 text[i].setText("");
+			if (m != "Message non existant") {
+				text[i].setText(m);
+			} else {
+				text[i].setText("");
 			}
 			nbmessage++;
 		}
 	}
+
 	public int snbmessage() {
 
 		try {
-			s = new Socket("localhost",PORT);
+			s = new Socket("localhost", PORT);
 			in = s.getInputStream();
 			out = s.getOutputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
 			PrintWriter writer = new PrintWriter(out);
-			writer.print("nbmessages\n"+id+"\nxyz\n");
+			writer.print("nbmessages\n" + id + "\nxyz\n");
 			writer.flush();
 			return Integer.parseInt(reader.readLine());
 		} catch (IOException e) {
@@ -172,15 +152,16 @@ public class Chat extends JFrame {
 		}
 		return -1;
 	}
+
 	public String message(int n) {
-		
+
 		try {
-			s = new Socket("localhost",PORT);
+			s = new Socket("localhost", PORT);
 			in = s.getInputStream();
 			out = s.getOutputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
 			PrintWriter writer = new PrintWriter(out);
-			writer.print(id+"\n"+n+"\nxyz\n");
+			writer.print(id + "\n" + n + "\nxyz\n");
 			writer.flush();
 			return reader.readLine();
 		} catch (IOException e) {
