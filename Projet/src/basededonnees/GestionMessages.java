@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+/**Represente un chat*/
 public class GestionMessages {
 	private ArrayList<Message> messages;
 	

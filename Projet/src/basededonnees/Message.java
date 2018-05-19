@@ -1,6 +1,5 @@
 package basededonnees;
-import java.util.*;
-import java.text.*;
+/**Represente un message du chat*/
 public class Message {
 
 	private String message;

@@ -12,7 +12,7 @@
 </head>
 <body>
 	<script type="text/javascript" src="fonctions.js"></script>
-	<a id=link href="Connexion" >Retour à l'accueil</a>
+	<a id=link href="Connexion">Retour à l'accueil</a>
 	<jsp:include page="affichage.jsp" />
 	<jsp:include page="saisie.html" />
 	<jsp:include page="affichageFichier.jsp" />

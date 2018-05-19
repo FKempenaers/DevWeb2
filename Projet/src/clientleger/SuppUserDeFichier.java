@@ -17,47 +17,50 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/SuppUserDeFichier")
 public class SuppUserDeFichier extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SuppUserDeFichier() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public SuppUserDeFichier() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.sendRedirect("index.html");
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response) Retire un utilisateur des permissions d'un fichier
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
 		if ((boolean) session.getAttribute("auth") == true) {
-			
-		String idFichier = request.getParameter("id");
-		String user = request.getParameter("user");
-		
-		try {
-			basededonnees.Request.delUsertoFile(user, Integer.parseInt(idFichier));
-			
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		response.sendRedirect("Connexion");
-		
-		}else {
+
+			String idFichier = request.getParameter("id");
+			String user = request.getParameter("user");
+
+			try {
+				basededonnees.Request.delUsertoFile(user, Integer.parseInt(idFichier));
+
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			response.sendRedirect("Connexion");
+
+		} else {
 			response.sendRedirect("index.html");
 		}
 	}

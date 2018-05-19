@@ -40,6 +40,7 @@ public class Tchatche extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 *      Affiche la page d'edition de fichier si l'utilisateur est connecte et le renvoie a l'accueil sinon
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -56,6 +57,7 @@ public class Tchatche extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 *      Ajoute le message poste par l'utilisateur au chat
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

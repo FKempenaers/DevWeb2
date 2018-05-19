@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class AfficheFichier
  */
 @WebServlet("/AfficheFichier")
+/** Affiche le fichier ouvert et envoie les modifications au serveur */
 public class AfficheFichier extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String fichier;
@@ -26,12 +27,11 @@ public class AfficheFichier extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Affiche le fichier ouvert
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		ServletContext context = this.getServletContext();
 		String idFichier = (String) context.getAttribute("idFichier");
 		String lienFichier = (String) context.getAttribute("lienFichier");
@@ -48,8 +48,7 @@ public class AfficheFichier extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Sauvegarde le fichier modifié sur la map et le disque du serveur
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

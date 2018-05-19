@@ -27,7 +27,8 @@ public class Connexion extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 *      response) affiche la page d'accueil de l'utilisateur s'il est deja
+	 *      connecte et le renvoie a l'accueil du site sinon
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -48,10 +49,10 @@ public class Connexion extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 			ArrayList<ArrayList<String>> permissions = new ArrayList<ArrayList<String>>();
-			
-			for(int i=0; i < files.size(); i++) {
+
+			for (int i = 0; i < files.size(); i++) {
 				try {
 					permissions.add(basededonnees.Request.list_user(Integer.parseInt(files.get(i)[0])));
 				} catch (NumberFormatException e) {
@@ -62,7 +63,7 @@ public class Connexion extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-			
+
 			getServletContext().setAttribute("liste", files);
 			getServletContext().setAttribute("permissions", permissions);
 
@@ -76,7 +77,10 @@ public class Connexion extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 *      response) Teste s'il existe un utilisateur avec ce pseudo et ce mot de
+	 *      passe et l'authentifie avant de lui afficher sa page d'accueil. Si le
+	 *      pseudo ou le mot de passe ne correspondent pas, l'utilisateur est
+	 *      renvoye a l'accueil du site
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -98,10 +102,10 @@ public class Connexion extends HttpServlet {
 				session.setAttribute("auth", true);
 
 				ArrayList<String[]> files = basededonnees.Request.user_file(pseudo);
-				
+
 				ArrayList<ArrayList<String>> permissions = new ArrayList<ArrayList<String>>();
-				
-				for(int i=0; i < files.size(); i++) {
+
+				for (int i = 0; i < files.size(); i++) {
 					permissions.add(basededonnees.Request.list_user(Integer.parseInt(files.get(i)[0])));
 				}
 

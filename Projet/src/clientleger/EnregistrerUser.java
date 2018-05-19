@@ -16,41 +16,43 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/EnregistrerUser")
 public class EnregistrerUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EnregistrerUser() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public EnregistrerUser() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response) Affiche le formulaire permettant au nouvel utilisateur de
+	 *      s'enregistrer
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		getServletContext().getRequestDispatcher("/WEB-INF/enregistrerUser.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response) Enregistre le nouvel utilisateur dans la base de donnees et le
+	 *      renvoie vers la page d'accueil
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//Ajouter code pour mettre user dans bdd
+		// Ajouter code pour mettre user dans bdd
 		String pseudo = request.getParameter("pseudo");
 		String mdp = request.getParameter("mdp");
-		
+
 		try {
-			boolean addUser = basededonnees.Request.addUser(pseudo, mdp);
-			
-		
-				response.sendRedirect("index.html");
-				/*
-				 * Il y a eu un problème lors de l''inscription de l'utilisateur
-				 */
-			
+			basededonnees.Request.addUser(pseudo, mdp);
+
+			response.sendRedirect("index.html");
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

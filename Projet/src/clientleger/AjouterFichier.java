@@ -38,29 +38,28 @@ public class AjouterFichier extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 *      response) Ajoute un fichier a la base de donnees et retourne
+	 *      l'utilisateur sur sa page d'accueil
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		HttpSession session =  request.getSession();
+
+		HttpSession session = request.getSession();
 		String pseudo = (String) session.getAttribute("pseudo");
 
-		
-		if(!(boolean) session.getAttribute("auth")) {
+		if (!(boolean) session.getAttribute("auth")) {
 			response.sendRedirect("index.html");
-		}
-		
-		
-		String description = request.getParameter("description");
-		Part filePart = request.getPart("fichier"); 
-		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+		} else {
 
-		if(!basededonnees.GestionFichiers.ajouterFichier(pseudo, description, filePart, fileName))
-			response.sendRedirect("index.html");
-		
-		response.sendRedirect("Connexion");
+			String description = request.getParameter("description");
+			Part filePart = request.getPart("fichier");
+			String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+			if (fileName.equals("")
+					|| !basededonnees.GestionFichiers.ajouterFichier(pseudo, description, filePart, fileName)) {
+				response.sendRedirect("index.html");
+			} else
+				response.sendRedirect("Connexion");
+		}
 	}
 }
-
-

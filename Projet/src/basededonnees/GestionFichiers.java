@@ -25,7 +25,6 @@ public class GestionFichiers {
 			return false;
 			
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return true;

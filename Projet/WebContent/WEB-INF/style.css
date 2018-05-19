@@ -1,5 +1,5 @@
 html {
-	height:100%;
+	height: 100%;
 }
 
 body {
@@ -26,7 +26,7 @@ button {
 	float: right;
 }
 
-#fichier{
+#fichier {
 	height: 100%;
 	width: 40%;
 	float: left;
@@ -35,7 +35,7 @@ button {
 #messages {
 	width: 20%;
 	height: 100%;
-	float:left;
+	float: left;
 }
 
 #gauche {
@@ -68,18 +68,18 @@ button {
 .other {
 	display: block;
 	width: 200px;
-	float:left;
+	float: left;
 }
 
 .connex {
-	margin-left : auto;
+	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 	margin-top: 10%;
 }
 
 #connex2 {
-	margin-left : auto;
+	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 	margin-top: 20%;
