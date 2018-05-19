@@ -5,8 +5,16 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ *	Classe contenant les méthodes pour accéder et modifier la base de données
+ */
+
 public class Request {
-	public static void init(Statement st) throws ClassNotFoundException, SQLException {		
+	/*
+	 * Initialise la base de données
+	 */
+	 	public static void init(Statement st) throws ClassNotFoundException, SQLException {		
+	
 		String foreign_key_check = "set FOREIGN_KEY_CHECKS = 0;";
 		
 		String table_user = "create table Utilisateur (id_user INT," +
@@ -54,7 +62,9 @@ public class Request {
 		st.executeUpdate(table_appartient);
 		st.executeUpdate(table_contient);
 	}
-	
+	/*
+	 * Supprime toutes les tables de la base de données.
+	 */
 	public static void clear_all_tables(Statement st) throws ClassNotFoundException, SQLException {	
 		String clear_all_tables = "drop table Appartient, Modifie, Contient, Groupe, Utilisateur, Fichier";
 		
@@ -74,7 +84,11 @@ public class Request {
 		
 		return rs;
 	}
-	
+	/*
+	 * Vérifie si le pseudo d'un nouvel utilisateur est déjà présent dans la base et si non, l'ajoute dans la base.
+	 * @param Pseudo de l'utilisateur et son mot de passe
+	 * @return vrai si l'ajout s'est correctement passé, faux sinon.
+	 */
 	public static boolean addUser(String pseudo, String mdp) throws SQLException, ClassNotFoundException {
 		Connect cnx = new Connect();
 		
@@ -103,7 +117,11 @@ public class Request {
 			return false;
 		}
 	}
-	
+	/*
+	 * Vérifie si un utilisateur a des informations correctes dans la base lors de la connection
+	 * @param Pseudo de l'utilisateur et son mot de passe
+	 * @return vrai si l'utilisateur n'est pas dans la base, faux sinon.
+	 */
 	public static boolean check_user(String pseudo, String mdp) throws ClassNotFoundException, SQLException {
 		Connect cnx = new Connect();	
 		
@@ -121,7 +139,11 @@ public class Request {
 		
 		return check;
 	}
-	
+	/*
+	 * Renvoie un tableau de tous les fichiers qu'un utilisateur peut modifier
+	 * @param Pseudo de l'utilisateur
+	 * @return un tableau de tous les fichiers qu'un utilisateur peut modifier 
+	 * */
 	public static ArrayList<String[]> user_file (String pseudo) throws ClassNotFoundException, SQLException {
 		int i = 0;
 		ArrayList<String[]> fichier_infos = new ArrayList<String[]>();
@@ -158,6 +180,12 @@ public class Request {
 		
 		return fichier_infos;
 	}
+	
+	/*
+	 * Ajoute un fichier dans la liste des fichiers d'un utilisateur
+	 * @param Pseudo de l'utilisateur, le nom du fichier et son lien
+	 * @return l'id du nouveau fichier ajouté
+	 */
 	
 	public static int addFile(String pseudo, String name_file, String link_file) throws ClassNotFoundException, SQLException {
 		Connect cnx = new Connect();
@@ -208,7 +236,11 @@ public class Request {
 			return -1;
 		}
 	}
-	
+	/*
+	* Ajoute à un utilisateur le droit de modifier un fichier
+	* @param Pseudo de l'utilisateur et l'id du fichier auquel on veut ajouter l'utilisateur
+	 * @return vrai si l'ajout s'est correectement passé, faux sinon.
+	*/
 	public static boolean addUsertoFile (String pseudo, int id_file) throws ClassNotFoundException, SQLException {
 		Connect cnx = new Connect();
 		Statement st = cnx.getSmt();
@@ -231,7 +263,11 @@ public class Request {
 			return false;
 		}
 	}
-	
+	/*
+	 * Enlève à un utilisateur le droit de modifier un fichier
+	 * @param Pseudo de l'utilisateur et l'id du fichier auquel on veut l'enlever
+	 * @return vrai la suppression s'est bien passé, faux sinon.
+	 */
 	public static boolean delUsertoFile (String pseudo, int id_file) throws ClassNotFoundException, SQLException {
 		Connect cnx = new Connect();
 		Statement st = cnx.getSmt();
@@ -253,7 +289,11 @@ public class Request {
 			return false;
 		}
 	}
-	
+	/*
+	 * Renvoie la liste des utilisateurs pouvant modifier un fichier
+	 * @param Id du fichier dont on veut afficher les utilisateurs
+	 * @return Tableau des pseudos des utilisateurs pouvant modifier le fichier
+	 */
 	public static ArrayList<String> list_user (int id_file) throws ClassNotFoundException, SQLException {
 		int i = 0;
 		Connect cnx = new Connect();
